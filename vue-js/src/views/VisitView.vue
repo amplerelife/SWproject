@@ -1,5 +1,5 @@
 <script setup></script>
 
 <template>
-  <main>This is Home page</main>
+  <main>This is Visit page</main>
 </template>

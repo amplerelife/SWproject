@@ -47,6 +47,11 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --color-accent-dark: #43594f;
+    --color-accent: #6b9080;
+    --color-accent-soft: #a4c3b2;
+    --color-accent-mute: #cce3de;
   }
 }
 
