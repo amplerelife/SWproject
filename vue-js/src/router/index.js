@@ -12,15 +12,45 @@ const router = createRouter({
       name: 'home',
       component: () => import('../views/HomeView.vue')
     },
+
+    
     {
       path: '/rent',
       name: 'rent',
       component: () => import('../views/RentView.vue')
     },
     {
+      path: '/AuditPost',
+      name: 'AuditPost',
+      component: () => import('../views/Rent/AuditPostPage.vue')
+    },
+    {
+      path: '/CreatePost',
+      name: 'CreatePost',
+      component: () => import('../views/Rent/CreatePostPage.vue')
+    },
+    {
+      path: '/EditPost',
+      name: 'EditPost',
+      component: () => import('../views/Rent/EditPostPage.vue')
+    },
+    {
+      path: '/ViewPost',
+      name: 'ViewPost',
+      component: () => import('../views/Rent/ViewPostPage.vue')
+    },
+
+
+
+    {
       path: '/visit',
       name: 'visit',
       component: () => import('../views/VisitView.vue')
+    },
+    {
+      path:'/VisitForm',
+      name:"VisitForm",
+      component: () => import('../views/VisitFormView.vue')
     },
     {
       path: '/forum',

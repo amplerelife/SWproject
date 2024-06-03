@@ -1,10 +1,21 @@
 <script setup>
 import MenuBarCard from './MenuBarCard.vue'
+import { useRoute,RouterLink } from 'vue-router';
+
+const route = useRoute();
+
 </script>
 
 <template>
   <div class="menu-bar">
-    <div class="home">Home</div>
+
+    <RouterLink :to= '"/home"' style="width: 10%">
+      <div class="home">
+        Home
+      </div>
+    </RouterLink>
+
+
     <div class="cards">
       <MenuBarCard text="rent" to="/rent" routeName="rent"></MenuBarCard>
       <MenuBarCard text="visit" to="/visit" routeName="visit"></MenuBarCard>
