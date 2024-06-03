@@ -34,6 +34,7 @@ const props = defineProps({
     padding:1vw;
     border-radius:25%;
     border: 2px solid black;
+    transition:1s;
 
     & img{
         width:15vw;
@@ -50,5 +51,13 @@ const props = defineProps({
         transition: 0.2s;
         color: var(--color-accent);
         }
+    }
+  .PageCard:hover{
+      opacity:0.8;
+      background-color: var(--vt-c-divider-light-2);
+      & h1{
+        color:var(--color-accent-dark);
+        font-weight: bold;
+      }
     }
 </style>

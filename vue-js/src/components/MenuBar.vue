@@ -21,7 +21,25 @@ const route = useRoute();
       <MenuBarCard text="visit" to="/visit" routeName="visit"></MenuBarCard>
       <MenuBarCard text="forum" to="/forum" routeName="forum"></MenuBarCard>
     </div>
-    <div class="logout">logout</div>
+
+    <RouterLink :to= '"/login"' style="width: 10%">
+      <div class="PersonalInformation">
+        <img src="https://www.freeiconspng.com/uploads/person-icon-8.png" alt="Free High quality Person Icon">
+      </div>
+    </RouterLink>
+
+
+    <RouterLink :to= '"/login"' style="width: 10%">
+      <div class="login">
+        Login
+      </div>
+    </RouterLink>
+
+    <RouterLink :to= '"/login"' style="width: 10%">
+      <div class="logout">
+        Logout
+      </div>
+    </RouterLink>
   </div>
 </template>
 
@@ -32,8 +50,8 @@ const route = useRoute();
   background-color: var(--color-accent-dark);
 
   display: grid;
-  grid-template-columns: 30% 55% 15%;
-  grid-template-areas: 'home cards logout';
+  grid-template-columns: 30% 55% 5% 5% 5%;
+  grid-template-areas: 'home cards PersonalInformation login logout';
   align-items: center;
 
   & .home {
@@ -49,6 +67,14 @@ const route = useRoute();
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+  }
+
+  & .PersonalInformation img{
+    width:3vw;
+    height:3vw;
+  }
+  & .logout{
+    align-items: end;
   }
 }
 </style>
