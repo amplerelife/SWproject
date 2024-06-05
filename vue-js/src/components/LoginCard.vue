@@ -21,6 +21,11 @@
     font-size:2vw;
     text-align:center;
     padding:5vw;
+
+    input{
+        margin:1vh;
+        color:black;
+    }
     
 
     & h2{

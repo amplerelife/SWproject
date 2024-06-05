@@ -14,7 +14,7 @@
 <template>
     <div class="VisitFormTeacherContainer">
         <div class = "VisitAnalysis">
-            <h2 style="font-weight: bolder; font-style: italic;padding-bottom:2%">環境與作息評估</h2>
+            <h2 style="font-weight: bolder; padding-bottom:2%">環境與作息評估</h2>
             <table>
                 <tr>
                     <td>押金要求</td>
@@ -52,7 +52,7 @@
                     </td>
                     <td>
                         <input type="radio" id="Environment" name="Environment" value="Bad">
-                        <label for="Bad">欠佳，説明</label>
+                        <label for="Bad">欠佳，説明：</label>
                         <input type="text">
                     </td>
                 </tr>
@@ -69,7 +69,7 @@
                     </td>
                     <td>
                         <input type="radio" id="ResidentialFacilities" name="ResidentialFacilities" value="Bad">
-                        <label for="Bad">欠佳，説明</label>
+                        <label for="Bad">欠佳，説明：</label>
                         <input type="text">
                     </td>
                 </tr>
@@ -86,7 +86,7 @@
                     </td>
                     <td>
                         <input type="radio" id="VisitStatus" name="VisitStatus" value="MustImprove">
-                        <label for="MustImprove">待加强，説明</label>
+                        <label for="MustImprove">待加强，説明：</label>
                         <input type="text">
                     </td>
                 </tr>
@@ -107,7 +107,7 @@
 
         <br><br>
         <div class = "VisitResult">
-            <h2 style="font-weight: bolder; font-style: italic;padding-bottom:2%">訪視結果</h2>
+            <h2 style="font-weight: bolder; padding-bottom:2%">訪視結果</h2>
             <p>
                 <input type = "radio" id="VisitResult" name="VisitResult" value="NoProblem">
                 <label for="NoProblem">整體賃居狀況良好</label>
@@ -134,7 +134,7 @@
 
         <br><br>
         <div class = "SubjectSharing">
-            <h2 style="font-weight: bolder; font-style: italic; padding-bottom:2%">關懷宣導項目</h2>
+            <h2 style="font-weight: bolder; padding-bottom:2%">關懷宣導項目</h2>
             <input type="checkbox" id="trafficSafety" name="trafficSafety" value="trafficSafety">
             <label for ="trafficSafety">交通安全</label>
             <input type="checkbox" id="SmokeRefuse" name="SmokeRefuse" value="SmokeRefuse">
@@ -159,6 +159,13 @@
     padding: 5%;
     border-radius:15%;
     font-size:20px;
+    margin:1vw;
+    
+    input{
+        margin:1vh;
+        color:black;
+        /* font-size:15px; */
+    }
 
     & table, th, td {
         border:1px solid black;

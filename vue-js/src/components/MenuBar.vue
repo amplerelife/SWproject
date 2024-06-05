@@ -1,6 +1,7 @@
 <script setup>
 import MenuBarCard from './MenuBarCard.vue'
 import { useRoute,RouterLink } from 'vue-router';
+import LoginPopoutDialog from './LoginPopoutDialog.vue';
 
 const route = useRoute();
 
@@ -22,18 +23,22 @@ const route = useRoute();
       <MenuBarCard text="forum" to="/forum" routeName="forum"></MenuBarCard>
     </div>
 
-    <RouterLink :to= '"/login"' style="width: 10%">
+    <RouterLink :to= '"/maintainence"'>
+      <div class="maintainence">
+        <img src="https://www.freeiconspng.com/uploads/maintenance-icon-4.png" alt="Free High quality Person Icon">
+      </div>
+    </RouterLink>
+
+    <RouterLink :to= '"/PersonalInformation"'>
       <div class="PersonalInformation">
         <img src="https://www.freeiconspng.com/uploads/person-icon-8.png" alt="Free High quality Person Icon">
       </div>
     </RouterLink>
 
 
-    <RouterLink :to= '"/login"' style="width: 10%">
-      <div class="login">
-        Login
-      </div>
-    </RouterLink>
+    <div class="login">
+      <LoginPopoutDialog></LoginPopoutDialog>
+    </div>
 
     <RouterLink :to= '"/login"' style="width: 10%">
       <div class="logout">
@@ -50,8 +55,8 @@ const route = useRoute();
   background-color: var(--color-accent-dark);
 
   display: grid;
-  grid-template-columns: 30% 55% 5% 5% 5%;
-  grid-template-areas: 'home cards PersonalInformation login logout';
+  grid-template-columns: 30% 50% 5% 5% 5% 5%;
+  grid-template-areas: 'home cards maintainence PersonalInformation login logout';
   align-items: center;
 
   & .home {
@@ -67,6 +72,11 @@ const route = useRoute();
     justify-content: flex-start;
     align-items: center;
     width: 100%;
+  }
+
+  & .maintainence img{
+    width:2vw;
+    height:2vw;
   }
 
   & .PersonalInformation img{

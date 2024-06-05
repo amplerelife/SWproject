@@ -1,7 +1,7 @@
 <script setup>
   import announcement from '@/components/announcement.vue';
   import PageCard from '@/components/PageCard.vue';
-  import PersonalInformationShow from '@/components/PersonalInformationShow.vue';
+  import PersonalInformationShow from '@/components/PersonalInformationCard.vue';
 </script>
 
 <template>

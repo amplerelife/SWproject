@@ -37,6 +37,7 @@ const props = defineProps({
     transition:1s;
 
     & img{
+        display:inline-block;
         width:15vw;
         height:15vw;
     }

@@ -9,13 +9,17 @@
 
     <main>
         <VisitFormHeader></VisitFormHeader>
-        <OffCampusRentalInformationForm></OffCampusRentalInformationForm>
-        <RentalSafetySelfManagement></RentalSafetySelfManagement>
-        <VisitFormTeacher></VisitFormTeacher>
+        <div class="VisitFormContainer">
+          <OffCampusRentalInformationForm></OffCampusRentalInformationForm>
+          <RentalSafetySelfManagement></RentalSafetySelfManagement>
+          <VisitFormTeacher></VisitFormTeacher>
+        </div>
     </main>
 
 </template>
 
 <style scoped>
-
+.VisitFormContainer{
+  text-align: center;
+}
 </style>

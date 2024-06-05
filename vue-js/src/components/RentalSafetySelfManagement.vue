@@ -13,7 +13,7 @@
 
 <template>
      <div class = "RentalSafetyContainer">
-            <h2 style="font-weight: bolder; font-style: italic;padding-bottom:2%">居賃安全自主管理檢視資料</h2>
+            <h2 style="font-weight: bolder; padding-bottom:2%">居賃安全自主管理檢視資料</h2>
             <table>
                 <tr>
                     <td>木造隔間或鐵皮加蓋</td>
@@ -178,6 +178,11 @@
     background-color: var(--color-accent);
     color:aliceblue;
     font-size:20px;
+    margin:1vw;
+
+    & table{
+        border:1px solid black;
+    }
 
     & table tr td{
         padding:1vw;

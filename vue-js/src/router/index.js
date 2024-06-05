@@ -18,6 +18,36 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue')
     },
     {
+      path: '/PersonalInformation',
+      name: 'PersonalInformatio9n',
+      component: () => import('../views/PersonalInformationView.vue')
+    },
+    {
+      path:'/maintainence',
+      name:'maintainence',
+      component: () => import('../views/MaintainenceView.vue')
+    },
+    {
+      path:'/AnnouncementManage',
+      name:'AnnouncementManage',
+      component: () => import('../views/Maintainence/AnnouncementManagementView.vue')
+    },
+    {
+      path:'/AccountManage',
+      name:'AccountManage',
+      component: () => import('../views/Maintainence/AccountManagementView.vue')
+    },
+    {
+      path:'/AdvAudit',
+      name:'AdvAudit',
+      component: () => import('../views/Maintainence/AuditView.vue')
+    },
+    {
+      path:'/ForumManage',
+      name:'ForumManage',
+      component: () => import('../views/Maintainence/ForumManagementView.vue')
+    },
+    {
       path: '/rent',
       name: 'rent',
       component: () => import('../views/RentView.vue')
