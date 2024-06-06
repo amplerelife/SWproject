@@ -6,12 +6,12 @@
   margin: 0 auto;
   padding: 0;
 
-  width: 100vw;
+  width: 100%;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+  color: var(--color-text);
+  transition: var(--transition-duration);
 }

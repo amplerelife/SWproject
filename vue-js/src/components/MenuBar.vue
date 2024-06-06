@@ -1,6 +1,7 @@
 <script setup>
+
 import MenuBarCard from './MenuBarCard.vue'
-import { useRoute,RouterLink } from 'vue-router';
+import { useRoute, RouterLink } from 'vue-router';
 import LoginPopoutDialog from './LoginPopoutDialog.vue';
 
 const route = useRoute();
@@ -9,14 +10,9 @@ const route = useRoute();
 
 <template>
   <div class="menu-bar">
-
-    <RouterLink :to= '"/home"' style="width: 10%">
-      <div class="home">
-        Home
-      </div>
+    <RouterLink to="/home">
+      <div class="home">Home</div>
     </RouterLink>
-
-
     <div class="cards">
       <MenuBarCard text="rent" to="/rent" routeName="rent"></MenuBarCard>
       <MenuBarCard text="visit" to="/visit" routeName="visit"></MenuBarCard>
@@ -50,7 +46,7 @@ const route = useRoute();
 
 <style scoped>
 .menu-bar {
-  width: 100vw;
+  width: 100%;
   height: 8vh;
   background-color: var(--color-accent-dark);
 

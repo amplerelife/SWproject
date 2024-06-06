@@ -28,14 +28,14 @@ const props = defineProps({
   align-items: center;
 
   & h1 {
-    transition: 0.2s;
+    transition: var(--transition-duration-fast);
     text-decoration: none;
     font-size: 1.5rem;
     color: var(--color-text);
   }
 
   & h1.curr {
-    transition: 0.2s;
+    transition: var(--transition-duration-fast);
     color: var(--color-accent);
   }
 }
