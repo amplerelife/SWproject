@@ -1,25 +1,20 @@
 <script setup>
-  import { computed } from 'vue';
+import { computed } from 'vue'
+
+import LikesAndComments from './LikesAndComments.vue'
 import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
 
-  const now = Date.now()
-  const props = defineProps(['article'])
-
+const now = Date.now()
+const props = defineProps(['article'])
 </script>
 
 <script>
-  import { ref, onRenderTriggered } from 'vue'
+import { ref } from 'vue'
 
-  
-  const test = () => {
-    console.log('123');
-  }
-  onRenderTriggered(test)
-
-  var i = ref(10)
-  const textSize = computed(() => {
-    return i.value + 'px'
-  })
+var i = ref(10)
+const textSize = computed(() => {
+  return i.value + 'px'
+})
 </script>
 
 <template>
@@ -49,13 +44,13 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
         </svg>
       </div>
     </div>
-    <div class="card-context" >
+    <div class="card-context">
       <h1>
         {{ props.article.context }}
       </h1>
     </div>
     <div class="card-footer">
-      {{ props.article.likes }}
+      <LikesAndComments></LikesAndComments>
     </div>
   </div>
 </template>
@@ -71,10 +66,9 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
   border-radius: 0.8rem;
   transition: var(--transition-duration);
 
-  --card-base-height: calc(0px + 40vh - 2 * var(--card-gap-virtical-ratio) * var(--card-gap));
+  --card-base-height: calc(40vh - 2 * var(--card-gap-virtical-ratio) * var(--card-gap));
   min-height: var(--card-base-height);
-  max-height: calc(var(--card-base-height) + 20vh);
-  overflow: hidden;
+  overflow: visible;
 
   color: var(--color-text-dark);
   background-color: var(--color-accent-soft);
@@ -116,7 +110,7 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
   & .title {
     width: 100%;
     vertical-align: middle;
-    font-weight: bold;
+    font-weight: bolder;
     font-size: 120%;
     padding-top: 0.8%;
 
@@ -142,23 +136,30 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
       fill: var(--color-border-hover);
     }
   }
-
 }
 
 .card-context {
+  --context-height-ratio: 0.65;
+  min-height: calc(var(--card-base-height) * var(--context-height-ratio));
+  max-height: calc(var(--card-base-height) * var(--context-height-ratio) + 20vh);
   width: 100%;
   overflow: hidden;
-  
+
   transition: var(--transition-duration);
   color: var(--color-text-dark);
-  
+
   container-type: inline-size;
   container-name: context;
 
   & h1 {
-    font-size: 5cqw;
+    font-size: 4.5cqw;
   }
 }
 
+.card-footer {
+  height: calc(var(--card-base-height) * 0.15);
+  width: 100%;
 
+  transition: var(--transition-duration);
+}
 </style>

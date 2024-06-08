@@ -18,7 +18,6 @@ import MenuBar from './components/MenuBar.vue'
 .wrapper {
   display: flex;
   flex-direction: column;
-
 }
 
 .main {

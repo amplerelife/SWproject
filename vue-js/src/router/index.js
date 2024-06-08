@@ -23,28 +23,28 @@ const router = createRouter({
       component: () => import('../views/PersonalInformationView.vue')
     },
     {
-      path:'/maintainence',
-      name:'maintainence',
+      path: '/maintainence',
+      name: 'maintainence',
       component: () => import('../views/MaintainenceView.vue')
     },
     {
-      path:'/AnnouncementManage',
-      name:'AnnouncementManage',
+      path: '/AnnouncementManage',
+      name: 'AnnouncementManage',
       component: () => import('../views/Maintainence/AnnouncementManagementView.vue')
     },
     {
-      path:'/AccountManage',
-      name:'AccountManage',
+      path: '/AccountManage',
+      name: 'AccountManage',
       component: () => import('../views/Maintainence/AccountManagementView.vue')
     },
     {
-      path:'/AdvAudit',
-      name:'AdvAudit',
+      path: '/AdvAudit',
+      name: 'AdvAudit',
       component: () => import('../views/Maintainence/AuditView.vue')
     },
     {
-      path:'/ForumManage',
-      name:'ForumManage',
+      path: '/ForumManage',
+      name: 'ForumManage',
       component: () => import('../views/Maintainence/ForumManagementView.vue')
     },
     {
@@ -73,16 +73,14 @@ const router = createRouter({
       component: () => import('../views/Rent/ViewPostPage.vue')
     },
 
-
-
     {
       path: '/visit',
       name: 'visit',
       component: () => import('../views/VisitView.vue')
     },
     {
-      path:'/VisitForm',
-      name:"VisitForm",
+      path: '/VisitForm',
+      name: 'VisitForm',
       component: () => import('../views/VisitFormView.vue')
     },
     {

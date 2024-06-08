@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -16,9 +16,7 @@ import { Label } from '@/components/ui/label'
 <template>
   <Dialog>
     <DialogTrigger as-child>
-      <Button variant="outline">
-        Edit Profile
-      </Button>
+      <Button variant="outline"> Edit Profile </Button>
     </DialogTrigger>
     <DialogContent class="sm:max-w-[425px]">
       <DialogHeader>
@@ -29,22 +27,16 @@ import { Label } from '@/components/ui/label'
       </DialogHeader>
       <div class="grid gap-4 py-4">
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="name" class="text-right">
-            Name
-          </Label>
+          <Label for="name" class="text-right"> Name </Label>
           <Input id="name" value="Pedro Duarte" class="col-span-3" />
         </div>
         <div class="grid grid-cols-4 items-center gap-4">
-          <Label for="username" class="text-right">
-            Username
-          </Label>
+          <Label for="username" class="text-right"> Username </Label>
           <Input id="username" value="@peduarte" class="col-span-3" />
         </div>
       </div>
       <DialogFooter>
-        <Button type="submit">
-          Save changes
-        </Button>
+        <Button type="submit"> Save changes </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

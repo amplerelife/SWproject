@@ -1,13 +1,11 @@
 <script setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 import OverviewCard from './ArticleCard.vue'
 import { articles } from '@/test'
 
 const leftArticles = computed(() => articles.filter((value, index) => index % 2 == 0))
 const rightArticles = computed(() => articles.filter((value, index) => index % 2 == 1))
-
-
 </script>
 
 <template>
@@ -15,10 +13,10 @@ const rightArticles = computed(() => articles.filter((value, index) => index % 2
     <h1>Posts here:</h1>
     <div class="card-region">
       <div class="card-block" id="left">
-        <OverviewCard v-for="_article in leftArticles" :article="_article" :key="_article.id" />
+        <OverviewCard v-for="(_article, index) in leftArticles" :article="_article" :key="index" />
       </div>
       <div class="card-block" id="right">
-        <OverviewCard v-for="_article in rightArticles" :article="_article" :key="_article.id" />
+        <OverviewCard v-for="(_article, index) in rightArticles" :article="_article" :key="index" />
       </div>
     </div>
   </div>

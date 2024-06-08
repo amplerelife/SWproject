@@ -1,11 +1,9 @@
 <script setup>
-
 import MenuBarCard from './MenuBarCard.vue'
-import { useRoute, RouterLink } from 'vue-router';
-import LoginPopoutDialog from './LoginPopoutDialog.vue';
+import { useRoute, RouterLink } from 'vue-router'
+import LoginPopoutDialog from './LoginPopoutDialog.vue'
 
-const route = useRoute();
-
+const route = useRoute()
 </script>
 
 <template>
@@ -19,27 +17,30 @@ const route = useRoute();
       <MenuBarCard text="forum" to="/forum" routeName="forum"></MenuBarCard>
     </div>
 
-    <RouterLink :to= '"/maintainence"'>
+    <RouterLink :to="'/maintainence'">
       <div class="maintainence">
-        <img src="https://www.freeiconspng.com/uploads/maintenance-icon-4.png" alt="Free High quality Person Icon">
+        <img
+          src="https://www.freeiconspng.com/uploads/maintenance-icon-4.png"
+          alt="Free High quality Person Icon"
+        />
       </div>
     </RouterLink>
 
-    <RouterLink :to= '"/PersonalInformation"'>
+    <RouterLink :to="'/PersonalInformation'">
       <div class="PersonalInformation">
-        <img src="https://www.freeiconspng.com/uploads/person-icon-8.png" alt="Free High quality Person Icon">
+        <img
+          src="https://www.freeiconspng.com/uploads/person-icon-8.png"
+          alt="Free High quality Person Icon"
+        />
       </div>
     </RouterLink>
-
 
     <div class="login">
       <LoginPopoutDialog></LoginPopoutDialog>
     </div>
 
-    <RouterLink :to= '"/login"' style="width: 10%">
-      <div class="logout">
-        Logout
-      </div>
+    <RouterLink :to="'/login'" style="width: 10%">
+      <div class="logout">Logout</div>
     </RouterLink>
   </div>
 </template>
@@ -70,16 +71,16 @@ const route = useRoute();
     width: 100%;
   }
 
-  & .maintainence img{
-    width:2vw;
-    height:2vw;
+  & .maintainence img {
+    width: 2vw;
+    height: 2vw;
   }
 
-  & .PersonalInformation img{
-    width:3vw;
-    height:3vw;
+  & .PersonalInformation img {
+    width: 3vw;
+    height: 3vw;
   }
-  & .logout{
+  & .logout {
     align-items: end;
   }
 }

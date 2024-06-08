@@ -6,8 +6,7 @@ const route = useRoute()
 const props = defineProps({
   text: String,
   to: String,
-  routeName: String,
-  
+  routeName: String
 })
 </script>
 
