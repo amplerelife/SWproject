@@ -50,7 +50,7 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
       </div>
     </div>
     <div class="card-context" >
-      <h1 class="test">
+      <h1>
         {{ props.article.context }}
       </h1>
     </div>
@@ -63,7 +63,7 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
 <style scoped>
 .card {
   --card-gap: var(--card-gap-base);
-  width: calc(50% - 2 * var(--card-gap));
+  width: 100%;
   --card-gap-virtical-ratio: 0.7;
   margin: calc(var(--card-gap) * var(--card-gap-virtical-ratio)) var(--card-gap)
     calc(var(--card-gap) * var(--card-gap-virtical-ratio)) var(--card-gap);
@@ -154,10 +154,10 @@ import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
   
   container-type: inline-size;
   container-name: context;
-}
 
-.test {
-  font-size: 5cqw;
+  & h1 {
+    font-size: 5cqw;
+  }
 }
 
 
