@@ -66,7 +66,7 @@ const textSize = computed(() => {
   border-radius: 0.8rem;
   transition: var(--transition-duration);
 
-  --card-base-height: calc(40vh - 2 * var(--card-gap-virtical-ratio) * var(--card-gap));
+  --card-base-height: 40vh;
   min-height: var(--card-base-height);
   overflow: visible;
 
@@ -78,17 +78,16 @@ const textSize = computed(() => {
   --self-shadow-blur: 0;
   box-shadow:
     calc(var(--shadow-offset) * -1) calc(var(--shadow-offset) * -1) var(--shadow-blur)
-      rgba(255, 255, 255, 40%),
-    var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) rgba(0, 0, 0, 10%),
+      rgba(255, 255, 255, 30%),
+    var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) rgba(0, 0, 0, 12%),
     0 0 var(--self-shadow-blur) var(--color-accent-soft);
 }
 
 .card:hover {
-  size-adjust: 110%;
   background-color: var(--color-accent-hover);
   --shadow-offset: 1rem;
   --self-shadow-blur: 0.3rem;
-  --card-gap: calc(var(--card-gap-base) * 0.9);
+  transform: scale(102%);
 }
 
 .card-header {
