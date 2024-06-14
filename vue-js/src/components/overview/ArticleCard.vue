@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue'
 
-import LikesAndComments from './LikesAndComments.vue'
-import AuthorAndTimestamp from './shared/AuthorAndTimestamp.vue'
+import LikesAndComments from '@/components/LikesAndComments.vue'
+import AuthorAndTimestamp from '@/components/shared/AuthorAndTimestamp.vue'
 
 const now = Date.now()
 const props = defineProps(['article'])
@@ -12,9 +12,6 @@ const props = defineProps(['article'])
 import { ref } from 'vue'
 
 var i = ref(10)
-const textSize = computed(() => {
-  return i.value + 'px'
-})
 </script>
 
 <template>

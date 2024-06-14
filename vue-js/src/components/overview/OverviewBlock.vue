@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 
-import OverviewCard from './ArticleCard.vue'
+import OverviewCard from '@/components/overview/ArticleCard.vue'
 import { articles } from '@/test'
 
 const leftArticles = computed(() => articles.filter((value, index) => index % 2 == 0))

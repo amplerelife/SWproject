@@ -1,7 +1,7 @@
 <script setup>
 import MenuBarCard from './MenuBarCard.vue'
 import { useRoute, RouterLink } from 'vue-router'
-import LoginPopoutDialog from './LoginPopoutDialog.vue'
+import LoginPopoutDialog from '@/components/LoginPopoutDialog.vue'
 
 const route = useRoute()
 </script>

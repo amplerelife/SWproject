@@ -1,5 +1,5 @@
 <script setup>
-import announcement from '@/components/announcement.vue'
+import announcement from '@/components/Announcement.vue'
 import PageCard from '@/components/PageCard.vue'
 import PersonalInformationShow from '@/components/PersonalInformationCard.vue'
 </script>
