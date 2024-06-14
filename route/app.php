@@ -15,6 +15,6 @@ Route::get('think/:version', function ($version) {
 });
 
 
-Route::rule('register/:id/:password/:type', 'User/create_account');
-Route::rule('login/:id/:password', 'User/login');
-//Route::rule('de', 'User/logout');
+Route::rule('api/AddAccount/:id/:password/:type', 'User/create_account');
+Route::rule('api/Login/:id/:password', 'User/login');
+Route::rule('api/DeleteAccount/:id', 'User/delete_account');
