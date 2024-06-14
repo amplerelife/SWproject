@@ -1,19 +1,10 @@
-<script setup>
-// import { useRoute , RouterLink } from 'vue-router'
-
-// const route = useRoute()
-
-// const props = defineProps({
-//     text:String,
-//     to: String,
-//     routeName: String
-// }
-// )
-</script>
+<script setup></script>
 
 <template>
   <div class="RentalSafetyContainer">
-    <h2 style="font-weight: bolder; padding-bottom: 2%">居賃安全自主管理檢視資料</h2>
+    <h1 style="font-weight: bolder; padding-bottom: 5%; font-size: 5vw" id="222">
+      居賃安全自主管理檢視資料
+    </h1>
     <table>
       <tr>
         <td>木造隔間或鐵皮加蓋</td>
@@ -180,14 +171,17 @@
 <style scoped>
 .RentalSafetyContainer {
   display: inline-block;
+  width: 100%;
   padding: 5%;
-  border-radius: 15%;
+  /* border-radius: 15%;
   background-color: var(--color-accent);
-  color: aliceblue;
-  font-size: 20px;
+  color: aliceblue; */
+  color: black;
+  font-size: 18px;
   margin: 1vw;
 
   & table {
+    margin: 0 auto;
     border: 1px solid black;
   }
 

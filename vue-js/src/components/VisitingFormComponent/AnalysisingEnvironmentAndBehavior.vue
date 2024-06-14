@@ -1,20 +1,11 @@
-<script setup>
-// import { useRoute , RouterLink } from 'vue-router'
-
-// const route = useRoute()
-
-// const props = defineProps({
-//     text:String,
-//     to: String,
-//     routeName: String
-// }
-// )
-</script>
+<script setup></script>
 
 <template>
   <div class="VisitFormTeacherContainer">
     <div class="VisitAnalysis">
-      <h2 style="font-weight: bolder; padding-bottom: 2%">環境與作息評估</h2>
+      <h1 style="font-weight: bolder; padding-bottom: 5%; font-size: 5vw" id="333">
+        環境與作息評估
+      </h1>
       <table>
         <tr>
           <td>押金要求</td>
@@ -129,49 +120,6 @@
         </tr>
       </table>
     </div>
-
-    <br /><br />
-    <div class="VisitResult">
-      <h2 style="font-weight: bolder; padding-bottom: 2%">訪視結果</h2>
-      <p>
-        <input type="radio" id="VisitResult" name="VisitResult" value="NoProblem" />
-        <label for="NoProblem">整體賃居狀況良好</label>
-      </p>
-      <p>
-        <input type="radio" id="VisitResult" name="VisitResult" value="ContactToParent" />
-        <label for="ContactToParent">聯係家長關注</label>
-      </p>
-      <p>
-        <input type="radio" id="VisitResult" name="VisitResult" value="SafetyNeedAssist" />
-        <label for="SafetyNeedAssist">安全堪慮請協助</label>
-      </p>
-      <p>
-        <input type="radio" id="VisitResult" name="VisitResult" value="Others" />
-        <label for="Others">其他： </label>
-        <input type="text" />
-      </p>
-      <br />
-      <p>
-        其他記載或建議事項:
-        <input type="text" />
-      </p>
-    </div>
-
-    <br /><br />
-    <div class="SubjectSharing">
-      <h2 style="font-weight: bolder; padding-bottom: 2%">關懷宣導項目</h2>
-      <input type="checkbox" id="trafficSafety" name="trafficSafety" value="trafficSafety" />
-      <label for="trafficSafety">交通安全</label>
-      <input type="checkbox" id="SmokeRefuse" name="SmokeRefuse" value="SmokeRefuse" />
-      <label for="SmokeRefuse">拒絕烟害</label>
-      <input type="checkbox" id="DrugRefuse" name="DrugRefuse" value="DrugRefuse" />
-      <label for="DrugRefuse">拒絕毒品</label>
-      <input type="checkbox" id="DengiDefence" name="DengiDefence" value="DengiDefence" />
-      <label for="DengiDefence">登革熱防治</label>
-      <input type="checkbox" id="OtherSubject" name="OtherSubject" value="OtherSubject" />
-      <label for="OtherSubject">其他，説明</label>
-      <input type="text" />
-    </div>
   </div>
   <!-- </RouterLink> -->
 </template>
@@ -179,10 +127,12 @@
 <style scoped>
 .VisitFormTeacherContainer {
   display: inline-block;
-  background-color: var(--color-accent-mute);
+  /* background-color: var(--color-accent-mute); */
+  width: 100%;
+  color: black;
   padding: 5%;
   border-radius: 15%;
-  font-size: 20px;
+  font-size: 18px;
   margin: 1vw;
 
   input {
@@ -196,6 +146,7 @@
   td {
     border: 1px solid black;
     padding: 1vw;
+    margin: 0 auto;
   }
 
   & p {
@@ -204,13 +155,6 @@
 }
 
 .VisitAnalysis {
-  color: black;
-}
-.VisitResult {
-  color: black;
-}
-
-.SubjectSharing {
   color: black;
 }
 </style>

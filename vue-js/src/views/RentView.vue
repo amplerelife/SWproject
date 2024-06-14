@@ -27,7 +27,7 @@ import PageCard from '@/components/PageCard.vue'
             text="編輯租賃廣告"
             to="/Editpost"
             routeName="Editpost"
-            icon_src="https://www.freeiconspng.com/uploads/writer-icon-png-18.png"
+            icon_src="https://www.svgrepo.com/show/372448/form.svg"
           ></PageCard>
         </div>
         <div class="PageCardItem">
@@ -46,11 +46,11 @@ import PageCard from '@/components/PageCard.vue'
 <style scoped>
 .PageCardContainer {
   display: inline-block;
-  margin-left: 5vw;
-  margin-top: 2vw;
+  text-align: center;
+  vertical-align: middle;
 }
 .PageCardItem {
   display: inline-block;
-  margin: 3vw;
+  margin: 2vw;
 }
 </style>

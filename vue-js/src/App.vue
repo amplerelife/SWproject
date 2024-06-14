@@ -25,6 +25,7 @@ import MenuBar from './components/MenuBar.vue'
   flex-direction: column;
   align-items: center;
   width: 100%;
+  background-color: rgba(60, 60, 60, 0.12);
 
   --vertical-padding: 6vh;
   padding-top: var(--vertical-padding);

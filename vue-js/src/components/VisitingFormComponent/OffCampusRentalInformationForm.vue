@@ -1,19 +1,8 @@
-<script setup>
-// import { useRoute , RouterLink } from 'vue-router'
-
-// const route = useRoute()
-
-// const props = defineProps({
-//     text:String,
-//     to: String,
-//     routeName: String
-// }
-// )
-</script>
+<script setup></script>
 
 <template>
-  <div id="RentalInformationContainer">
-    <h2 style="font-weight: bolder; padding-bottom: 5%">校外賃居資料</h2>
+  <div class="RentalInformationContainer">
+    <h1 style="font-weight: bolder; padding-bottom: 5%; font-size: 5vw" id="111">校外賃居資料</h1>
     <p>房東姓名：<input type="text" /></p>
     <p>房東電話：<input type="text" /></p>
     <p>租賃地址：<input type="text" /></p>
@@ -65,18 +54,20 @@
 </template>
 
 <style scoped>
-#RentalInformationContainer {
+.RentalInformationContainer {
   display: inline-block;
+  width: 100%;
   padding: 5%;
-  color: aliceblue;
-  background-color: var(--color-accent);
+  color: black;
   border-radius: 15%;
-  font-size: 20px;
+  font-size: 18px;
   margin: 1vw;
 
-  & p input {
+  & p & p input {
     color: black;
     margin: 1vh;
+    width: 2vw;
+    height: 2vw;
   }
   & p label {
     padding: 1vw;

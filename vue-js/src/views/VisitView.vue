@@ -38,8 +38,7 @@ import PageCard from '@/components/PageCard.vue'
 <style scoped>
 .PageCardContainer {
   display: inline-block;
-  margin-left: 5vw;
-  margin-top: 2vw;
+  vertical-align: center;
 }
 .PageCardItem {
   display: inline-block;
