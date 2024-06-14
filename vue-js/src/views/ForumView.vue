@@ -1,22 +1,12 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import OverviewCards from '@/components/overview/OverviewBlock.vue'
+import FixedPosButton from '@/components/shared/FixedPosButton.vue'
 </script>
 
 <template>
   <div class="container">
     <OverviewCards></OverviewCards>
+    <FixedPosButton :buttons="{new: true, audit: true}" />
   </div>
 </template>
 

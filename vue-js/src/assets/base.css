@@ -39,8 +39,10 @@
 
   --section-gap: 160px;
 
+  --color-accent-darker: #35463e;
   --color-accent-dark: #43594f;
   --color-accent: #6b9080;
+  --color-accent-soft-trans: #a4c3b255;
   --color-accent-mute: #cce3de;
   --color-text: var(--vt-c-text-dark-2);
 }
