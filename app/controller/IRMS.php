@@ -6,6 +6,7 @@ use app\BaseController;
 use app\model\Visitform;
 use app\model\Visitform_student;
 use app\model\Visitform_teacher;
+use app\model\Teacher;
 use think\facade\Db;
 use think\Request;
 use Exception;
@@ -99,7 +100,7 @@ class IRMS extends BaseController
                 try {
                     $visitform = Visitform::where('student_id', $param['student_id'])->find();
                     if ($visitform) {
-                        $visitform_student_part = Visitform_student::where('visitform_id', $visitform['visitform_id'])->find();
+                        $visitform_student_part = Visitform_student::where('visitform_id', $visitform['visitform_id'])->find();//根據訪問表單流水號查看訪問表單學生填寫部分
                         // 在這裡處理訪問表單學生填寫部分
                         $visitform_student_part->landlord_name = $param['landlord_name'];
                         $visitform_student_part->landlord_phone = $param['landlord_phone'];
@@ -127,7 +128,7 @@ class IRMS extends BaseController
                         return json(['status' => 'success', 'message' => 'Form filled successfully']);
                     } else {
                         // 如果未找到相應的訪問表單，拋出異常
-                        throw new Exception("找不到學生的訪問紀錄表單，請先創建表單");
+                        throw new Exception("找不到相應的訪問表單，請先創建表");
                     }
                 } catch (Exception $e) {
                     // 在這裡處理異常情況，例如記錄錯誤或返回異常訊息
@@ -174,4 +175,87 @@ class IRMS extends BaseController
         
     }
     
+    /*
+     * 填寫學生的訪問表單資料。
+     * 根據傳入的 Request 物件，從 POST 參數中取得表單資料，並更新或創建相應的訪問表單紀錄。
+     *
+     * @param Request $request HTTP 請求物件，包含了用戶提交的表單資料
+     * @return string JSON 格式的響應訊息，表示表單結果或錯誤訊息
+     */
+    public function checkForm(Request $request)
+{
+    $param = $request->post();
+    switch ($param['usertype']) {
+        case "student":
+            try {
+                $visitform = Visitform::where('student_id', $param['student_id'])->find();
+                if ($visitform) {
+                    $show_visitform_student_part = Visitform_student::where('visitform_id', $visitform['visitform_id'])->find();
+                    if ($show_visitform_student_part) {
+                        $teacher = Teacher::where('teacher_id', $visitform['teacher_id'])->find();
+                        $show_visitform_student_part['teacher_name_ch'] = $teacher['teacher_name_ch'];
+                        return $show_visitform_student_part;
+                    } else {
+                        throw new Exception("找不到表單細項，請先創建表單");
+                    }
+                } else {
+                    throw new Exception("找不到表單，請先創建表單");
+                }
+            } catch (Exception $e) {
+                // 處理捕捉到的例外
+                return $e->getMessage();
+            }
+            break;
+            case "teacher":
+                try {
+                    $visitforms = Visitform::where('teacher_id', $param['teacher_id'])->select();
+                    if ($visitforms) {
+                        $form_result = [];
+                        foreach ($visitforms as $visitform) { //一個老師會帶多位學生，將
+                            $show_visitform_teacher_part = Visitform_teacher::where('visitform_id', $visitform['visitform_id'])->find();
+                            if ($show_visitform_teacher_part) { //如果老師底下的學生有表單紀錄
+                                $teacher = Teacher::where('teacher_id', $visitform['teacher_id'])->find(); //就把老師名字加入，一併返回老師所有學生紀錄
+                                $show_visitform_teacher_part['teacher_name_ch'] = $teacher['teacher_name_ch'];
+                                $form_result[] = $show_visitform_teacher_part;
+                            } else {
+                                throw new Exception("找不到表單細項，請先創建表單");
+                            }
+                        }
+                        return json($form_result);
+                    } else {
+                        throw new Exception("找不到表單，請先創建表單");
+                    }
+                } catch (Exception $e) {
+                    return $e->getMessage();
+                }
+                break;
+        case "admin":
+            try {
+                $visitforms = Visitform::select();
+                if ($visitforms) {
+                    $form_result = [];
+                    foreach ($visitforms as $visitform) { //一個老師會帶多位學生，將
+                        $show_visitform_teacher_part = Visitform_teacher::where('visitform_id', $visitform['visitform_id'])->find();
+                        $show_visitform_student_part = Visitform_student::where('visitform_id', $visitform['visitform_id'])->find();
+                        if ($show_visitform_teacher_part&&$show_visitform_student_part) { //如果老師與學生都有表單紀錄
+                            $teacher = Teacher::where('teacher_id', $visitform['teacher_id'])->find(); //就把老師名字加入，一併返回老師所有學生紀錄
+                            $show_visitform_teacher_part['teacher_name_ch'] = $teacher['teacher_name_ch'];
+                            $form_result[]=array_merge($show_visitform_teacher_part->toArray(), $show_visitform_student_part->toArray());//將兩個表單細項合併
+                        } else {
+                            throw new Exception("找不到表單細項，請先創建表單");
+                        }
+                    }
+                    return json($form_result);
+                } else {
+                    throw new Exception("找不到表單，請先創建表單");
+                }
+            } catch (Exception $e) {
+                return $e->getMessage();
+            }
+            break;
+        default:
+            return '無效的使用者類型';
+    }
+}
+
 }
