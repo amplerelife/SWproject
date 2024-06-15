@@ -1,17 +1,21 @@
 <script setup>
-import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 import LikesAndComments from '@/components/LikesAndComments.vue'
 import AuthorAndTimestamp from '@/components/shared/AuthorAndTimestamp.vue'
 
+const route = useRoute()
+const router = useRouter()
 const now = Date.now()
 const props = defineProps(['article'])
+
+const gotoPost = () => {
+  if (route.params.id) return
+  router.push(`/forum/${props.article.id}`)
+}
 </script>
 
 <script>
-import { ref } from 'vue'
-
-var i = ref(10)
 </script>
 
 <template>
@@ -41,7 +45,7 @@ var i = ref(10)
         </svg>
       </div>
     </div>
-    <div class="card-context">
+    <div class="card-context" :class="{inpost: !$route.params.id}" @click="gotoPost">
       <h1>
         {{ props.article.context }}
       </h1>
@@ -150,6 +154,10 @@ var i = ref(10)
   & h1 {
     font-size: 4.5cqw;
   }
+}
+
+.inpost:hover {
+  cursor: pointer;
 }
 
 .card-footer {

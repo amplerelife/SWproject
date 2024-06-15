@@ -87,6 +87,11 @@ const router = createRouter({
       path: '/forum',
       name: 'forum',
       component: () => import('../views/ForumView.vue')
+    },
+    {
+      path: '/forum/:id',
+      name: 'forumPost',
+      component: () => import('../views/ForumView.vue')
     }
   ]
 })
