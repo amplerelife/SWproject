@@ -16,8 +16,11 @@ Route::get('think/:version', function ($version) {
 
 Route::rule('api/form/Fill', 'IRMS/fillForm','POST');
 Route::rule('api/form/Create', 'IRMS/createFormForAllStudents');
-Route::rule('api/account/add', 'SAS/create_account');
+
+Route::rule('api/account/add', 'SAS/create_account', 'POST');
 Route::rule('api/account/login', 'SAS/login', 'POST');
 Route::rule('api/account/delete', 'SAS/delete_account', 'POST');
-Route::rule('api/account/usrname', 'SAS/get_userid', 'POST');
-Route::rule('api/ShowReport', 'SAS/get_report', 'POST');
+Route::rule('api/account/usrname', 'SAS/get_userid');
+
+Route::rule('api/report/get', 'SAS/get_report');
+Route::rule('api/report/review', 'SAS/review_report', 'POST');

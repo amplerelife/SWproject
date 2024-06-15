@@ -4,6 +4,7 @@ namespace app\controller;
 
 use app\BaseController;
 use app\model\Account;
+use app\model\Report;
 use think\Request;
 use think\facade\Db;
 
@@ -42,13 +43,13 @@ class SAS extends BaseController
                 !preg_match('/[A-Z]/', $password) ||
                 !preg_match('/[a-z]/', $password) ||
                 !preg_match('/[0-9]/', $password)) {
-                return json(['status' => 'error', 'message' => 'Password must be at least 5 characters long and include uppercase, lowercase, numbers, and special characters.']);
+                return json(['status' => 'error', 'message' => 'Invalid password format.']);
             }
             $account = new Account();
             // 創建新的帳號
-            $account->usrname=$usrname;
-            $account->password=$password;
-            $account->usertype=$usertype;
+            $account->usrname = $usrname;
+            $account->password = $password;
+            $account->usertype = $usertype;
             return json(['status' => 'success', 'message' => 'Account created successfully']);
         }
 
@@ -63,7 +64,7 @@ class SAS extends BaseController
         $account = Account::where('usrname', $id)->find(); //檢查帳號是否已存在
 
         if ($account) {
-            if ($password==$account->password) {
+            if ($password == $account->password) {
                 return json(['status' => 'success', 'usertype' => $account->usertype]);
             } else {
                 return json(['status' => 'error', 'message' => 'Password incorrect']);
@@ -89,6 +90,7 @@ class SAS extends BaseController
         $account = Account::where('usrname', $usrname)->find();
 
         if ($account) {
+            Report::where('usrname', $usrname)->delete();
             $account->delete();
             return json(['status' => 'success', 'message' => 'Account deleted successfully']);
         } else {
@@ -98,23 +100,38 @@ class SAS extends BaseController
 
     public function get_userid()    //回傳全部帳號的id
     {
-        $usr = Db::table('account')->column('usrname');
+        $usr = Account::column('usrname');
         return json(['usrname' => $usr]);
     }
 
     public function get_report()
     {
-        //$report = Db::table('report')->select();
-        $id = Db::table('report')->column('report_id');
-        $name = Db::table('report')->column('usrname');
-        $detail = Db::table('report')->column('report_detail');
-        $response = Db::table('report')->column('report_response');
-        return json(['id' => $id, 'name' => $name, 'detail' => $detail, 'response' => $response]);
+        $id = Report::select()->column('report_id');
+        $name = Report::select()->column('usrname');
+        $detail = Report::select()->column('report_detail');
+        $res = Report::select()->column('report_response');
+
+        return json(['report_id' => $id, 'usrname' => $name, 'report_detail' => $detail, 'report_response' => $res]);
     }
 
-    public function review_report($id)
+    public function review_report(Request $request) //填寫舉報通過或不通過
     {
-        $respone = Db::table('report')->where('report_id', $id)->value('report_response');
+        $data = $request->post();
+
+        // 查找 report_id 对应的记录
+        $report = Report::where('report_id', $data['report_id'])->find();
+
+        if ($report) {
+            // 设置 report_response 属性
+            $report->report_response = $data['report_response'];
+
+            // 保存更改
+            $report->save();
+
+            return json(['status' => 'success', 'message' => 'Report reviewed successfully']);
+        } else {
+            return json(['status' => 'error', 'message' => 'Report not found']);
+        }
     }
 
 
