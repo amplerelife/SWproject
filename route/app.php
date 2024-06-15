@@ -14,7 +14,8 @@ Route::get('think/:version', function ($version) {
     return 'hello,ThinkPHP' . $version . '!';
 });
 
-
+//Route::rule('api/form/Fill', 'IRMS/fillForm');
+Route::rule('api/form/Create', 'IRMS/createFormForAllStudents');
 Route::rule('api/account/add', 'SAS/create_account', 'POST');
 Route::rule('api/account/login', 'SAS/login', 'POST');
 Route::rule('api/account/delete', 'SAS/delete_account', 'POST');
