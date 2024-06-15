@@ -15,6 +15,8 @@ Route::get('think/:version', function ($version) {
 });
 
 
-Route::rule('api/AddAccount/:id/:password/:type', 'User/create_account');
-Route::rule('api/Login/:id/:password', 'User/login');
-Route::rule('api/DeleteAccount/:id', 'User/delete_account');
+Route::rule('api/account/add', 'SAS/create_account', 'POST');
+Route::rule('api/account/login', 'SAS/login', 'POST');
+Route::rule('api/account/delete', 'SAS/delete_account', 'POST');
+Route::rule('api/account/usrname', 'SAS/get_userid', 'POST');
+Route::rule('api/ShowReport', 'SAS/get_report', 'POST');
