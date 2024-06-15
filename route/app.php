@@ -27,6 +27,10 @@ Route::rule('api/account/teacher_add', 'SAS/add_teacher', 'POST');
 Route::rule('api/account/landlord_add', 'SAS/add_landlord', 'POST');
 Route::rule('api/account/admin_add', 'SAS/add_admin', 'POST');
 Route::rule('api/account/user_get', 'SAS/get_user', 'POST');
+Route::rule('api/account/bull_add', 'SAS/bull_add', 'POST');
+Route::rule('api/account/bull_get', 'SAS/bull_get');
+Route::rule('api/account/bull_change', 'SAS/bull_change','POST');
+Route::rule('api/account/bull_delete', 'SAS/bull_delete','POST');
 
 Route::rule('api/report/get', 'SAS/get_report');
 Route::rule('api/report/review', 'SAS/review_report', 'POST');

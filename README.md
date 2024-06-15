@@ -200,6 +200,39 @@ URL:``api/account/user_get``
 "usrtype":"student"
 }``
 #### 輸出個人資料
+全部回傳
+### 新增布告欄
+#### 輸入
+URL:``api/account/bull_add``
+
+``{
+"admin_id":" ",
+"detail":" "
+}``
+#### 輸出
+``{"message":"Add"}``
+### 回傳全部布告欄
+#### 輸入
+URL:``api/account/bull_get``
+#### 輸出(我可以改，如果要我每個欄位切出來的話)
+``[{"content_id":0,"admin_id":"Admin1","detail":"koll2","date":"2024-06-16"},{"content_id":1,"admin_id":"Admin1","detail":"ko2","date":"2024-06-16"}]``
+### 修改布告欄內容
+#### 輸入
+URL:``api/account/bull_change``
+
+``{
+"content_id":"0",
+"detail":"更新資料"
+}``
+#### 輸出
+``{"message":"Change"}``
+### 刪除布告欄
+#### 輸入
+URL:`` api/account/bull_delete``
+
+``{"content_id":"1"}``
+#### 輸出
+``{"message":"Delete"}``
 ## IRMS
 ### 創建表單
 `api/form/Create`

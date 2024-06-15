@@ -5,12 +5,14 @@ namespace app\controller;
 use app\BaseController;
 use app\model\Account;
 use app\model\Admin;
+use app\model\Bulletin_board_content;
 use app\model\Landlord;
 use app\model\Report;
 use app\model\Student;
 use app\model\Teacher;
 use app\model\Visitform;
 use think\Request;
+use think\Route;
 
 
 //引入父類
@@ -217,7 +219,9 @@ class SAS extends BaseController
             return json(['message' => 'Add']);
         }
     }
-    public function add_landlord(Request $request){
+
+    public function add_landlord(Request $request)
+    {
         $data = $request->post();
         $usrname = $data['usrname'];
         $result = Landlord::where('usrname', $usrname)->find();
@@ -246,6 +250,7 @@ class SAS extends BaseController
             return json(['message' => 'Add']);
         }
     }
+
     public function add_admin(Request $request)
     {
         $data = $request->post();
@@ -261,7 +266,7 @@ class SAS extends BaseController
             $result->phone = $data['phone'];
             $result->save();
             return json(['message' => 'Change']);
-        }else{
+        } else {
             $admin = new Admin();
             $admin->usrname = $data['usrname'];
             $admin->admin_id = $data['usrname'];
@@ -274,6 +279,7 @@ class SAS extends BaseController
             return json(['message' => 'Add']);
         }
     }
+
     public function get_user(Request $request)
     {
         $data = $request->post();
@@ -281,20 +287,67 @@ class SAS extends BaseController
         $usrtype = $data['usrtype'];
         if ($usrtype == 'student') {
             return json([Student::where('usrname', $usrname)->select()]);
-        }else if($usrtype == 'teacher'){
+        } else if ($usrtype == 'teacher') {
             return json([Teacher::where('usrname', $usrname)->select()]);
-        }
-        else if($usrtype == 'landlord'){
+        } else if ($usrtype == 'landlord') {
             return json([Landlord::where('usrname', $usrname)->select()]);
-        }
-        else if($usrtype == 'admin'){
+        } else if ($usrtype == 'admin') {
             return json([Admin::where('usrname', $usrname)->select()]);
-        }
-        else{
+        } else {
             return json(["message" => "Wrong Type"]);
         }
     }
 
+    public function bull_add(Request $request)
+    {
+        $data = $request->post();
+        $admin = $data['admin_id'];
+        $detail = $data['detail'];
+        $test = Bulletin_board_content::select();
+        //$del->delete();
 
+        if ($test->isEmpty()) {
+            $result = new Bulletin_board_content();
+            $result->content_id = 0;
+            $result->admin_id = $admin;
+            $result->detail = $detail;
+            $result->date = date("Y-m-d");
+            $result->save();
+            return json(['message' => 'Add']);
+        } else {
+            $number = Bulletin_board_content::order('content_id', 'desc')->find()->content_id;
+            $result = new Bulletin_board_content();
+            $result->content_id = $number + 1;
+            $result->admin_id = $admin;
+            $result->detail = $detail;
+            $result->date = date("Y-m-d");
+            $result->save();
+            return json(['message' => 'Add']);
+        }
+
+    }
+
+    public function bull_get()
+    {
+        $data = Bulletin_board_content::select();
+        return json($data);
+    }
+
+    public function bull_change(Request $request)
+    {
+        $data = $request->post();
+
+        $bull = Bulletin_board_content::where('content_id', $data['content_id'])->find();
+        $bull->detail = $data['detail'];
+        $bull->date = date("Y-m-d");
+        $bull->save();
+        return json(['message' => 'Change']);
+    }
+    public function bull_delete(Request $request){
+        $data = $request->post();
+        $bull = Bulletin_board_content::where('content_id', $data['content_id'])->find();
+        $bull->delete();
+        return json(['message' => 'Delete']);
+    }
 
 }
