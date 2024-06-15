@@ -4,9 +4,14 @@ namespace app\controller;
 
 use app\BaseController;
 use app\model\Account;
+use app\model\Admin;
+use app\model\Landlord;
 use app\model\Report;
+use app\model\Student;
+use app\model\Teacher;
+use app\model\Visitform;
 use think\Request;
-use think\facade\Db;
+
 
 //引入父類
 
@@ -50,6 +55,7 @@ class SAS extends BaseController
             $account->usrname = $usrname;
             $account->password = $password;
             $account->usertype = $usertype;
+
             return json(['status' => 'success', 'message' => 'Account created successfully']);
         }
 
@@ -91,6 +97,7 @@ class SAS extends BaseController
 
         if ($account) {
             Report::where('usrname', $usrname)->delete();
+            Student::where('usrname', $usrname)->delete();  //學生帳號一起刪除
             $account->delete();
             return json(['status' => 'success', 'message' => 'Account deleted successfully']);
         } else {
@@ -133,6 +140,161 @@ class SAS extends BaseController
             return json(['status' => 'error', 'message' => 'Report not found']);
         }
     }
+
+    public function add_student(Request $request)   //填寫學生資料
+    {
+        $data = $request->post();
+        $usrname = $data['usrname'];
+        $result = Student::where('usrname', $usrname)->find();
+
+        if ($result) { //修改
+            $result->usrname = $data['usrname'];
+            $result->student_id = $data['student_id'];
+            $result->student_name_ch = $data['student_name_ch'];
+            $result->student_name_eng = $data['student_name_eng'];
+            $result->email = $data['email'];
+            $result->grade = $data['grade'];
+            $result->gender = $data['gender'];
+            $result->phone = $data['phone'];
+            $result->teacher_id = $data['teacher_id'];
+            $result->home_address = $data['home_address'];
+            $result->home_phone = $data['home_phone'];
+            $result->home_contact = $data['home_contact'];
+            $result->save();
+            return json(['message' => 'Change']);
+        } else {   //新增
+            $student = new Student();
+            $student->usrname = $data['usrname'];
+            $student->student_id = $data['student_id'];
+            $student->student_name_ch = $data['student_name_ch'];
+            $student->student_name_eng = $data['student_name_eng'];
+            $student->email = $data['email'];
+            $student->grade = $data['grade'];
+            $student->gender = $data['gender'];
+            $student->phone = $data['phone'];
+            $student->teacher_id = $data['teacher_id'];
+            $student->home_address = $data['home_address'];
+            $student->home_phone = $data['home_phone'];
+            $student->home_contact = $data['home_contact'];
+            $student->save();
+            return json(['message' => 'Add']);
+        }
+
+    }
+
+    public function add_teacher(Request $request)
+    {
+        $data = $request->post();
+        $usrname = $data['usrname'];
+        $result = Teacher::where('usrname', $usrname)->find();
+        //return $result;
+        if ($result) { //修改
+            $result->usrname = $data['usrname'];
+            $result->teacher_id = $data['teacher_id'];
+            $result->teacher_name_ch = $data['teacher_name_ch'];
+            $result->teacher_name_eng = $data['teacher_name_eng'];
+            $result->email = $data['email'];
+            $result->gender = $data['gender'];
+            $result->level = $data['level'];
+            $result->phone = $data['phone'];
+            $result->office_address = $data['office_address'];
+            $result->office_phone = $data['office_phone'];
+            $result->save();
+            return json(['message' => 'Change']);
+        } else {   //新增
+            $teacher = new Teacher();
+            $teacher->usrname = $data['usrname'];
+            $teacher->teacher_id = $data['teacher_id'];
+            $teacher->teacher_name_ch = $data['teacher_name_ch'];
+            $teacher->teacher_name_eng = $data['teacher_name_eng'];
+            $teacher->email = $data['email'];
+            $teacher->gender = $data['gender'];
+            $teacher->level = $data['level'];
+            $teacher->phone = $data['phone'];
+            $teacher->office_address = $data['office_address'];
+            $teacher->office_phone = $data['office_phone'];
+            $teacher->save();
+            return json(['message' => 'Add']);
+        }
+    }
+    public function add_landlord(Request $request){
+        $data = $request->post();
+        $usrname = $data['usrname'];
+        $result = Landlord::where('usrname', $usrname)->find();
+        if ($result) { //修改
+            $result->landlord_id = $data['landlord_id'];
+            $result->usrname = $data['usrname'];
+            $result->landlord_name_ch = $data['landlord_name_ch'];
+            $result->landlord_name_eng = $data['landlord_name_eng'];
+            $result->email = $data['email'];
+            $result->gender = $data['gender'];
+            $result->phone = $data['phone'];
+            $result->address = $data['address'];
+            $result->save();
+            return json(['message' => 'Change']);
+        } else {   //新增
+            $landlord = new Landlord();
+            $landlord->landlord_id = $data['landlord_id'];
+            $landlord->usrname = $data['usrname'];
+            $landlord->landlord_name_ch = $data['landlord_name_ch'];
+            $landlord->landlord_name_eng = $data['landlord_name_eng'];
+            $landlord->email = $data['email'];
+            $landlord->gender = $data['gender'];
+            $landlord->phone = $data['phone'];
+            $landlord->address = $data['address'];
+            $landlord->save();
+            return json(['message' => 'Add']);
+        }
+    }
+    public function add_admin(Request $request)
+    {
+        $data = $request->post();
+        $usrname = $data['usrname'];
+        $result = Admin::where('usrname', $usrname)->find();
+        if ($result) {
+            $result->usrname = $data['usrname'];
+            $result->admin_id = $data['usrname'];
+            $result->admin_name_ch = $data['admin_name_ch'];
+            $result->admin_name_eng = $data['admin_name_eng'];
+            $result->email = $data['email'];
+            $result->gender = $data['gender'];
+            $result->phone = $data['phone'];
+            $result->save();
+            return json(['message' => 'Change']);
+        }else{
+            $admin = new Admin();
+            $admin->usrname = $data['usrname'];
+            $admin->admin_id = $data['usrname'];
+            $admin->admin_name_ch = $data['admin_name_ch'];
+            $admin->admin_name_eng = $data['admin_name_eng'];
+            $admin->email = $data['email'];
+            $admin->gender = $data['gender'];
+            $admin->phone = $data['phone'];
+            $admin->save();
+            return json(['message' => 'Add']);
+        }
+    }
+    public function get_user(Request $request)
+    {
+        $data = $request->post();
+        $usrname = $data['usrname'];
+        $usrtype = $data['usrtype'];
+        if ($usrtype == 'student') {
+            return json([Student::where('usrname', $usrname)->select()]);
+        }else if($usrtype == 'teacher'){
+            return json([Teacher::where('usrname', $usrname)->select()]);
+        }
+        else if($usrtype == 'landlord'){
+            return json([Landlord::where('usrname', $usrname)->select()]);
+        }
+        else if($usrtype == 'admin'){
+            return json([Admin::where('usrname', $usrname)->select()]);
+        }
+        else{
+            return json(["message" => "Wrong Type"]);
+        }
+    }
+
 
 
 }

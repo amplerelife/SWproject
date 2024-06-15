@@ -8,3 +8,6 @@ class Teacher extends Model
     // 定義對應的表名（如果不使用表前綴，則需要在配置文件中設置 'prefix' => ''）
     protected $table = 'teacher';
 }
+class Teacher extends Model{
+    protected $table = 'teacher';
+}

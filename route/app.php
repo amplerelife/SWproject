@@ -22,6 +22,11 @@ Route::rule('api/account/add', 'SAS/create_account', 'POST');
 Route::rule('api/account/login', 'SAS/login', 'POST');
 Route::rule('api/account/delete', 'SAS/delete_account', 'POST');
 Route::rule('api/account/usrname', 'SAS/get_userid');
+Route::rule('api/account/student_add', 'SAS/add_student', 'POST');
+Route::rule('api/account/teacher_add', 'SAS/add_teacher', 'POST');
+Route::rule('api/account/landlord_add', 'SAS/add_landlord', 'POST');
+Route::rule('api/account/admin_add', 'SAS/add_admin', 'POST');
+Route::rule('api/account/user_get', 'SAS/get_user', 'POST');
 
 Route::rule('api/report/get', 'SAS/get_report');
 Route::rule('api/report/review', 'SAS/review_report', 'POST');

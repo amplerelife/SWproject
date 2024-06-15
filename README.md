@@ -9,6 +9,8 @@ api/acount/add
 
 ``{"usrname":" ","password":" ","usertype":" "}``
 
+usertype:student,teacher,landlord,admin
+
 #### 輸出格式
 帳號已存在
 
@@ -108,7 +110,96 @@ api/report/review
 
 失敗:
 ``
-return json(['status' => 'error', 'message' => 'Report not found']);`
+return json(['status' => 'error', 'message' => 'Report not found']);``
+
+### 新增和修改學生資料
+#### 輸入格式
+URL:
+``api/account/student_add``
+
+``{
+"usrname":" ",
+"student_id":" ",
+"student_name_ch": " ",
+"student_name_eng": " ",
+"email":" ",
+"grade":" ",
+"gender":" ",
+"phone":" ",
+"teacher_id":" ",
+"home_address":" ",
+"home_phone":" ",
+"home_contact":" "
+}``
+#### 輸出格式
+修改資料:
+``['message' => 'Change']``
+
+新增資料:
+``['message' => 'Add']``
+### 新增和修改教師資料
+#### 輸入格式
+URL:``api/account/teacher_add``
+
+``{
+"usrname":"B1105566",
+"teacher_id":"B1105566",
+"teacher_name_ch": "王大龍",
+"teacher_name_eng": "Wangdai",
+"email":"A1105566@mail",
+"level":"B1105501",
+"gender":"0",
+"phone":"0966666666",
+"office_address":"花蓮縣",
+"office_phone":"123456789"
+}``
+#### 輸出格式
+修改資料:
+``['message' => 'Change']``
+
+新增資料:
+``['message' => 'Add']``
+
+### 新增和修改房東資料
+#### 輸入格式
+URL:
+``api/account/landlord_add``
+
+``
+{
+"landlord_id":"Cc111",
+"usrname":"Cc111",
+"landlord_name_ch": "王大龍",
+"landlord_name_eng": "Wangdai",
+"email":"A1105566@mail",
+"gender":"1",
+"phone":"0966666666",
+"address":"花蓮縣"
+}
+``
+#### 新增和修改管理員資料
+#### 輸入
+URL:``api/account/admin_add``
+
+``
+{
+"usrname":"Admin1",
+"admin_name_ch": "王二龍",
+"admin_name_eng": "Wang2",
+"email":"A11042@mail",
+"gender":"0",
+"phone":"0966666666"
+}
+``
+### 得到個人資料(type要輸入正確)
+#### 輸入
+URL:``api/account/user_get``
+
+``{
+"usrname":"A1105501",
+"usrtype":"student"
+}``
+#### 輸出個人資料
 ## IRMS
 ### 創建表單
 `api/form/Create`
