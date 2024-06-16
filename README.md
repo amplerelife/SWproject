@@ -93,7 +93,7 @@ api/report/get
 #### 輸出格式
 
 ``
-{"report_id":["R0","R1"],"usrname":["A1105601","A1105601"],"report_response":["未處理","未處理"]}
+{"report_id":["R0","R1"],"usrname":["A1105601","A1105601"],"report_content":["新的貼文內容。","P0內容"],"report_response":["未處理","已處理"],"response_content":["","一切正常"]}
 ``
 ### 審核舉報貼文
 #### 輸入格式
@@ -105,8 +105,9 @@ api/report/review
 
 ``
 {
-"report_id":"R1",
-"report_response":"已處理"
+"report_id":"R0",
+"report_response":"已處理",
+"response_content":"貼文違反社會風俗"
 }
 ``
 #### 輸出格式
