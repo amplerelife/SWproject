@@ -5,8 +5,10 @@ namespace app\controller;
 use app\BaseController;
 use app\model\Account;
 use app\model\Admin;
+use app\model\Advertisement;
 use app\model\Bulletin_board_content;
 use app\model\Landlord;
+use app\model\Post;
 use app\model\Report;
 use app\model\Student;
 use app\model\Teacher;
@@ -320,7 +322,7 @@ class SAS extends BaseController
             $result->content_id = $number + 1;
             $result->admin_id = $admin;
             $result->detail = $detail;
-            $result->date = date("Y-m-d");
+            $result->date = date("Y-m-d H:i:s");
             $result->save();
             return json(['message' => 'Add']);
         }
@@ -339,15 +341,34 @@ class SAS extends BaseController
 
         $bull = Bulletin_board_content::where('content_id', $data['content_id'])->find();
         $bull->detail = $data['detail'];
-        $bull->date = date("Y-m-d");
+        $bull->date = date("Y-m-d H:i:s");
         $bull->save();
         return json(['message' => 'Change']);
     }
-    public function bull_delete(Request $request){
+
+    public function bull_delete(Request $request)
+    {
         $data = $request->post();
         $bull = Bulletin_board_content::where('content_id', $data['content_id'])->find();
         $bull->delete();
         return json(['message' => 'Delete']);
     }
+
+    public function check_report(Request $request)
+    {
+        $data = $request->post();
+        $id = $data['report_detail'];
+        $prefix = preg_replace('/[0-9]/', '', $id); // 提取字母部分
+        if ($prefix == 'A') {
+            $result = Advertisement::where('ADV_ID', $id)->find();
+            return json(['content'=>$result['ADV_content']]);
+        } else {
+            $result = Post::where('post_id', $id)->find();
+            return json(['content'=>$result['post_detail']]);
+        }
+
+
+    }
+
 
 }

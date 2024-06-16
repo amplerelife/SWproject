@@ -76,7 +76,7 @@ api/account/usrname
 不需要輸入東西
 #### 輸出格式
 ``{"usrname":["Ca1112","Cc111","ffff6","fffff","Xa1112"]}``
-### 回傳全部舉報內容(pass/not pass/空字串(未審核))
+### 回傳全部舉報(pass/not pass/空字串(未審核))
 #### 輸入格式
 URL:
 ``
@@ -87,7 +87,7 @@ api/report/get
 #### 輸出格式
 
 ``
-{"report_id":["0","1"],"usrname":["Ca1112","ffff6"],"report_detail":["Zzzzzz","haha"],"report_response":["","pass"]}
+{"report_id":["R0","R1"],"usrname":["Ca1112","ffff6"],"report_detail":["P0","A0"],"report_response":["","pass"]}
 ``
 ### 審核舉報內容(pass/not pass/空字串(未審核))
 #### 輸入格式
@@ -98,7 +98,7 @@ api/report/review
 
 ``
 {
-"report_id":"1",
+"report_id":"R1",
 "report_response":"pass"
 }
 ``
@@ -112,6 +112,16 @@ api/report/review
 ``
 return json(['status' => 'error', 'message' => 'Report not found']);``
 
+### 查看舉報內容
+#### 輸入
+URL:
+``api/report/check``
+
+``{
+"report_detail":"P0"
+}``
+#### 輸出
+``{"content":"P0內容"}``
 ### 新增和修改學生資料
 #### 輸入格式
 URL:
@@ -203,7 +213,7 @@ URL:``api/account/user_get``
 全部回傳
 ### 新增布告欄
 #### 輸入
-URL:``api/account/bull_add``
+URL:``api/bull/bull_add``
 
 ``{
 "admin_id":" ",
@@ -213,12 +223,12 @@ URL:``api/account/bull_add``
 ``{"message":"Add"}``
 ### 回傳全部布告欄
 #### 輸入
-URL:``api/account/bull_get``
+URL:``api/bull/bull_get``
 #### 輸出(我可以改，如果要我每個欄位切出來的話)
 ``[{"content_id":0,"admin_id":"Admin1","detail":"koll2","date":"2024-06-16"},{"content_id":1,"admin_id":"Admin1","detail":"ko2","date":"2024-06-16"}]``
 ### 修改布告欄內容
 #### 輸入
-URL:``api/account/bull_change``
+URL:``api/bull/bull_change``
 
 ``{
 "content_id":"0",
@@ -228,11 +238,13 @@ URL:``api/account/bull_change``
 ``{"message":"Change"}``
 ### 刪除布告欄
 #### 輸入
-URL:`` api/account/bull_delete``
+URL:`` api/bull/bull_delete``
 
 ``{"content_id":"1"}``
 #### 輸出
 ``{"message":"Delete"}``
+
+
 ## IRMS
 ### 創建表單
 `api/form/Create`
