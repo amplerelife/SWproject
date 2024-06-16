@@ -247,7 +247,7 @@ URL:``api/bull/bull_get``
 URL:``api/bull/bull_change``
 
 ``{
-"content_id":"0",
+"content_id":"P0",
 "detail":"更新資料"
 }``
 #### 輸出
@@ -256,7 +256,7 @@ URL:``api/bull/bull_change``
 #### 輸入
 URL:`` api/bull/bull_delete``
 
-``{"content_id":"1"}``
+``{"content_id":"A1"}``
 #### 輸出
 ``{"message":"Delete"}``
 ## HMS
@@ -274,18 +274,18 @@ URL:
 #### 輸出(回傳廣告id)
 ``{"id":"A3"}``
 
-### 顯示廣告(一般使用者看到的)
+### 顯示廣告(一般使用者看到的)(已處理)
 #### 輸入
 URL:
 ``api/AD/show/user``
 #### 輸出
-``[{"id":"A2","title":"藍田路369號(限女)","content":"租金:5000,時間:2008-5-5~2010-5-5,...","time":"2024-06-16 12:34:08","name":"Cc111"},{"id":"A3","title":"雅房3000","content":"lalalala","time":"2024-06-16 14:04:55","name":""}]``
+``{"id":["A0"],"title":["0"],"content":["0"],"time":["0000-00-00 00:00:00"],"name":["C1105501"]}``
 ### 顯示廣告(Admin看到的)
 #### 輸入
 URL:
 ``api/AD/show/admin``
 #### 輸出
-會多傳response，來表示審核的狀態
+``{"id":["A0","A2"],"title":["0","雅房2000"],"content":["0","haha"],"time":["0000-00-00 00:00:00","2024-06-16 14:31:25"],"name":["C1105501","Cc111"],"response":["已處理","未處理"]}``
 
 
 ### 修改廣告
@@ -812,7 +812,7 @@ JSON格式的資料庫內容
 'status' => 'error', 'message' => 'Database error: '
 
 ### 舉報貼文(沒做留言)
-`api/post/reportPost`
+`api/post/reportPost POST`
 #### 輸出格式
 {
     "post_id": "P0",
@@ -824,7 +824,7 @@ JSON格式的資料庫內容
 'status' => 'error', 'message' => 'Database error: '
 
 ### 貼文發文
-api/post/createPost
+``api/post/createPost POST``
 #### 輸入格式
 {
   "usrname": "A1105601",

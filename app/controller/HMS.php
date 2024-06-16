@@ -50,42 +50,63 @@ class HMS extends BaseController
     }
     public function ad_show_landlord()
     {
-        $data = Advertisement::where('response','pass')->select();
-        $result = [];
+        $data = Advertisement::where('response', '已處理')->select();
+        $id = [];
+        $title = [];
+        $content = [];
+        $time = [];
+        $name = [];
+
         foreach ($data as $ad) {
-            $result[] = [
-                'id' => $ad->ADV_ID,
-                'title' => $ad->ADV_title,
-                'content' => $ad->ADV_content,
-                'time' => $ad->ADV_postdate,
-                'name' => $ad->usrname
-            ];
+            $id[] = $ad->ADV_ID;
+            $title[] = $ad->ADV_title;
+            $content[] = $ad->ADV_content;
+            $time[] = $ad->ADV_postdate;
+            $name[] = $ad->usrname;
         }
 
-        return json($result);
+        return json([
+            'id' => $id,
+            'title' => $title,
+            'content' => $content,
+            'time' => $time,
+            'name' => $name
+        ]);
     }
+
     public function ad_show_admin()
     {
         $data = Advertisement::select();
-        $result = [];
+        $id = [];
+        $title = [];
+        $content = [];
+        $time = [];
+        $name = [];
+        $response = [];
+
         foreach ($data as $ad) {
-            $result[] = [
-                'id' => $ad->ADV_ID,
-                'title' => $ad->ADV_title,
-                'content' => $ad->ADV_content,
-                'time' => $ad->ADV_postdate,
-                'name' => $ad->usrname,
-                'response'=>$ad->response
-            ];
+            $id[] = $ad->ADV_ID;
+            $title[] = $ad->ADV_title;
+            $content[] = $ad->ADV_content;
+            $time[] = $ad->ADV_postdate;
+            $name[] = $ad->usrname;
+            $response[] = $ad->response;
         }
 
-        return json($result);
+        return json([
+            'id' => $id,
+            'title' => $title,
+            'content' => $content,
+            'time' => $time,
+            'name' => $name,
+            'response' => $response
+        ]);
     }
+
     public function ad_report(Request $request){
         $data = request()->post();
         $id = $data['id'];
         $report = Advertisement::where('ADV_ID',$id)->find();
-        $report->response='';
         $report->save();
         return json(['message'=>'report success']);
     }
