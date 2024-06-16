@@ -1,11 +1,26 @@
 <script setup>
+import { ref, watchEffect } from 'vue'
+
+const props = defineProps({
+  context: String
+})
+const emit = defineEmits(['submitComment'])
+
+const context = ref(props.context)
+
+watchEffect(() => {
+  context.value = props.context
+})
 </script>
 
 <template>
   <div class="wrapper">
-    <input type="text" placeholder="comment here" class="input-box"/>
-    <div class="submit">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>send</title><path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" /></svg>
+    <input type="text" placeholder="comment here" class="input-box" v-model="context"/>
+    <div class="submit" @click="$emit('submitComment', context)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <title>send</title>
+        <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+      </svg>
     </div>
   </div>
 </template>
@@ -33,10 +48,9 @@
   transition: var(--transition-duration);
   --shadow-offset: 0.2rem;
   --shadow-blur: 0.3rem;
-  box-shadow: 
+  box-shadow:
     inset var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--color-accent-light),
     var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--color-accent-soft);
-
 }
 
 .input-box:hover {

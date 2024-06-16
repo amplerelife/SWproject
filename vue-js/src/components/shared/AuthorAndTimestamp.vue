@@ -4,7 +4,7 @@ const props = defineProps(['author', 'ts'])
 
 <template>
   <div class="info-container">
-    <div id="author">{{ props.author }}</div>
+    <div id="author">{{ props.author ? props.author : 'User' }}</div>
     <div id="delim">@</div>
     <div id="ts">{{ new Date(props.ts).toLocaleString() }}</div>
   </div>

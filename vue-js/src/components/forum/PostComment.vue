@@ -7,9 +7,12 @@ const props = defineProps({
 
 <template>
   <div class="wrapper">
-    <img src="https://mc-heads.net/avatar/user" alt="">
-    <div class="comment-container" :style="index % 2 ? {'background-color': 'var(--color-accent-light)'} : {}">
-      <h1> {{ 'author_here' }} </h1>
+    <img src="https://mc-heads.net/avatar/user" alt="" />
+    <div
+      class="comment-container"
+      :style="index % 2 ? { 'background-color': 'var(--color-accent-light)' } : {}"
+    >
+      <h1>{{ 'author_here' }}</h1>
       {{ props.comment }}
     </div>
   </div>
@@ -36,14 +39,14 @@ const props = defineProps({
   --shadow-offset: 0.8rem;
 }
 
-.comment-container { 
+.comment-container {
   color: var(--color-text-dark);
 
   min-height: var(--comment-base-height);
   flex-grow: 1;
 
   border-radius: 1rem;
-  
+
   padding: 1rem;
 
   transition: var(--transition-duration-fast);

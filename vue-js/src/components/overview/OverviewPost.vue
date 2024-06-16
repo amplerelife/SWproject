@@ -1,56 +1,64 @@
 <script setup>
+import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import EditableText from '@/components/shared/EditableText.vue'
 import LikesAndComments from '@/components/LikesAndComments.vue'
-import AuthorAndTimestamp from '@/components/shared/AuthorAndTimestamp.vue'
+import PostHeader from '@/components/overview/PostHeader.vue'
 
 const route = useRoute()
 const router = useRouter()
-const now = Date.now()
-const props = defineProps(['article'])
+const props = defineProps({
+  article: Object,
+  editing: Boolean
+})
+const emit = defineEmits(['submit'])
+
+const editing = ref(props.editing)
+const author = ref(props.article.author)
+const title = ref(props.article.title)
+const context = ref(props.article.context)
 
 const gotoPost = () => {
-  if (route.params.id) return
+  if (route.params.id || props.editing) return
   router.push(`/forum/${props.article.id}`)
+}
+
+function editTitleHandler(_title) {
+  title.value = _title
 }
 </script>
 
-<script>
-</script>
+<script></script>
 
 <template>
   <div class="card">
-    <div class="card-header">
-      <div class="avatar">
-        <img src="https://mc-heads.net/avatar/user" alt="" />
-      </div>
-      <div class="title">
-        <div id="title">{{ props.article.title }}</div>
-        <AuthorAndTimestamp :author="props.article.author" :ts="now"></AuthorAndTimestamp>
-      </div>
-      <div class="icon" id="more">
+    <PostHeader
+      :author="author"
+      :title="title ? title : 'no title :('"
+      :editing="editing"
+      @click="editing = true"
+      @editTitle="editTitleHandler"
+    ></PostHeader>
+    <!-- <div v-if="!editing" class="card-context" :class="{ inpost: !$route.params.id }" @click="gotoPost"> {{ context }} </div> -->
+    <textarea
+      class="card-context"
+      :class="{ 'card-context-input': editing }"
+      :style="!$route.params.id && !editing ? { cursor: 'pointer' } : {}"
+      @click="gotoPost"
+      v-model="context"
+      :cols="6"
+      placeholder="context..."
+    />
+    <div class="card-footer" v-if="editing">
+      <div class="submit-button" @click="$emit('submit', author, title, context)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <title>dots-horizontal</title>
-          <path
-            d="M16,12A2,2 0 0,1 18,10A2,2 0 0,1 20,12A2,2 0 0,1 18,14A2,2 0 0,1 16,12M10,12A2,2 0 0,1 12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12M4,12A2,2 0 0,1 6,10A2,2 0 0,1 8,12A2,2 0 0,1 6,14A2,2 0 0,1 4,12Z"
-          />
-        </svg>
-      </div>
-      <div class="icon" id="delete">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <title>close-circle-outline</title>
-          <path
-            d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z"
-          />
+          <title>check</title>
+          <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
         </svg>
       </div>
     </div>
-    <div class="card-context" :class="{inpost: !$route.params.id}" @click="gotoPost">
-      <h1>
-        {{ props.article.context }}
-      </h1>
-    </div>
-    <div class="card-footer">
+    <div class="card-footer" v-if="!editing">
       <LikesAndComments></LikesAndComments>
     </div>
   </div>
@@ -91,79 +99,79 @@ const gotoPost = () => {
   transform: scale(102%);
 }
 
-.card-header {
-  height: calc(var(--card-base-height) * 0.2);
-  display: flex;
-  justify-content: flex-end;
-  transition: var(--transition-duration);
-
-  & .avatar {
-    padding-right: 2%;
-    img {
-      height: 100%;
-      max-width: fit-content;
-      padding: 10%;
-      border-radius: 30%;
-    }
-  }
-
-  & .title {
-    width: 100%;
-    vertical-align: middle;
-    font-weight: bolder;
-    font-size: 120%;
-    padding-top: 0.8%;
-
-    & #title {
-      color: var(--color-text-dark);
-    }
-  }
-
-  & .icon {
-    align-self: flex-end;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 1%;
-
-    svg {
-      height: 60%;
-      fill: var(--color-border);
-    }
-
-    svg:hover {
-      fill: var(--color-border-hover);
-    }
-  }
-}
-
 .card-context {
   --context-height-ratio: 0.65;
   min-height: calc(var(--card-base-height) * var(--context-height-ratio));
   max-height: calc(var(--card-base-height) * var(--context-height-ratio) + 20vh);
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
+  scrollbar-color: var(--color-accent-dark) transparent;
+  resize: none;
 
   transition: var(--transition-duration);
+  background-color: transparent;
   color: var(--color-text-dark);
 
   container-type: inline-size;
   container-name: context;
 
-  & h1 {
-    font-size: 4.5cqw;
+  padding: 2%;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  width: 20%;
+  
+  border-radius: 1rem;
+  background-color: var(--color-accent-light);
+
+  transition: var(--transition-duration);
+
+  & svg {
+    transition: var(--transition-duration);
+    height: 100%;
+    fill: var(--color-accent-dark);
+    --shadow-offset: 0;
+    --shadow-blur: 0.1rem;
+    filter: drop-shadow(var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--color-accent));
   }
 }
 
-.inpost:hover {
+.submit-button:hover {
+  transform: scale(105%);
+  border-radius: 0.7rem;
   cursor: pointer;
+  & svg {
+    --shadow-offset: 0.15rem;
+    --shadow-blur: 0.3rem;
+    fill: var(--color-accent-darker);
+  }
 }
 
 .card-footer {
   height: calc(var(--card-base-height) * 0.15);
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   transition: var(--transition-duration);
+}
+
+.card-context-input {
+  background: var(--color-accent);
+  width: 100%;
+  height: max-content;
+
+  resize: none;
+}
+
+.card-context-input:focus {
+  outline: var(--color-accent-mute) solid 2px;
+  outline-offset: 3px;
 }
 </style>
