@@ -167,5 +167,22 @@ class Posts extends BaseController
             return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
         }
     }
-
+    //刪除貼文
+    public function deletePost(Request $request)
+    {
+        try {
+            $post_id = $request->param('post_id');
+            $post = Post::where('post_id', $post_id)->find();
+            if ($post) {
+                $result = $post->delete();
+                if ($result) {
+                    return json(['status' => 'success', 'message' => 'Post deleted successfully']);
+                } else {
+                    return json(['status' => 'error', 'message' => 'Failed to delete post']);
+                }
+        }
+        } catch (\Exception $e) {
+            return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
+        }
+    }
 }

@@ -824,7 +824,7 @@ JSON格式的資料庫內容
 'status' => 'error', 'message' => 'Database error: '
 
 ### 貼文發文
-``api/post/createPost POST``
+`api/post/createPost POST`
 #### 輸入格式
 {
   "usrname": "A1105601",
@@ -834,4 +834,13 @@ JSON格式的資料庫內容
 #### 輸出格式
 'status' => 'success', 'message' => 'Post reported successfully'
 'status' => 'error', 'message' => 'Failed to report post'
+'status' => 'error', 'message' => 'Database error: '
+
+### 貼文刪除
+`api/post/deletePost POST`
+#### 輸入格式
+{ "post_id":"P1 "}
+#### 輸出格式
+'status' => 'success', 'message' => 'Post deleted successfully'
+'status' => 'error', 'message' => 'Failed to delete post'
 'status' => 'error', 'message' => 'Database error: '
