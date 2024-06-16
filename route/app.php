@@ -56,6 +56,7 @@ Route::rule('api/bull/bull_delete', 'SAS/bull_delete','POST');
 Route::rule('api/report/get', 'SAS/get_report');
 Route::rule('api/report/review', 'SAS/review_report', 'POST');
 Route::rule('api/report/check', 'SAS/check_report', 'POST');
+Route::rule('api/report/delete', 'SAS/delete_report', 'POST');
 
 Route::rule('api/AD/add', 'HMS/ad_create', 'POST');
 Route::rule('api/AD/change', 'HMS/ad_change', 'POST');

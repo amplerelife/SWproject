@@ -82,7 +82,7 @@ api/account/usrname
 不需要輸入東西
 #### 輸出格式
 ``{"usrname":["Ca1112","Cc111","ffff6","fffff","Xa1112"]}``
-### 回傳全部舉報(pass/not pass/空字串(未審核))
+### 回傳全部舉報貼文
 #### 輸入格式
 URL:
 ``
@@ -93,9 +93,9 @@ api/report/get
 #### 輸出格式
 
 ``
-{"report_id":["R0","R1"],"usrname":["Ca1112","ffff6"],"report_detail":["P0","A0"],"report_response":["","pass"]}
+{"report_id":["R0","R1"],"usrname":["A1105601","A1105601"],"report_response":["未處理","未處理"]}
 ``
-### 審核舉報貼文(pass/not pass/空字串(未審核))
+### 審核舉報貼文
 #### 輸入格式
 URL:
 ``
@@ -106,7 +106,7 @@ api/report/review
 ``
 {
 "report_id":"R1",
-"report_response":"pass"
+"report_response":"已處理"
 }
 ``
 #### 輸出格式
@@ -129,6 +129,14 @@ URL:
 }``
 #### 輸出
 ``{"content":"P0內容"}``
+### 刪除舉報內容
+#### 輸入
+URL:
+``api/report/delete``
+
+``{
+"report_id":"R0"
+}``
 ### 新增和修改學生資料
 #### 輸入格式
 URL:

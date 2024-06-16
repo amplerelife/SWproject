@@ -125,12 +125,27 @@ class SAS extends BaseController
 
     public function get_report()
     {
-        $id = Report::select()->column('report_id');
-        $name = Report::select()->column('usrname');
-        $detail = Report::select()->column('report_detail');
-        $res = Report::select()->column('report_response');
+        // 查询 report_detail 以 P' 开头的记录
+        $reports = Report::where('report_detail', 'like', 'P%')->select();
 
-        return json(['report_id' => $id, 'usrname' => $name, 'report_detail' => $detail, 'report_response' => $res]);
+        // 提取各列的数据
+        $id = $reports->column('report_id');
+        $name = $reports->column('usrname');
+        $detail = $reports->column('report_detail');
+        $res = $reports->column('report_response');
+        foreach ($res as &$r) {
+            if ($r === '') {
+                $r = '未處理';
+            }
+        }
+        unset($r); // 释放引用
+        $content = [];
+        foreach ($detail as $d) {
+            $post_details = Post::where('post_id', $d)->select()->column('post_detail');
+            $content = array_merge($content, $post_details); // 将新的内容合并到 content 数组中
+        }
+
+        return json(['report_id' => $id, 'usrname' => $name, 'report_content' => $content, 'report_response' => $res]);
     }
 
     public function review_report(Request $request) //填寫舉報通過或不通過
@@ -147,24 +162,22 @@ class SAS extends BaseController
 
             // 保存更改
             $report->save();
-            if ($prefix == 'A') {
-                $Ad = Advertisement::where('ADV_ID', $detail)->find();
-                $Ad->respone = 'pass';
-                $Ad->save();
-            }/*else{
-                $post = Post::where('post_id', $detail)->find();
-                $post->delete();
-            }*/
 
             return json(['status' => 'success', 'message' => 'Report reviewed successfully']);
         } else {
-            if ($prefix == 'A') {
-                $Ad = Advertisement::where('ADV_ID', $detail)->find();
-                $Ad->respone = 'not pass';
-                $Ad->save();
-            }
+
             return json(['status' => 'error', 'message' => 'Report not found']);
         }
+    }
+    public function delete_report(Request $request) //刪除舉報
+    {
+        $data = $request->post();
+
+        // 查找 report_id 对应的记录
+        $report = Report::where('report_id', $data['report_id'])->find();
+        $report->delete();
+        return json(['message' => 'Delete reviewed successfully']);
+
     }
 
     public function add_student(Request $request)   //填寫學生資料
