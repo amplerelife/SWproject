@@ -2,7 +2,6 @@
 import SearchList from '@/components/SearchList.vue'
 </script>
 
-
 <template>
     <div class="AccountList">
         <SearchList
@@ -17,9 +16,8 @@ import SearchList from '@/components/SearchList.vue'
 </template>
 
 <style>
-.AccountList{
-    display:inline-block;
-    width:80vw;
-
+.AccountList {
+  display: inline-block;
+  width: 80vw;
 }
 </style>

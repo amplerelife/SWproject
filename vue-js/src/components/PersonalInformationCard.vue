@@ -1,7 +1,85 @@
 <script setup>
-  import { ref } from 'vue';
+import { ref } from 'vue'
 
-  const student = ref({
+const student = ref({
+  accountName: '',
+  password: '',
+  studentId: '',
+  email: '',
+  chineseName: '',
+  englishName: '',
+  department: '',
+  gender: '',
+  phone: '',
+  teacher: '',
+  address: '',
+  homePhone: '',
+  homeContact: ''
+})
+
+const teacher = ref({
+  accountName: '',
+  password: '',
+  teacherId: '',
+  email: '',
+  chineseName: '',
+  englishName: '',
+  position: '',
+  gender: '',
+  phone: '',
+  office: '',
+  officePhone: ''
+})
+
+const landlord = ref({
+  accountName: '',
+  password: '',
+  email: '',
+  chineseName: '',
+  englishName: '',
+  position: '',
+  gender: '',
+  phone: '',
+  address: ''
+})
+
+const administrator = ref({
+  accountName: '',
+  password: '',
+  email: '',
+  chineseName: '',
+  englishName: '',
+  gender: '',
+  phone: ''
+})
+
+const submit = () => {
+  const data = {
+    student: student.value,
+    teacher: teacher.value,
+    landlord: landlord.value,
+    administrator: administrator.value
+  }
+
+  fetch('/asss', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log(result)
+      alert('Submitted successfully!')
+    })
+    .catch((error) => {
+      console.error('Error:', error)
+    })
+}
+
+const clear = () => {
+  student.value = {
     accountName: '',
     password: '',
     studentId: '',
@@ -14,10 +92,9 @@
     teacher: '',
     address: '',
     homePhone: '',
-    homeContact: '',
-  });
-
-  const teacher = ref({
+    homeContact: ''
+  }
+  teacher.value = {
     accountName: '',
     password: '',
     teacherId: '',
@@ -28,10 +105,9 @@
     gender: '',
     phone: '',
     office: '',
-    officePhone: '',
-  });
-
-  const landlord = ref({
+    officePhone: ''
+  }
+  landlord.value = {
     accountName: '',
     password: '',
     email: '',
@@ -40,95 +116,18 @@
     position: '',
     gender: '',
     phone: '',
-    address: '',
-  });
-
-  const administrator = ref({
+    address: ''
+  }
+  administrator.value = {
     accountName: '',
     password: '',
     email: '',
     chineseName: '',
     englishName: '',
     gender: '',
-    phone: '',
-  });
-
-  const submit = () => {
-    
-    const data = {
-      student: student.value,
-      teacher: teacher.value,
-      landlord: landlord.value,
-      administrator: administrator.value,
-    };
-
-    fetch('/asss', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        alert('Submitted successfully!');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  };
-
-  const clear = () => {
-    student.value = {
-      accountName: '',
-      password: '',
-      studentId: '',
-      email: '',
-      chineseName: '',
-      englishName: '',
-      department: '',
-      gender: '',
-      phone: '',
-      teacher: '',
-      address: '',
-      homePhone: '',
-      homeContact: '',
-    };
-    teacher.value = {
-      accountName: '',
-      password: '',
-      teacherId: '',
-      email: '',
-      chineseName: '',
-      englishName: '',
-      position: '',
-      gender: '',
-      phone: '',
-      office: '',
-      officePhone: '',
-    };
-    landlord.value = {
-      accountName: '',
-      password: '',
-      email: '',
-      chineseName: '',
-      englishName: '',
-      position: '',
-      gender: '',
-      phone: '',
-      address: '',
-    };
-    administrator.value = {
-      accountName: '',
-      password: '',
-      email: '',
-      chineseName: '',
-      englishName: '',
-      gender: '',
-      phone: '',
-    };
-  };
+    phone: ''
+  }
+}
 </script>
 
 <template>
@@ -141,10 +140,25 @@
       <p>中文姓名：<input type="text" v-model="student.chineseName" /></p>
       <p>英文姓名：<input type="text" v-model="student.englishName" /></p>
       <p>系級：<input type="text" v-model="student.department" /></p>
-      <p>性別：
-        <input type="radio" id="Male" name="GenderStudent" value="Male" v-model="student.gender" style="width: 10vh" />
+      <p>
+        性別：
+        <input
+          type="radio"
+          id="Male"
+          name="GenderStudent"
+          value="Male"
+          v-model="student.gender"
+          style="width: 10vh"
+        />
         <label for="Male">男</label>
-        <input type="radio" id="Female" name="GenderStudent" value="Female" v-model="student.gender" style="width: 10vh" />
+        <input
+          type="radio"
+          id="Female"
+          name="GenderStudent"
+          value="Female"
+          v-model="student.gender"
+          style="width: 10vh"
+        />
         <label for="Female">女</label>
       </p>
       <p>電話號碼：<input type="text" v-model="student.phone" /></p>
@@ -161,10 +175,25 @@
       <p>中文姓名：<input type="text" v-model="teacher.chineseName" /></p>
       <p>英文姓名：<input type="text" v-model="teacher.englishName" /></p>
       <p>職別：<input type="text" v-model="teacher.position" /></p>
-      <p>性別：
-        <input type="radio" id="MaleTeacher" name="GenderTeacher" value="Male" v-model="teacher.gender" style="width: 10vh" />
+      <p>
+        性別：
+        <input
+          type="radio"
+          id="MaleTeacher"
+          name="GenderTeacher"
+          value="Male"
+          v-model="teacher.gender"
+          style="width: 10vh"
+        />
         <label for="MaleTeacher">男</label>
-        <input type="radio" id="FemaleTeacher" name="GenderTeacher" value="Female" v-model="teacher.gender" style="width: 10vh" />
+        <input
+          type="radio"
+          id="FemaleTeacher"
+          name="GenderTeacher"
+          value="Female"
+          v-model="teacher.gender"
+          style="width: 10vh"
+        />
         <label for="FemaleTeacher">女</label>
       </p>
       <p>電話號碼：<input type="text" v-model="teacher.phone" /></p>
@@ -178,10 +207,25 @@
       <p>中文姓名：<input type="text" v-model="landlord.chineseName" /></p>
       <p>英文姓名：<input type="text" v-model="landlord.englishName" /></p>
       <p>職別：<input type="text" v-model="landlord.position" /></p>
-      <p>性別：
-        <input type="radio" id="MaleLandlord" name="GenderLandlord" value="Male" v-model="landlord.gender" style="width: 10vh" />
+      <p>
+        性別：
+        <input
+          type="radio"
+          id="MaleLandlord"
+          name="GenderLandlord"
+          value="Male"
+          v-model="landlord.gender"
+          style="width: 10vh"
+        />
         <label for="MaleLandlord">男</label>
-        <input type="radio" id="FemaleLandlord" name="GenderLandlord" value="Female" v-model="landlord.gender" style="width: 10vh" />
+        <input
+          type="radio"
+          id="FemaleLandlord"
+          name="GenderLandlord"
+          value="Female"
+          v-model="landlord.gender"
+          style="width: 10vh"
+        />
         <label for="FemaleLandlord">女</label>
       </p>
       <p>電話號碼：<input type="text" v-model="landlord.phone" /></p>
@@ -193,15 +237,30 @@
       <p>電子郵件信箱：<input type="text" v-model="administrator.email" /></p>
       <p>中文姓名：<input type="text" v-model="administrator.chineseName" /></p>
       <p>英文姓名：<input type="text" v-model="administrator.englishName" /></p>
-      <p>性別：
-        <input type="radio" id="MaleAdmin" name="GenderAdmin" value="Male" v-model="administrator.gender" style="width: 10vh" />
+      <p>
+        性別：
+        <input
+          type="radio"
+          id="MaleAdmin"
+          name="GenderAdmin"
+          value="Male"
+          v-model="administrator.gender"
+          style="width: 10vh"
+        />
         <label for="MaleAdmin">男</label>
-        <input type="radio" id="FemaleAdmin" name="GenderAdmin" value="Female" v-model="administrator.gender" style="width: 10vh" />
+        <input
+          type="radio"
+          id="FemaleAdmin"
+          name="GenderAdmin"
+          value="Female"
+          v-model="administrator.gender"
+          style="width: 10vh"
+        />
         <label for="FemaleAdmin">女</label>
       </p>
       <p>電話號碼：<input type="text" v-model="administrator.phone" /></p>
     </div>
-    
+
     <div class="form-actions">
       <button @click="submit" class="btn btn-primary">Submit</button>
       <button @click="clear" class="btn btn-secondary">Clear</button>
@@ -211,7 +270,7 @@
 
 <style scoped>
 .PersonalInformationContainer {
-  width:50vw;
+  width: 50vw;
   align-items: center;
   font-size: 2vw;
   color: white;
@@ -221,12 +280,12 @@
   margin-top: 2%;
   border-radius: 5%;
 
-  & label{
-    margin-right:4vw;
+  & label {
+    margin-right: 4vw;
   }
 
-  & p{
-    text-align:right;
+  & p {
+    text-align: right;
   }
 
   .Student,
@@ -236,8 +295,8 @@
     display: none;
   }
 
-  .Student{
-    display:block;
+  .Student {
+    display: block;
   }
 
   .Student.active,
@@ -247,15 +306,14 @@
     display: block;
   }
 
-
   input {
     margin: 1vh;
     color: black;
   }
 
   .form-actions {
-  display: flex;
-  justify-content: space-between;
-}
+    display: flex;
+    justify-content: space-between;
+  }
 }
 </style>

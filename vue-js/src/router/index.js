@@ -113,8 +113,6 @@ const router = createRouter({
       name: 'forumPost',
       component: () => import('../views/ForumView.vue')
     }
-
-    
   ]
 })
 

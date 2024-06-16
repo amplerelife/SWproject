@@ -63,7 +63,7 @@ const filteredCustomers = computed(() => {
 
 const handleCheckboxChange = (customer) => {
   if (selectedUsrname.value.includes(customer)) {
-    selectedUsrname.value = selectedUsrname.value.filter(c => c !== customer);
+    selectedUsrname.value = selectedUsrname.value.filter((c) => c !== customer)
   } else {
     selectedUsrname.value.push(customer);
   }
@@ -143,16 +143,15 @@ table {
   font-size: 18px;
 }
 
-th, td {
+th,
+td {
   text-align: left;
   padding: 12px;
 }
-
 td img {
   width: 10%;
   display: inline-block;
 }
-
 th {
   color: black;
   font-weight: bolder;
@@ -162,7 +161,8 @@ tr {
   border-bottom: 1px solid #ddd;
 }
 
-tr.header, tr:hover {
+tr.header,
+tr:hover {
   background-color: #f1f1f1;
 
   td {
@@ -207,7 +207,7 @@ tr.header, tr:hover {
   border-radius: 50%;
   background-color: var(--background-color);
   --shadow-radius: 0.5rem;
-  box-shadow: 
+  box-shadow:
     inset 0 0 var(--shadow-radius) var(--color-accent-dark),
     0 0 var(--shadow-radius) var(--color-accent-dark);
   display: flex;

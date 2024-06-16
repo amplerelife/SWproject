@@ -1,37 +1,37 @@
 <script setup>
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue'
+import axios from 'axios'
 
 // Reactive variables
-const director = ref('Admin1');
-const text = ref('');
-const currentDate = ref(getCurrentDate());
+const director = ref('Admin1')
+const text = ref('')
+const currentDate = ref(getCurrentDate())
 
 // Methods
 function getCurrentDate() {
-  const date = new Date();
-  return date.toLocaleDateString();
+  const date = new Date()
+  return date.toLocaleDateString()
 }
 
 async function submit() {
   const data = {
     admin_id: director.value,
-    detail: text.value,
-  };
+    detail: text.value
+  }
 
   try {
-    const response = await axios.post('api/bull/bull_add', data);
-    console.log('Response:', response.data);
-    alert(`Success: ${response.data.message}`);
+    const response = await axios.post('api/bull/bull_add', data)
+    console.log('Response:', response.data)
+    alert(`Success: ${response.data.message}`)
   } catch (error) {
-    console.error('There was an error!', error);
-    alert('An error occurred while submitting the data.');
+    console.error('There was an error!', error)
+    alert('An error occurred while submitting the data.')
   }
 }
 
 function clear() {
-  director.value = '';
-  text.value = '';
+  director.value = ''
+  text.value = ''
 }
 </script>
 

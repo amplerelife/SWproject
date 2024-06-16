@@ -1,8 +1,6 @@
 <script setup>
 import SearchList from '@/components/SearchList.vue'
-
 </script>
-
 
 <template>
     <div class="AnnoucementList">
@@ -18,9 +16,8 @@ import SearchList from '@/components/SearchList.vue'
 </template>
 
 <style>
-.AnnoucementList{
-    display:inline-block;
-    width:80vw;
-
+.AnnoucementList {
+  display: inline-block;
+  width: 80vw;
 }
 </style>

@@ -84,7 +84,7 @@ const inputWidth = computed(() => {
   padding: 0.2rem;
   text-wrap: wrap;
   height: 100%;
-  width: fit-content;
+  width: 100%;
   transition: var(--transition-duration);
 
   z-index: 2;

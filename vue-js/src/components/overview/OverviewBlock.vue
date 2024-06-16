@@ -1,18 +1,22 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, watchEffect } from 'vue'
 
 import OverviewPost from '@/components/overview/OverviewPost.vue'
-import { articles } from '@/test'
 
 const props = defineProps({
   title: String,
+  articles: Object,
   newPost: Boolean
 })
 const emit = defineEmits(['submitPost'])
+const articles = ref(props.articles)
 
-const leftArticles = computed(() => articles.filter((value, index) => index % 2 == 0))
-const rightArticles = computed(() => articles.filter((value, index) => index % 2 == 1))
+const leftArticles = computed(() => articles.value.filter((value, index) => index % 2 == 0))
+const rightArticles = computed(() => articles.value.filter((value, index) => index % 2 == 1))
 
+watchEffect(() => {
+  articles.value = props.articles
+})
 </script>
 
 <template>
@@ -20,7 +24,7 @@ const rightArticles = computed(() => articles.filter((value, index) => index % 2
     <h1>{{ props.title }}</h1>
     <div class="card-region">
       <div class="card-block" id="left">
-        <OverviewPost v-for="(_article, index) in leftArticles" :article="_article" :key="index" />
+        <OverviewPost v-for="(_article, index) in leftArticles" :id="_article.id" :key="index" />
         <OverviewPost
           v-if="props.newPost"
           :article="{}"
@@ -29,7 +33,7 @@ const rightArticles = computed(() => articles.filter((value, index) => index % 2
         ></OverviewPost>
       </div>
       <div class="card-block" id="right">
-        <OverviewPost v-for="(_article, index) in rightArticles" :article="_article" :key="index" />
+        <OverviewPost v-for="(_article, index) in rightArticles" :id="_article.id" :key="index" />
       </div>
     </div>
   </div>

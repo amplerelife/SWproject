@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, defineExpose, watch } from 'vue';
+import { ref, reactive, defineExpose, watch } from 'vue'
 
 const props = defineProps({
   table_title: String,
@@ -7,34 +7,36 @@ const props = defineProps({
     type: Array,
     required: true
   }
-});
+})
 
-const numRows = ref(0);
-const tableData = reactive([]);
+const numRows = ref(0)
+const tableData = reactive([])
 
 // Watch for changes in numRows to adjust tableData
 watch(numRows, (newNumRows) => {
   while (tableData.length < newNumRows) {
-    tableData.push(props.headers.reduce((acc, header) => {
-      acc[header] = '';
-      return acc;
-    }, {}));
+    tableData.push(
+      props.headers.reduce((acc, header) => {
+        acc[header] = ''
+        return acc
+      }, {})
+    )
   }
   while (tableData.length > newNumRows) {
-    tableData.pop();
+    tableData.pop()
   }
-});
+})
 
 function getData() {
-  return tableData;
+  return tableData
 }
 
 function clearData() {
-  tableData.splice(0, tableData.length);
-  numRows.value = 0;
+  tableData.splice(0, tableData.length)
+  numRows.value = 0
 }
 
-defineExpose({ getData, clearData });
+defineExpose({ getData, clearData })
 </script>
 
 <template>
@@ -90,7 +92,8 @@ table {
   text-align: center;
 }
 
-th, td {
+th,
+td {
   padding: 0.75rem;
   border: 1px solid black;
   text-align: left;
@@ -103,6 +106,4 @@ thead {
 th {
   font-weight: bold;
 }
-
-
 </style>

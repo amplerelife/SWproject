@@ -15,7 +15,7 @@ watchEffect(() => {
 
 <template>
   <div class="wrapper">
-    <input type="text" placeholder="comment here" class="input-box" v-model="context"/>
+    <input type="text" placeholder="comment here" class="input-box" v-model="context" />
     <div class="submit" @click="$emit('submitComment', context)">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <title>send</title>

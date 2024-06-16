@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 
 import EditableText from '@/components/shared/EditableText.vue'
 import LikesAndComments from '@/components/LikesAndComments.vue'
@@ -9,24 +10,42 @@ import PostHeader from '@/components/overview/PostHeader.vue'
 const route = useRoute()
 const router = useRouter()
 const props = defineProps({
-  article: Object,
+  id: String,
   editing: Boolean
 })
 const emit = defineEmits(['submit'])
 
 const editing = ref(props.editing)
-const author = ref(props.article.author)
-const title = ref(props.article.title)
-const context = ref(props.article.context)
+const author = ref('')
+const title = ref('')
+const context = ref('')
 
-const gotoPost = () => {
+function gotoPost() {
   if (route.params.id || props.editing) return
-  router.push(`/forum/${props.article.id}`)
+  router.push(`/forum/${props.id}`)
 }
 
 function editTitleHandler(_title) {
   title.value = _title
 }
+
+async function fetchArticle(id) {
+  try {
+    const result = await axios.post('/api/ad/adDetail', {
+      ADV_ID: id
+    })
+    const _ = result.data
+    title.value = _.ADV_title
+    context.value = _.ADV_content
+    author.value = _.usrname
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+onMounted(() => {
+  fetchArticle(props.id)
+})
 </script>
 
 <script></script>
@@ -37,7 +56,6 @@ function editTitleHandler(_title) {
       :author="author"
       :title="title ? title : 'no title :('"
       :editing="editing"
-      @click="editing = true"
       @editTitle="editTitleHandler"
     ></PostHeader>
     <!-- <div v-if="!editing" class="card-context" :class="{ inpost: !$route.params.id }" @click="gotoPost"> {{ context }} </div> -->
@@ -46,12 +64,15 @@ function editTitleHandler(_title) {
       :class="{ 'card-context-input': editing }"
       :style="!$route.params.id && !editing ? { cursor: 'pointer' } : {}"
       @click="gotoPost"
+      :readonly="!editing"
       v-model="context"
-      :cols="6"
       placeholder="context..."
     />
     <div class="card-footer" v-if="editing">
-      <div class="submit-button" @click="$emit('submit', author, title, context)">
+      <div
+        class="submit-button"
+        @click="editing = false; $emit('submit', author, title, context)"
+      >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <title>check</title>
           <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
@@ -125,7 +146,7 @@ function editTitleHandler(_title) {
   justify-content: center;
   height: 80%;
   width: 20%;
-  
+
   border-radius: 1rem;
   background-color: var(--color-accent-light);
 
@@ -137,7 +158,9 @@ function editTitleHandler(_title) {
     fill: var(--color-accent-dark);
     --shadow-offset: 0;
     --shadow-blur: 0.1rem;
-    filter: drop-shadow(var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--color-accent));
+    filter: drop-shadow(
+      var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) var(--color-accent)
+    );
   }
 }
 

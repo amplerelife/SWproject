@@ -44,7 +44,7 @@ class Ad extends BaseController
         $adv_id = $request->param('ADV_ID');
         try {
             // 從資料庫中選取廣告評論資料
-            $data = Adv_comment::where('ADV_ID', $adv_id)->find();
+            $data = Adv_comment::where('ADV_ID', $adv_id)->select();
             // 將資料轉換為 JSON 格式並返回
             return json( $data);
         } catch (\Exception $e) {
@@ -87,11 +87,14 @@ class Ad extends BaseController
             $picture = $request->param('picture');
             
             // 獲取目前最大的 ADV_comment_id，如果沒有資料，則設為 0
-            $max_id = Adv_comment::max('ADV_comment_id')+1 ?: 0;
+            $max_id = Adv_comment::order('ADV_comment_id', 'desc')->find()->ADV_comment_id ?: 'AC0';
+            $prefix = preg_replace('/[0-9]/', '', $max_id); // 提取字母部分
+            $number = preg_replace('/[^0-9]/', '', $max_id); // 提取数字部分
+            $max_id = $prefix.((int)$number+1);
             // 創建新的廣告評論
             $comment = new Adv_comment();
             $comment->ADV_ID = $adv_id;
-            $comment->ADV_comment_id = sprintf('AC%d', $max_id);  // 根據最大值設定新的 ID
+            $comment->ADV_comment_id = $max_id;  // 根據最大值設定新的 ID
             $comment->usrname = $usrname;
             $comment->comment_detail = $comment_detail;
             $comment->rate = $rate;

@@ -1,8 +1,12 @@
 <script setup>
+import { ref } from 'vue';
+
 const props = defineProps({
   comment: Object,
   index: Number
 })
+
+const comment = ref(props.comment)
 </script>
 
 <template>
@@ -12,8 +16,8 @@ const props = defineProps({
       class="comment-container"
       :style="index % 2 ? { 'background-color': 'var(--color-accent-light)' } : {}"
     >
-      <h1>{{ 'author_here' }}</h1>
-      {{ props.comment }}
+      <h1>{{ comment.usrname }}</h1>
+      {{ comment.comment_detail }}
     </div>
   </div>
 </template>

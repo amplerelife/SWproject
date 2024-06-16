@@ -51,7 +51,7 @@ onMounted(() => {
         </td>
         <td id="datetime" style="width: 10%; text-align: center">
           <p>
-            {{announcement.date}}
+            {{ announcement.date }}
           </p>
         </td>
       </tr>
@@ -71,7 +71,7 @@ onMounted(() => {
     font-weight: bolder;
     text-align: center;
     text-decoration: underline;
-    font-size:2vw;
+    font-size: 2vw;
     font-weight: bold;
   }
   & table {

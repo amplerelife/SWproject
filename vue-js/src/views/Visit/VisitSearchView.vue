@@ -2,7 +2,6 @@
 import SearchList from '@/components/SearchList.vue'
 </script>
 
-
 <template>
     <div class="VisitSearch">
         <SearchList
@@ -19,9 +18,8 @@ import SearchList from '@/components/SearchList.vue'
 </template>
 
 <style>
-.VisitSearch{
-    display:inline-block;
-    width:80vw;
-
+.VisitSearch {
+  display: inline-block;
+  width: 80vw;
 }
 </style>

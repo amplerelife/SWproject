@@ -1,21 +1,54 @@
-<script setup lang="ts">
-import { ref } from 'vue'
+<script setup>
+import { onMounted, ref, watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
+import axios from 'axios'
 
 import OverviewBlock from '@/components/overview/OverviewBlock.vue'
 import FixedPosButton from '@/components/shared/FixedPosButton.vue'
 import ForumPost from '@/components/forum/ForumPost.vue'
 
+const route = useRoute()
 const newPost = ref(false)
-function submitPostHandler(author, title, context) {
-  console.log(author, title, context);
-  newPost.value = false;
+const articles = ref([])
+const article = ref({})
+
+async function submitPostHandler(author, title, context) {
+  try {
+    const result = await axios.post('/api/AD/add', {
+      title: title, content: context
+    })
+    console.log(result.data)
+  } catch (err) {
+    console.error(err)
+  }
+  fetchArticles()
+  newPost.value = false
 }
+
+async function fetchArticles() {
+  try {
+    const result = await axios.get('/api/AD/show/admin')
+    articles.value = result.data
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+onMounted(async () => {
+  fetchArticles()
+})
 </script>
 
 <template>
   <div class="container">
-    <OverviewBlock v-if="!$route.params.id" title="Forum Posts" :new-post="newPost" @submit-post="submitPostHandler"></OverviewBlock>
-    <ForumPost v-if="$route.params.id"></ForumPost>
+    <OverviewBlock
+      v-if="!$route.params.id"
+      title="Forum Posts"
+      :articles="articles"
+      :new-post="newPost"
+      @submit-post="submitPostHandler"
+    ></OverviewBlock>
+    <ForumPost v-if="$route.params.id" :id="$route.params.id"></ForumPost>
     <FixedPosButton
       v-if="!$route.params.id"
       :buttons="{ new: true, audit: true }"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Button } from '@/components/ui/button';
+import { ref } from 'vue'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -47,9 +47,9 @@ async function submit() {
 }
 
 const clear = () => {
-  username.value = '';
-  password.value = '';
-};
+  username.value = ''
+  password.value = ''
+}
 </script>
 
 <template>
