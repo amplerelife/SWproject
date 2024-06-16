@@ -30,9 +30,9 @@ import PageCard from '@/components/PageCard.vue'
     </div>
     <div class="PageCardItem">
       <PageCard
-        text="論壇管理"
-        to="/ForumManage"
-        routeName="ForumManage"
+        text="舉報管理"
+        to="/ReportManage"
+        routeName="ReportManage"
         icon_src="https://www.freeiconspng.com/uploads/forum-icon-20.png"
       ></PageCard>
     </div>

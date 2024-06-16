@@ -19,7 +19,7 @@ const router = createRouter({
     },
     {
       path: '/PersonalInformation',
-      name: 'PersonalInformatio9n',
+      name: 'PersonalInformation',
       component: () => import('../views/PersonalInformationView.vue')
     },
     {
@@ -33,9 +33,19 @@ const router = createRouter({
       component: () => import('../views/Maintainence/AnnouncementManagementView.vue')
     },
     {
+      path: '/AnnouncementDetailView',
+      name: 'AnnouncementDetailView',
+      component: () => import('../views/Announcement/AnnouncementDetailView.vue')
+    },
+    {
       path: '/AccountManage',
       name: 'AccountManage',
       component: () => import('../views/Maintainence/AccountManagementView.vue')
+    },
+    {
+      path: '/AccountCreate',
+      name: 'AccountCreate',
+      component: () => import('../views/Account/AccountCreateView.vue')
     },
     {
       path: '/AdvAudit',
@@ -43,9 +53,14 @@ const router = createRouter({
       component: () => import('../views/Maintainence/AuditView.vue')
     },
     {
-      path: '/ForumManage',
-      name: 'ForumManage',
-      component: () => import('../views/Maintainence/ForumManagementView.vue')
+      path: '/ReportManage',
+      name: 'ReportManage',
+      component: () => import('../views/Maintainence/ReportManagementView.vue')
+    },
+    {
+      path: '/ReportObject',
+      name: 'ReportObject',
+      component: () => import('../views/Report/ReportObjectView.vue')
     },
     {
       path: '/rent',
@@ -81,7 +96,7 @@ const router = createRouter({
     {
       path: '/VisitForm',
       name: 'VisitForm',
-      component: () => import('../views/VisitFormView.vue')
+      component: () => import('../views/Visit/VisitFormView.vue')
     },
     {
       path: '/forum',
@@ -89,10 +104,17 @@ const router = createRouter({
       component: () => import('../views/ForumView.vue')
     },
     {
+      path: '/VisitSearchPage',
+      name: 'VisitSearchPage',
+      component: () => import('../views/Visit/VisitSearchView.vue')
+    },
+    {
       path: '/forum/:id',
       name: 'forumPost',
       component: () => import('../views/ForumView.vue')
     }
+
+    
   ]
 })
 

@@ -6,10 +6,9 @@ import SearchList from '@/components/SearchList.vue'
 <template>
     <div class="AccountList">
         <SearchList
-            edit_to="/PersonalInformation"
-            new_to="/AccountCreate"
+            edit_to="/ReportObject"
+            new_to="/ReportObject"
             delete_to=""
-            button_new
             button_delete
         ></SearchList>
     </div>

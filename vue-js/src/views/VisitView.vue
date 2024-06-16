@@ -6,14 +6,14 @@ import PageCard from '@/components/PageCard.vue'
   <div class="VisitOveview">
     <main>
       <div class="PageCardContainer">
-        <div class="PageCardItem">
+        <!-- <div class="PageCardItem">
           <PageCard
             text="編輯訪視表單格式"
             to="/VisitForm"
             routeName="VisitForm"
             icon_src="https://www.freeiconspng.com/uploads/writing-icon-4.png"
           ></PageCard>
-        </div>
+        </div> -->
         <div class="PageCardItem">
           <PageCard
             text="填寫與更新訪視表單"
@@ -25,8 +25,8 @@ import PageCard from '@/components/PageCard.vue'
         <div class="PageCardItem">
           <PageCard
             text="搜索訪視表單"
-            to="/SearchPage"
-            routeName="SearchPage"
+            to="/VisitSearchPage"
+            routeName="VisitSearchPage"
             icon_src="https://www.freeiconspng.com/uploads/search-icon-png-21.png"
           ></PageCard>
         </div>

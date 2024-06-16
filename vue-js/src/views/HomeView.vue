@@ -6,7 +6,6 @@ import PersonalInformationShow from '@/components/PersonalInformationCard.vue'
 
 <template>
   <main>
-    This is Home page
     <div class="MainContent">
       <announcement></announcement>
       <!-- <PersonalInformationShow></PersonalInformationShow> -->

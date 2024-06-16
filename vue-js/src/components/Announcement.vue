@@ -1,40 +1,38 @@
 <script setup>
-// import { useRoute , RouterLink } from 'vue-router'
+import { ref } from 'vue';
 
-// const route = useRoute()
+async function fetchAnnouncements() {
+  try {
+    const response = await axios.get('api/bull/announcements'); // Adjust the endpoint to your actual endpoint
+    announcements.value = response.data;
+  } catch (error) {
+    console.error('There was an error fetching the announcements!', error);
+    alert('An error occurred while fetching the announcements.');
+  }
+}
 
-// const props = defineProps({
-//     text:String,
-//     to: String,
-//     routeName: String
-// }
-// )
+
+function addAnnouncement() {
+  const newId = announcements.value.length;
+  announcements.value.push({ id: newId, text: '', date: '' });
+}
 </script>
 
 <template>
   <div class="AnnoucementContainer">
     <h1>公告欄</h1>
+    <button @click="addAnnouncement">Add Announcement</button>
     <table>
-      <!-- <tr>
-                <th>序號</th>
-                <th>事項</th>
-                <th>日期</th>
-            </tr> -->
-      <tr>
-        <td id="index" style="width: 5%; text-align: center"><p>0</p></td>
-        <td style="width: 80%"><p>這是測試用的！</p></td>
-        <td style="width: 15%; text-align: center">
-          <p>
-            <input type="date" />
-          </p>
+      <tr v-for="(announcement, index) in announcements" :key="announcement.id">
+        <td style="width: 5%; text-align: center">
+          <p>{{ index }}</p>
         </td>
-      </tr>
-      <tr>
-        <td id="index" style="width: 5%; text-align: center"><p>1</p></td>
-        <td style="width: 80%"><p>這也是測試用的！</p></td>
+        <td style="width: 80%">
+          <p>{{announcement.text}}</p>
+        </td>
         <td style="width: 15%; text-align: center">
           <p>
-            <input type="date" />
+            {{announcement.date}}
           </p>
         </td>
       </tr>
@@ -50,23 +48,19 @@
   padding: 1vw;
   margin: 0 auto;
   border: 1px dashed black;
-  /* background-image: url(); */
   & h1 {
     font-weight: bolder;
     text-align: center;
     text-decoration: underline;
+    font-size:2vw;
+    font-weight: bold;
   }
   & table {
     margin-left: auto;
     margin-right: auto;
-    /* border : 1px dotted black; */
     width: 80vw;
   }
-  /* & table tr th{
-        font-weight: bolder;
-        font-size:24px;
-    } */
-  &table tr td {
+  & table tr td {
     font-size: 18px;
     padding: 1vw;
   }

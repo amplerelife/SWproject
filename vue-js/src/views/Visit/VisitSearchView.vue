@@ -1,22 +1,23 @@
-<script setup lang="ts">
+<script setup>
 import SearchList from '@/components/SearchList.vue'
 </script>
 
 
 <template>
-    <div class="AccountList">
+    <div class="VisitSearch">
         <SearchList
-            edit_to="/PersonalInformation"
-            new_to="/AccountCreate"
+            edit_to="/VisitForm"
+            new_to=""
             delete_to=""
             button_new
             button_delete
+            
         ></SearchList>
     </div>
 </template>
 
 <style>
-.AccountList{
+.VisitSearch{
     display:inline-block;
     width:80vw;
 

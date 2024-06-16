@@ -1,5 +1,26 @@
-<script setup></script>
+<script setup>
+import SearchList from '@/components/SearchList.vue'
 
-<template></template>
+</script>
 
-<style scoped></style>
+
+<template>
+    <div class="AnnoucementList">
+        <SearchList
+            text="佈告欄content管理"
+            edit_to="/AnnouncementDetailView"
+            delete_to =""
+            new_to = "/AnnouncementDetailView"
+            button_new
+            button_delete
+        ></SearchList>
+    </div>
+</template>
+
+<style>
+.AnnoucementList{
+    display:inline-block;
+    width:80vw;
+
+}
+</style>
