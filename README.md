@@ -60,6 +60,12 @@ api/account/login
 ``
 ['status' => 'success', 'usertype' => type]
 ``
+### 得到登入者的ID和TYPE
+#### 輸入
+URL:
+``api/account/login_get``
+#### 輸出
+``{"id":"","usertype":""}``
 ### 刪除指定帳號
 #### 輸入格式
 URL:
@@ -89,12 +95,13 @@ api/report/get
 ``
 {"report_id":["R0","R1"],"usrname":["Ca1112","ffff6"],"report_detail":["P0","A0"],"report_response":["","pass"]}
 ``
-### 審核舉報內容(pass/not pass/空字串(未審核))
+### 審核舉報貼文(pass/not pass/空字串(未審核))
 #### 輸入格式
 URL:
 ``
 api/report/review
 ``
+
 
 ``
 {
@@ -187,7 +194,7 @@ URL:
 "address":"花蓮縣"
 }
 ``
-#### 新增和修改管理員資料
+### 新增和修改管理員資料
 #### 輸入
 URL:``api/account/admin_add``
 
@@ -201,7 +208,7 @@ URL:``api/account/admin_add``
 "phone":"0966666666"
 }
 ``
-### 得到個人資料(type要輸入正確)
+### 得到個人全部資料(type要輸入正確)
 #### 輸入
 URL:``api/account/user_get``
 
@@ -243,7 +250,58 @@ URL:`` api/bull/bull_delete``
 ``{"content_id":"1"}``
 #### 輸出
 ``{"message":"Delete"}``
+## HMS
+### 填寫廣告
+#### 輸入
+URL:
+``api/AD/add``
 
+``{  
+"title":"雅房3000",
+"content":"lalalala"
+}``
+
+
+#### 輸出(回傳廣告id)
+``{"id":"A3"}``
+
+### 顯示廣告(一般使用者看到的)
+#### 輸入
+URL:
+``api/AD/show/user``
+#### 輸出
+``[{"id":"A2","title":"藍田路369號(限女)","content":"租金:5000,時間:2008-5-5~2010-5-5,...","time":"2024-06-16 12:34:08","name":"Cc111"},{"id":"A3","title":"雅房3000","content":"lalalala","time":"2024-06-16 14:04:55","name":""}]``
+### 顯示廣告(Admin看到的)
+#### 輸入
+URL:
+``api/AD/show/admin``
+#### 輸出
+會多傳response，來表示審核的狀態
+
+
+### 修改廣告
+#### 輸入
+URL:
+``api/AD/change``
+
+``{  
+"id":"A2"
+"title":"雅房2900",
+"content":"haha"
+}``
+#### 輸出
+``{"message":"success"}``
+### 刪除廣告
+
+#### 輸入
+URL:
+``api/AD/delete``
+
+``{  
+"id":"A3"
+}``
+#### 輸出
+``{"message":"delete success"}``
 
 ## IRMS
 ### 創建表單

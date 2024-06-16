@@ -45,6 +45,7 @@ Route::rule('api/account/teacher_add', 'SAS/add_teacher', 'POST');
 Route::rule('api/account/landlord_add', 'SAS/add_landlord', 'POST');
 Route::rule('api/account/admin_add', 'SAS/add_admin', 'POST');
 Route::rule('api/account/user_get', 'SAS/get_user', 'POST');
+Route::rule('api/account/login_get', 'SAS/get_login_user');
 
 Route::rule('api/bull/bull_add', 'SAS/bull_add', 'POST');
 Route::rule('api/bull/bull_get', 'SAS/bull_get');
@@ -55,3 +56,10 @@ Route::rule('api/bull/bull_delete', 'SAS/bull_delete','POST');
 Route::rule('api/report/get', 'SAS/get_report');
 Route::rule('api/report/review', 'SAS/review_report', 'POST');
 Route::rule('api/report/check', 'SAS/check_report', 'POST');
+
+Route::rule('api/AD/add', 'HMS/ad_create', 'POST');
+Route::rule('api/AD/change', 'HMS/ad_change', 'POST');
+Route::rule('api/AD/delete', 'HMS/ad_delete', 'POST');
+Route::rule('api/AD/report', 'HMS/ad_report', 'POST');
+Route::rule('api/AD/show/user', 'HMS/ad_show_landlord');
+Route::rule('api/AD/show/admin', 'HMS/ad_show_admin');

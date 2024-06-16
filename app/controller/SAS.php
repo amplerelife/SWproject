@@ -16,6 +16,8 @@ use app\model\Visitform;
 use think\Request;
 use think\Route;
 
+$_SESSION['now_usrid'] = '';
+$_SESSION['now_usrtype'] = '';
 
 //引入父類
 
@@ -65,7 +67,6 @@ class SAS extends BaseController
 
     }
 
-
     public function login(Request $request) //登入
     {
         $data = $request->post();
@@ -75,6 +76,8 @@ class SAS extends BaseController
 
         if ($account) {
             if ($password == $account->password) {
+                $_SESSION['now_usrid'] = $id;
+                $_SESSION['now_usrtype'] = $account->usertype;
                 return json(['status' => 'success', 'usertype' => $account->usertype]);
             } else {
                 return json(['status' => 'error', 'message' => 'Password incorrect']);
@@ -82,6 +85,11 @@ class SAS extends BaseController
         } else {
             return json(['status' => 'error', 'message' => 'Username not exists']);
         }
+    }
+
+    public function get_login_user()
+    {
+        return json(['id'=>$_SESSION['now_usrid'],'usertype'=>$_SESSION['now_usrtype']]);
     }
 
     public function delete_account(Request $request) //刪除帳號
@@ -131,16 +139,30 @@ class SAS extends BaseController
 
         // 查找 report_id 对应的记录
         $report = Report::where('report_id', $data['report_id'])->find();
-
+        $detail = $report->report_detail;
+        $prefix = preg_replace('/[0-9]/', '', $detail);
         if ($report) {
             // 设置 report_response 属性
             $report->report_response = $data['report_response'];
 
             // 保存更改
             $report->save();
+            if ($prefix == 'A') {
+                $Ad = Advertisement::where('ADV_ID', $detail)->find();
+                $Ad->respone = 'pass';
+                $Ad->save();
+            }/*else{
+                $post = Post::where('post_id', $detail)->find();
+                $post->delete();
+            }*/
 
             return json(['status' => 'success', 'message' => 'Report reviewed successfully']);
         } else {
+            if ($prefix == 'A') {
+                $Ad = Advertisement::where('ADV_ID', $detail)->find();
+                $Ad->respone = 'not pass';
+                $Ad->save();
+            }
             return json(['status' => 'error', 'message' => 'Report not found']);
         }
     }
@@ -361,12 +383,11 @@ class SAS extends BaseController
         $prefix = preg_replace('/[0-9]/', '', $id); // 提取字母部分
         if ($prefix == 'A') {
             $result = Advertisement::where('ADV_ID', $id)->find();
-            return json(['content'=>$result['ADV_content']]);
+            return json(['content' => $result['ADV_content']]);
         } else {
             $result = Post::where('post_id', $id)->find();
-            return json(['content'=>$result['post_detail']]);
+            return json(['content' => $result['post_detail']]);
         }
-
 
     }
 
