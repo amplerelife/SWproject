@@ -6,6 +6,7 @@ import SearchList from '@/components/SearchList.vue'
 <template>
     <div class="AccountList">
         <SearchList
+            request_url="api/account/usrname"
             edit_to="/PersonalInformation"
             new_to="/AccountCreate"
             delete_to=""

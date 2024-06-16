@@ -6,6 +6,7 @@ import SearchList from '@/components/SearchList.vue'
 <template>
     <div class="AccountList">
         <SearchList
+            request_url="api/report/get"
             edit_to="/ReportObject"
             new_to="/ReportObject"
             delete_to=""

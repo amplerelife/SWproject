@@ -6,6 +6,8 @@ import SearchList from '@/components/SearchList.vue'
 <template>
     <div class="VisitSearch">
         <SearchList
+            request_url="api/account/teacher/students POST"
+            request_object=""
             edit_to="/VisitForm"
             new_to=""
             delete_to=""

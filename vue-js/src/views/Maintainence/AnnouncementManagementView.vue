@@ -7,7 +7,7 @@ import SearchList from '@/components/SearchList.vue'
 <template>
     <div class="AnnoucementList">
         <SearchList
-            text="佈告欄content管理"
+            request_url="api/bull/bull_get"
             edit_to="/AnnouncementDetailView"
             delete_to =""
             new_to = "/AnnouncementDetailView"

@@ -12,17 +12,39 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import axios from 'axios';
 
 // Reactive variables for form inputs
 const username = ref('');
 const password = ref('');
+const InputReact = ref(true);
 
-// Methods for form submission and clearing
-const submit = () => {
-  console.log('Username:', username.value);
-  console.log('Password:', password.value);
-  // Add your form submission logic here
-};
+// const submit = () => {
+//   console.log('Username:', username.value);
+//   console.log('Password:', password.value);
+// };
+
+async function submit() {
+  const data = {
+    usrname: username.value,
+    password: password.value,
+  };
+
+  try {
+    const response = await axios.post('api/account/login', data);
+    console.log('Response:', response.data);
+    if (response.data.status.toString() === "error"){
+      alert(`Error: ${response.data.message}`);
+    } 
+    else{
+      alert(`Success: ${response.data.usertype}`);
+      InputReact.value = false;
+    }
+  } catch (error) {
+    console.error('There was an error!', error);
+    alert('An error occurred while submitting the data.');
+  }
+}
 
 const clear = () => {
   username.value = '';
@@ -44,16 +66,16 @@ const clear = () => {
         <div class="grid gap-4 py-4">
           <div class="grid grid-cols-4 items-center gap-4">
             <Label for="username" class="text-right" style="color: black"> Username </Label>
-            <Input id="username" class="col-span-3" v-model="username" style="color: black" />
+            <Input id="username" class="col-span-3" v-model="username" style="color: black" :disabled="!InputReact"/>
           </div>
           <div class="grid grid-cols-4 items-center gap-4">
             <Label for="password" class="text-right" style="color: black"> Password </Label>
-            <Input id="password" type="password" class="col-span-3" v-model="password" style="color: black" />
+            <Input id="password" type="password" class="col-span-3" v-model="password" style="color: black" :disabled="!InputReact"/>
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" @click="submit"> Login </Button>
-          <Button type="clear" @click="clear"> Clear </Button>
+          <Button v-if="InputReact" type="submit" @click="submit"> Login </Button>
+          <Button v-if="InputReact" type="clear" @click="clear"> Clear </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
