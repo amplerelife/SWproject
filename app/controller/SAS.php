@@ -139,30 +139,36 @@ class SAS extends BaseController
 
     public function get_report()
     {
-        // 查询 report_detail 以 P' 开头的记录
+        // 查询 report_detail 以 'P' 开头的记录
         $reports = Report::where('report_detail', 'like', 'P%')->select();
+        $result = [];
 
-        // 提取各列的数据
-        $id = $reports->column('report_id');
-        $name = $reports->column('usrname');
-        $detail = $reports->column('report_detail');
-        $res = $reports->column('report_response');
-        $response = $reports->column('response_content');
-        foreach ($res as &$r) {
-            if ($r === '') {
-                $r = '未處理';
+        foreach ($reports as $report) {
+            // 如果 report_response 是空的，修改为 '未處理'
+            if ($report->report_response === '') {
+                $report->report_response = '未處理';
+                // 更新数据库中的值
+                Report::where('report_id', $report->report_id)->update(['report_response' => '未處理']);
             }
-        }
-        unset($r); // 释放引用
-        $content = [];
-        foreach ($detail as $d) {
-            $post_details = Post::where('post_id', $d)->select()->column('post_detail');
-            $content = array_merge($content, $post_details); // 将新的内容合并到 content 数组中
+
+            // 获取与 report_detail 对应的 post_detail
+            $content = Post::where('post_id', $report->report_detail)->value('post_detail');
+
+            // 将记录添加到结果数组
+            $result[] = [
+                'id' => $report->report_id,
+                'title' => $report->report_detail,
+                'content' => $content,
+                'time' => $report->report_response, // 假设这里表示时间
+                'name' => $report->usrname
+            ];
         }
 
-        return json(['report_id' => $id, 'usrname' => $name, 'report_content' => $content, 'report_response' => $res
-            , 'response_content' => $response]);
+        // 返回结果
+        return json($result);
     }
+
+
 
     public function review_report(Request $request) //填寫舉報通過或不通過
     {

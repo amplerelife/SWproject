@@ -96,7 +96,28 @@ api/report/get
 #### 輸出格式
 
 ``
-{"report_id":["R0","R1"],"usrname":["A1105601","A1105601"],"report_content":["新的貼文內容。","P0內容"],"report_response":["未處理","已處理"],"response_content":["","一切正常"]}
+{
+"report_id": [
+"R0",
+"R1"
+],
+"usrname": [
+"A1105601",
+"A1105601"
+],
+"report_content": [
+[
+"P1內容.."
+],
+[
+"P0內容"
+]
+],
+"report_response": [
+"已處理",
+"已處理"
+]
+}
 ``
 ### 審核舉報貼文
 #### 輸入格式
@@ -116,7 +137,22 @@ api/report/review
 #### 輸出格式
 成功:
 ``
-{"status":"success","message":"Report reviewed successfully"}
+[
+{
+"id": "R0",
+"title": "P1",
+"content": "P1內容..",
+"time": "已處理",
+"name": "A1105601"
+},
+{
+"id": "R1",
+"title": "P0",
+"content": "P0內容",
+"time": "已處理",
+"name": "A1105601"
+}
+]
 ``
 
 失敗:
