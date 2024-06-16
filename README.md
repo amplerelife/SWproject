@@ -729,6 +729,17 @@ URL:
 'status' => 'error', 'message' => 'Failed to upload data'
 'status' => 'error', 'message' => 'Database error: '
 
+### 老師底下所有學生的細項
+`api/account/teacher/students POST`
+#### 輸入格式
+{
+    "teacher_id":"B1105501"
+}
+#### 輸出格式
+`沒有資料回傳NULL`
+[{"usrname":"A1105501","student_id":"A1105501","student_name_ch":"王一號","student_name_eng":"WangOne","email":"a1105501@mail.nuk.edu.tw","grade":3,"gender":1,"phone":"0912345678","teacher_id":"B1105501","home_address":"台中市","home_phone":"0912345678","home_contact":"母親"},{"usrname":"A1105502","student_id":"A1105502","student_name_ch":"王二號","student_name_eng":"WangTwo","email":"a1105502@mail.nuk.edu.tw","grade":3,"gender":1,"phone":"0912345678","teacher_id":"B1105501","home_address":"台中市","home_phone":"0912345678","home_contact":"父親"},{"usrname":"A1105566","student_id":"A1105566","student_name_ch":"王曉龍","student_name_eng":"WangXXX","email":"A1105566@mail","grade":3,"gender":0,"phone":"0966666666","teacher_id":"B1105501","home_address":"花蓮縣","home_phone":"123456789","home_contact":"阿嬤"}]
+
+
 ## 廣告功能
 ### 瀏覽廣告功能
 `api/ad/showAds POST`
@@ -753,6 +764,8 @@ JSON格式的資料庫內容
 'status' => 'error', 'message' => 'Database error: '
 
 ### 瀏覽廣告所有評論
+`api/ad/showAdComment POST`
+#### 輸入格式
 {
     "ADV_ID":"A0"
 }

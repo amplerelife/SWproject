@@ -426,6 +426,12 @@ class SAS extends BaseController
         }
 
     }
-
+    public function teacher_students(Request $request)
+    {
+        $params = $request->param();
+        $teacher_id = $params['teacher_id'];
+        $students = Student::where('teacher_id', $teacher_id)->select();
+        return json($students);
+    }
 
 }

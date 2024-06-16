@@ -34,6 +34,7 @@ Route::rule('api/form/Check', 'IRMS/checkForm','POST');
 Route::rule('api/form/Fill', 'IRMS/fillForm','POST');
 Route::rule('api/form/Create', 'IRMS/createFormForAllStudents');
 
+Route::rule('api/account/teacher/students','SAS/teacher_students');
 Route::rule('api/account/uploadHouseData', 'EditProfile/uploadHouseData','POST');
 Route::rule('api/account/ChangePassword', 'EditProfile/changePassword','POST');
 Route::rule('api/account/add', 'SAS/create_account', 'POST');
@@ -61,7 +62,5 @@ Route::rule('api/report/delete', 'SAS/delete_report', 'POST');
 Route::rule('api/AD/add', 'HMS/ad_create', 'POST');
 Route::rule('api/AD/change', 'HMS/ad_change', 'POST');
 Route::rule('api/AD/delete', 'HMS/ad_delete', 'POST');
-Route::rule('api/AD/report', 'HMS/ad_report', 'POST');
-Route::rule('api/AD/review', 'HMS/ad_review', 'POST');
 Route::rule('api/AD/show/user', 'HMS/ad_show_landlord');
 Route::rule('api/AD/show/admin', 'HMS/ad_show_admin');
