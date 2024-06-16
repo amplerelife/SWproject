@@ -117,11 +117,25 @@ class SAS extends BaseController
         }
     }
 
-    public function get_userid()    //回傳全部帳號的id
+    public function get_userid()    // 回傳全部帳號的id和usertype
     {
-        $usr = Account::column('usrname');
-        return json(['usrname' => $usr]);
+        // 提取 usrname 和 usertype
+        $usrnames = Account::column('usrname');
+        $usertypes = Account::column('usertype');
+
+        // 创建结果数组
+        $result = [];
+        for ($i = 0; $i < count($usrnames); $i++) {
+            $result[] = [
+                'usrname' => $usrnames[$i],
+                'usertype' => $usertypes[$i]
+            ];
+        }
+
+        // 返回 JSON 格式的数据
+        return json($result);
     }
+
 
     public function get_report()
     {

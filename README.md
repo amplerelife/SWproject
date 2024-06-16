@@ -73,7 +73,7 @@ URL:
 
 ``{"usrname":"Aa111"}``
 
-### 回傳全部帳號名稱
+### 回傳全部帳號名稱+type
 #### 輸入格式
 URL:
 ``
@@ -81,7 +81,10 @@ api/account/usrname
 ``
 不需要輸入東西
 #### 輸出格式
-``{"usrname":["Ca1112","Cc111","ffff6","fffff","Xa1112"]}``
+``{[{
+"usrname": "A1105501",
+"usertype": "student"
+}]}``
 ### 回傳全部舉報貼文
 #### 輸入格式
 URL:
