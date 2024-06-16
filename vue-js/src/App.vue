@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import axios from 'axios'
+import { ref, onMounted } from 'vue'
 
 import MenuBar from './components/menubar/MenuBar.vue'
 
@@ -9,31 +9,26 @@ const Login = ref[false]
 
 async function getLoginState() {
   try {
-    const response = await axios.get('api/account/login_get'); // Adjust the endpoint to your actual endpoint
-    console.log('API Response:', response.data); // Log the API response
+    const response = await axios.get('api/account/login_get') // Adjust the endpoint to your actual endpoint
+    console.log('API Response:', response.data) // Log the API response
     if (Array.isArray(response.data)) {
-      Login.value = response.data;
-      if (response.data.id.toString() === ""){
-        Login.value = false;
+      Login.value = response.data
+      if (response.data.id.toString() === '') {
+        Login.value = false
+      } else {
+        Login.value = true
       }
-      else{
-        Login.value = true;
-      }
-    } 
-    else {
-      console.error('API response is not an array');
+    } else {
+      console.error('API response is not an array')
     }
-  }catch (error) {
-      console.error('There was an error fetching the data!', error);
-    }
-  };
-
+  } catch (error) {
+    console.error('There was an error fetching the data!', error)
+  }
+}
 
 // onMounted(() => {
 //   getLoginState();
 // });
-
-
 </script>
 
 <template>
@@ -66,15 +61,14 @@ async function getLoginState() {
   background-color: var(--color-background-soft);
 }
 
-#LoginBlocker{
-  Position:fixed;
+#LoginBlocker {
+  position: fixed;
   top: 1vh;
   right: 21vw;
   font-size: 30px;
 
-  
-  vertical-align:center;
+  vertical-align: center;
   margin: 0 auto;
-  color:rgb(232, 26, 26);
+  color: rgb(232, 26, 26);
 }
 </style>

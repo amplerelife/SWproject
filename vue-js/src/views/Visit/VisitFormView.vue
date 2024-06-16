@@ -4,8 +4,12 @@
       <Carousel>
         <CarouselContent>
           <CarouselItem><VisitFormHeader ref="visitFormHeaderRef" /></CarouselItem>
-          <CarouselItem><OffCampusRentalInformationForm ref="offCampusRentalInformationFormRef" /></CarouselItem>
-          <CarouselItem><RentalSafetySelfManagement ref="rentalSafetySelfManagementRef" /></CarouselItem>
+          <CarouselItem
+            ><OffCampusRentalInformationForm ref="offCampusRentalInformationFormRef"
+          /></CarouselItem>
+          <CarouselItem
+            ><RentalSafetySelfManagement ref="rentalSafetySelfManagementRef"
+          /></CarouselItem>
           <CarouselItem><VisitFormTeacher ref="visitFormTeacherRef" /></CarouselItem>
           <CarouselItem><VisitingResult ref="visitingResultRef" /></CarouselItem>
         </CarouselContent>
@@ -21,12 +25,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import VisitFormHeader from '@/components/VisitingFormComponent/VisitFormHeader.vue';
-import OffCampusRentalInformationForm from '@/components/VisitingFormComponent/OffCampusRentalInformationForm.vue';
-import RentalSafetySelfManagement from '@/components/VisitingFormComponent/RentalSafetySelfManagement.vue';
-import VisitFormTeacher from '@/components/VisitingFormComponent/AnalysisingEnvironmentAndBehavior.vue';
-import VisitingResult from '@/components/VisitingFormComponent/VisitingResult.vue';
+import { ref } from 'vue'
+import VisitFormHeader from '@/components/VisitingFormComponent/VisitFormHeader.vue'
+import OffCampusRentalInformationForm from '@/components/VisitingFormComponent/OffCampusRentalInformationForm.vue'
+import RentalSafetySelfManagement from '@/components/VisitingFormComponent/RentalSafetySelfManagement.vue'
+import VisitFormTeacher from '@/components/VisitingFormComponent/AnalysisingEnvironmentAndBehavior.vue'
+import VisitingResult from '@/components/VisitingFormComponent/VisitingResult.vue'
 
 import {
   Carousel,
@@ -34,32 +38,33 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious
-} from '@/components/ui/carousel';
+} from '@/components/ui/carousel'
 
-const visitFormHeaderRef = ref(null);
-const offCampusRentalInformationFormRef = ref(null);
-const rentalSafetySelfManagementRef = ref(null);
-const visitFormTeacherRef = ref(null);
-const visitingResultRef = ref(null);
+const visitFormHeaderRef = ref(null)
+const offCampusRentalInformationFormRef = ref(null)
+const rentalSafetySelfManagementRef = ref(null)
+const visitFormTeacherRef = ref(null)
+const visitingResultRef = ref(null)
 
 const formData = ref({
   visitFormHeader: {},
   offCampusRentalInformation: {},
   rentalSafetySelfManagement: {},
   visitFormTeacher: {},
-  visitingResult: {},
-});
+  visitingResult: {}
+})
 
 const submit = () => {
-  formData.value.visitFormHeader = visitFormHeaderRef.value?.getData() || {};
-  formData.value.offCampusRentalInformation = offCampusRentalInformationFormRef.value?.getData() || {};
-  formData.value.rentalSafetySelfManagement = rentalSafetySelfManagementRef.value?.getData() || {};
-  formData.value.visitFormTeacher = visitFormTeacherRef.value?.getData() || {};
-  formData.value.visitingResult = visitingResultRef.value?.getData() || {};
+  formData.value.visitFormHeader = visitFormHeaderRef.value?.getData() || {}
+  formData.value.offCampusRentalInformation =
+    offCampusRentalInformationFormRef.value?.getData() || {}
+  formData.value.rentalSafetySelfManagement = rentalSafetySelfManagementRef.value?.getData() || {}
+  formData.value.visitFormTeacher = visitFormTeacherRef.value?.getData() || {}
+  formData.value.visitingResult = visitingResultRef.value?.getData() || {}
 
   // Handle form submission, e.g., send the formData to the server
-  console.log('Form data:', formData.value);
-};
+  console.log('Form data:', formData.value)
+}
 
 const clear = () => {
   // Clear form data
@@ -68,16 +73,16 @@ const clear = () => {
     offCampusRentalInformation: {},
     rentalSafetySelfManagement: {},
     visitFormTeacher: {},
-    visitingResult: {},
-  };
+    visitingResult: {}
+  }
 
   // Clear each component's data (assuming each component has a method to clear its data)
-  visitFormHeaderRef.value?.clearData();
-  offCampusRentalInformationFormRef.value?.clearData();
-  rentalSafetySelfManagementRef.value?.clearData();
-  visitFormTeacherRef.value?.clearData();
-  visitingResultRef.value?.clearData();
-};
+  visitFormHeaderRef.value?.clearData()
+  offCampusRentalInformationFormRef.value?.clearData()
+  rentalSafetySelfManagementRef.value?.clearData()
+  visitFormTeacherRef.value?.clearData()
+  visitingResultRef.value?.clearData()
+}
 </script>
 
 <style scoped>

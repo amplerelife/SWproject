@@ -1,30 +1,28 @@
 <script setup>
-import { ref, computed , onMounted } from 'vue';
-import axios from 'axios';
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
 
-const dataFetched = ref(false);
-const announcements = ref([]);
+const dataFetched = ref(false)
+const announcements = ref([])
 
 async function fetchAnnouncements() {
   try {
-    const response = await axios.get('api/bull/bull_get'); // Adjust the endpoint to your actual endpoint
-    console.log('API Response:', response.data); // Log the API response
+    const response = await axios.get('api/bull/bull_get') // Adjust the endpoint to your actual endpoint
+    console.log('API Response:', response.data) // Log the API response
     if (Array.isArray(response.data)) {
-      announcements.value = response.data;
-      dataFetched.value = true; // Set flag to true after data is fetched
+      announcements.value = response.data
+      dataFetched.value = true // Set flag to true after data is fetched
     } else {
-      console.error('API response is not an array');
+      console.error('API response is not an array')
     }
-  }catch (error) {
-      console.error('There was an error fetching the data!', error);
-    }
-  };
-
-
+  } catch (error) {
+    console.error('There was an error fetching the data!', error)
+  }
+}
 
 onMounted(() => {
-  fetchAnnouncements();
-});
+  fetchAnnouncements()
+})
 </script>
 
 <template>
@@ -42,11 +40,11 @@ onMounted(() => {
           <p>{{ index }}</p>
         </td>
         <td style="width: 15%">
-          <p>{{announcement.admin_id}}</p>
+          <p>{{ announcement.admin_id }}</p>
         </td>
         <td style="width: 70%; text-align: center">
           <p>
-            {{announcement.detail}}
+            {{ announcement.detail }}
           </p>
         </td>
         <td id="datetime" style="width: 10%; text-align: center">
@@ -79,7 +77,7 @@ onMounted(() => {
     margin-right: auto;
     width: 80vw;
   }
-  & table thead th{
+  & table thead th {
     font-size: 24px;
     font-weight: bolder;
   }
@@ -87,10 +85,9 @@ onMounted(() => {
     font-size: 18px;
     padding: 1vw;
   }
-  #datetime p{
-    font-size:14px;
+  #datetime p {
+    font-size: 14px;
     font-weight: bold;
-
   }
 }
 #index {

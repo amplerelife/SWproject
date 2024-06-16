@@ -22,9 +22,13 @@ async function submitCommentHandler(context) {
   newComment.value = ''
   try {
     const result = await axios.post('/api/ad/addAdComment', {
-      ADV_ID: id.value, usrname: getCurrUser() || 'A1105501', comment_detail: newComment.value, rate: 5, picture: 'example.jpg'
+      ADV_ID: id.value,
+      usrname: getCurrUser() || 'A1105501',
+      comment_detail: newComment.value,
+      rate: 5,
+      picture: 'example.jpg'
     })
-    console.log(result);
+    console.log(result)
   } catch (err) {
     console.error(err)
   }

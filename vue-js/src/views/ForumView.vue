@@ -15,7 +15,8 @@ const article = ref({})
 async function submitPostHandler(author, title, context) {
   try {
     const result = await axios.post('/api/AD/add', {
-      title: title, content: context
+      title: title,
+      content: context
     })
     console.log(result.data)
   } catch (err) {

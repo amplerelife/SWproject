@@ -71,7 +71,10 @@ onMounted(() => {
     <div class="card-footer" v-if="editing">
       <div
         class="submit-button"
-        @click="editing = false; $emit('submit', author, title, context)"
+        @click="
+          editing = false;
+          $emit('submit', author, title, context)
+        "
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <title>check</title>

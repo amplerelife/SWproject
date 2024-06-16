@@ -8,7 +8,7 @@ export function cn(...inputs) {
 
 export function wrapIntoArray(_data) {
   if (!_data) return []
-  
+
   if (_data instanceof Array) {
     return _data
   }
@@ -21,11 +21,13 @@ export function wrapIntoArray(_data) {
 }
 
 export function getCurrUser() {
-  axios.post('/api/account/login_get').then(result => {
-    if (!result.data.id) {
-      return undefined
-    }
-    return result.data
-  }).catch(console.error)
+  axios
+    .post('/api/account/login_get')
+    .then((result) => {
+      if (!result.data.id) {
+        return undefined
+      }
+      return result.data
+    })
+    .catch(console.error)
 }
-
