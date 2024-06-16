@@ -14,10 +14,28 @@ Route::get('think/:version', function ($version) {
     return 'hello,ThinkPHP' . $version . '!';
 });
 
+Route::rule('api/ad/reportAd', 'Ad/reportAd','POST');
+Route::rule('api/ad/addAdLike', 'Ad/addAdLike','POST');
+Route::rule('api/ad/addAdComment', 'Ad/addAdComment','POST');
+Route::rule('api/ad/showAdComment', 'Ad/showAdComment','POST');
+Route::rule('api/ad/showAds', 'Ad/showAds','POST');
+Route::rule('api/ad/adDetail', 'Ad/ad_detail','POST');
+
+Route::rule('api/post/reportPost', 'Posts/reportPost','POST');
+Route::rule('api/post/addPostLike', 'Posts/addPostLike','POST');
+Route::rule('api/post/addPostComment', 'Posts/addPostComment','POST');
+Route::rule('api/post/showPostComment', 'Posts/showPostComment','POST');
+Route::rule('api/post/showPosts', 'Posts/showPosts','POST');
+Route::rule('api/post/postDetail', 'Posts/postDetail','POST');
+Route::rule('api/post/createPost', 'Posts/createPost','POST');
+Route::rule('api/post/deletePost', 'Posts/deletePost','POST');
+
 Route::rule('api/form/Check', 'IRMS/checkForm','POST');
 Route::rule('api/form/Fill', 'IRMS/fillForm','POST');
 Route::rule('api/form/Create', 'IRMS/createFormForAllStudents');
 
+Route::rule('api/account/uploadHouseData', 'EditProfile/uploadHouseData','POST');
+Route::rule('api/account/ChangePassword', 'EditProfile/changePassword','POST');
 Route::rule('api/account/add', 'SAS/create_account', 'POST');
 Route::rule('api/account/login', 'SAS/login', 'POST');
 Route::rule('api/account/delete', 'SAS/delete_account', 'POST');

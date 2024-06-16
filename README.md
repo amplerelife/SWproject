@@ -576,3 +576,195 @@ URL:`` api/bull/bull_delete``
         "contract": 0
     }
 ]
+
+## 個人資料修改
+### 密碼修改
+`api/account/ChangePassword POST`
+#### 輸入格式 
+{
+    "usrname": "A1105501",
+    "oldpassword":"Bb1234",
+    "newpassword":"Cc1234"
+}
+新密碼要符合至少一個大小寫以及有數字，且長度大於五位
+#### 輸出格式
+'status' => 'error', 'message' => 'Old password is incorrect'
+'status' => 'error', 'message' => 'Account not found'
+'status' => 'error', 'message' => 'New password does not meet the required format'
+'status' => 'success', 'message' => 'Password changed successfully'
+
+### 租屋資料上傳
+`api/account/uploadHouseData POST`
+#### 輸入格式
+{
+    "student_id": "A1105501",
+    "address": "City, Country",
+    "grade": 3,
+    "landlord_id": "C1105501",
+    "semester": 2,
+    "rent": 10000,
+    "roommate": "John Doe"
+}
+
+#### 輸出格式
+'status' => 'success', 'message' => 'Data uploaded successfully'
+'status' => 'error', 'message' => 'Failed to upload data'
+'status' => 'error', 'message' => 'Database error: '
+
+## 廣告功能
+### 瀏覽廣告功能
+`api/ad/showAds POST`
+#### 輸入格式
+無
+#### 輸出格式
+`沒有資料回傳NULL`
+JSON格式的資料庫內容
+[{"ADV_ID":"A0","rent_id":"0","ADV_title":"0","usrname":"C1105501","ADV_postdate":"0000-00-00 00:00:00","ADV_content":"0","picture":"0","ADV_likeNum":3,"response":""}]
+
+'status' => 'error', 'message' => 'Database error: ' 
+
+### 查看廣告細項
+`api/ad/adDetail POST`
+#### 輸入格式
+{
+    "ADV_ID":"A0"
+}
+#### 輸出格式
+{"ADV_ID":"A0","rent_id":"0","ADV_title":"0","usrname":"C1105501","ADV_postdate":"0000-00-00 00:00:00","ADV_content":"0","picture":"0","ADV_likeNum":3,"response":""}
+
+'status' => 'error', 'message' => 'Database error: '
+
+### 瀏覽廣告所有評論
+{
+    "ADV_ID":"A0"
+}
+#### 輸出格式
+`沒有資料回傳NULL`
+{"ADV_ID":"A0","ADV_comment_id":"AC0","usrname":"A1105502","comment_detail":"comment","rate":4,"picture":"http:\/\/example.com\/picture.jpg","post_comment_time":"2024-06-16 01:04:02"}
+
+'status' => 'error', 'message' => 'Database error: '
+
+### 新增廣告評論
+`api/ad/addAdComment POST`
+#### 輸入格式
+{
+    "ADV_ID": "A0",
+    "usrname": "john_doe",
+    "comment_detail": "advertisement!",
+    "rate": 5,
+    "picture": "advertisement.jpg"
+}
+#### 輸出格式
+'status' => 'success', 'message' => 'Comment added successfully'
+'status' => 'error', 'message' => 'Failed to add comment'
+'status' => 'error', 'message' => 'Database error:'
+
+### 針對廣告的按讚功能(評論沒做)
+`api/ad/addAdLike POST`
+#### 輸入格式
+{
+    "ADV_ID":"A0"
+}
+#### 輸出格式
+'status' => 'error', 'message' => 'Advertisement not found'
+'status' => 'success', 'message' => 'Like added successfully'
+'status' => 'error', 'message' => 'Failed to add like: '
+
+### 針對廣告的舉報功能(評論沒做)
+`api/ad/reportAd POST`
+#### 輸入格式
+`usrname`是舉報人(使用者)
+{
+    "ADV_ID": "A0",
+    "usrname": "A1105501" 
+}
+
+#### 輸出格式
+'status' => 'success', 'message' => 'Advertisement reported successfully'
+'status' => 'error', 'message' => 'Failed to report advertisement'
+'status' => 'error', 'message' => 'Database error: '
+
+## 交流論壇功能
+### 瀏覽貼文功能
+`api/post/showPost POST`
+#### 輸入格式
+無
+#### 輸出格式
+`沒有資料回傳NULL`
+[{"post_id":"P0","usrname":"A1105501","post_detail":"P0內容","picture":"image.jpg","post_likeNum":6,"post_time":"0000-00-00 00:00:00"}]
+
+'status' => 'error', 'message' => 'Database error: '
+
+### 瀏覽特定貼文功能
+`api/post/postDetail POST`
+#### 輸入格式
+{
+    "post_id":"P0"
+}
+
+#### 輸出格式
+`沒有資料回傳NULL`
+{"post_id":"P0","usrname":"A1105501","post_detail":"P0內容","picture":"image.jpg","post_likeNum":6,"post_time":"0000-00-00 00:00:00"}
+
+'status' => 'error', 'message' => 'Database error: '
+
+### 瀏覽貼文留言功能
+`api/post/showPostComment POST`
+#### 輸入格式
+{
+    "post_id":"P0"
+}
+
+#### 輸出格式
+`沒有資料回傳NULL`
+[{"post_comment_id":"PC0","usrname":"A1105601","post_id":"P0","post_comment_detail":"bad","post_comment_time":"date","picture":""},{"post_comment_id":"PC1","usrname":"A1105601","post_id":"P0","post_comment_detail":"sample","post_comment_time":"2024-06-16 02:25:11","picture":""}]
+
+'status' => 'error', 'message' => 'Database error:'
+### 貼文按讚功能(留言沒做)
+`api/post/addPostLike POST`
+#### 輸入格式
+{
+    "post_id":"P0"
+}
+#### 輸出格式
+'status' => 'success', 'message' => 'Post liked successfully'
+
+'status' => 'error', 'message' => 'Database error: '
+
+### 新增貼文留言
+`api/post/addPostComment POST`
+#### 輸入格式
+{
+    "post_id": "P0",
+    "usrname": "A1105501",
+    "post_comment_detail": " comment."
+}
+#### 輸出格式
+'status' => 'success', 'message' => 'Post comment added successfully'
+'status' => 'error', 'message' => 'Failed to add post comment'
+'status' => 'error', 'message' => 'Database error: '
+
+### 舉報貼文(沒做留言)
+`api/post/reportPost`
+#### 輸出格式
+{
+    "post_id": "P0",
+    "usrname": "A1105501"
+}
+#### 輸出格式
+'status' => 'success', 'message' => 'Post reported successfully'
+'status' => 'error', 'message' => 'Failed to report advertisement'
+'status' => 'error', 'message' => 'Database error: '
+
+### 貼文發文
+api/post/createPost
+#### 輸入格式
+{
+  "usrname": "A1105601",
+  "post_detail": "新的貼文內容。",
+  "picture": "example.com/image.jpg"
+}
+#### 輸出格式
+'status' => 'success', 'message' => 'Post reported successfully'
+'status' => 'error', 'message' => 'Failed to report post'
+'status' => 'error', 'message' => 'Database error: '
