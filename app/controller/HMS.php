@@ -110,4 +110,13 @@ class HMS extends BaseController
         $report->save();
         return json(['message'=>'report success']);
     }
+    public function ad_review(Request $request){
+        $data = request()->post();
+        $id = $data['id'];
+        $status = $data['response'];
+        $report = Advertisement::where('ADV_ID',$id)->find();
+        $report->response = $status;
+        $report->save();
+        return json(['message'=>'改變審核狀態']);
+    }
 }
