@@ -12,6 +12,7 @@ include 'SAS.php';
 class HMS extends BaseController
 {
     public function ad_create(Request $request){
+        session_start();
         $data = request()->post();
         $id = Advertisement::order('ADV_ID','desc')->value('ADV_ID');
         $prefix = preg_replace('/[0-9]/', '', $id); // 提取字母部分

@@ -16,9 +16,6 @@ use app\model\Visitform;
 use think\Request;
 use think\Route;
 
-$_SESSION['now_usrid'] = '';
-$_SESSION['now_usrtype'] = '';
-
 //引入父類
 
 
@@ -76,6 +73,7 @@ class SAS extends BaseController
 
         if ($account) {
             if ($password == $account->password) {
+                session_start();
                 $_SESSION['now_usrid'] = $id;
                 $_SESSION['now_usrtype'] = $account->usertype;
                 return json(['status' => 'success', 'usertype' => $account->usertype]);
@@ -89,6 +87,7 @@ class SAS extends BaseController
 
     public function get_login_user()
     {
+        session_start();
         return json(['id' => $_SESSION['now_usrid'], 'usertype' => $_SESSION['now_usrtype']]);
     }
 
