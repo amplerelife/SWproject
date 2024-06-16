@@ -51,57 +51,41 @@ class HMS extends BaseController
     public function ad_show_landlord()
     {
         $data = Advertisement::where('response', '已處理')->select();
-        $id = [];
-        $title = [];
-        $content = [];
-        $time = [];
-        $name = [];
+        $result = [];
 
         foreach ($data as $ad) {
-            $id[] = $ad->ADV_ID;
-            $title[] = $ad->ADV_title;
-            $content[] = $ad->ADV_content;
-            $time[] = $ad->ADV_postdate;
-            $name[] = $ad->usrname;
+            $result[] = [
+                'id' => $ad->ADV_ID,
+                'title' => $ad->ADV_title,
+                'content' => $ad->ADV_content,
+                'time' => $ad->ADV_postdate,
+                'name' => $ad->usrname
+            ];
         }
 
-        return json([
-            'id' => $id,
-            'title' => $title,
-            'content' => $content,
-            'time' => $time,
-            'name' => $name
-        ]);
+        return json($result);
     }
+
 
     public function ad_show_admin()
     {
         $data = Advertisement::select();
-        $id = [];
-        $title = [];
-        $content = [];
-        $time = [];
-        $name = [];
-        $response = [];
+        $result = [];
 
         foreach ($data as $ad) {
-            $id[] = $ad->ADV_ID;
-            $title[] = $ad->ADV_title;
-            $content[] = $ad->ADV_content;
-            $time[] = $ad->ADV_postdate;
-            $name[] = $ad->usrname;
-            $response[] = $ad->response;
+            $result[] = [
+                'id' => $ad->ADV_ID,
+                'title' => $ad->ADV_title,
+                'content' => $ad->ADV_content,
+                'time' => $ad->ADV_postdate,
+                'name' => $ad->usrname,
+                'response' => $ad->response
+            ];
         }
 
-        return json([
-            'id' => $id,
-            'title' => $title,
-            'content' => $content,
-            'time' => $time,
-            'name' => $name,
-            'response' => $response
-        ]);
+        return json($result);
     }
+
 
     public function ad_report(Request $request){
         $data = request()->post();
