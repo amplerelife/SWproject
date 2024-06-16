@@ -89,7 +89,7 @@ class SAS extends BaseController
 
     public function get_login_user()
     {
-        return json(['id'=>$_SESSION['now_usrid'],'usertype'=>$_SESSION['now_usrtype']]);
+        return json(['id' => $_SESSION['now_usrid'], 'usertype' => $_SESSION['now_usrtype']]);
     }
 
     public function delete_account(Request $request) //刪除帳號
@@ -133,6 +133,7 @@ class SAS extends BaseController
         $name = $reports->column('usrname');
         $detail = $reports->column('report_detail');
         $res = $reports->column('report_response');
+        $response = $reports->column('response_content');
         foreach ($res as &$r) {
             if ($r === '') {
                 $r = '未處理';
@@ -145,7 +146,8 @@ class SAS extends BaseController
             $content = array_merge($content, $post_details); // 将新的内容合并到 content 数组中
         }
 
-        return json(['report_id' => $id, 'usrname' => $name, 'report_content' => $content, 'report_response' => $res]);
+        return json(['report_id' => $id, 'usrname' => $name, 'report_content' => $content, 'report_response' => $res
+            , 'response_content' => $response]);
     }
 
     public function review_report(Request $request) //填寫舉報通過或不通過
@@ -155,11 +157,11 @@ class SAS extends BaseController
         // 查找 report_id 对应的记录
         $report = Report::where('report_id', $data['report_id'])->find();
         $detail = $report->report_detail;
-        $prefix = preg_replace('/[0-9]/', '', $detail);
+        //$prefix = preg_replace('/[0-9]/', '', $detail);
         if ($report) {
             // 设置 report_response 属性
             $report->report_response = $data['report_response'];
-
+            $report->response_content = $data['response_content'];
             // 保存更改
             $report->save();
 
@@ -169,6 +171,7 @@ class SAS extends BaseController
             return json(['status' => 'error', 'message' => 'Report not found']);
         }
     }
+
     public function delete_report(Request $request) //刪除舉報
     {
         $data = $request->post();
