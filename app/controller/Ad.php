@@ -89,7 +89,7 @@ class Ad extends BaseController
             if(Adv_comment::count() == 0){
                 $max_id = 'AC0';
             }else{
-                $max_id = Adv_comment::order('ADV_comment_id', 'desc')->find()->ADV_comment_id;
+                $max_id = Adv_comment::where('ADV_ID', $adv_id)->order('ADV_comment_id', 'desc')->find()->ADV_comment_id;
             }
             $number = preg_replace('/[^0-9]/', '', $max_id); // 提取数字部分
             $max_id = $number+1;
