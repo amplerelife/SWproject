@@ -350,7 +350,7 @@ class SAS extends BaseController
             return json([Teacher::where('usrname', $usrname)->select()]);
         } else if ($usrtype == 'landlord') {
             return json([Landlord::where('usrname', $usrname)->select()]);
-        } else if ($usrtype == 'admin') {
+        } else if ($usrtype == 'Admin') {
             return json([Admin::where('usrname', $usrname)->select()]);
         } else {
             return json(["message" => "Wrong Type"]);

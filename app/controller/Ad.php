@@ -85,19 +85,33 @@ class Ad extends BaseController
             $usrname = $request->param('usrname');
             $rate = $request->param('rate');
             $picture = $request->param('picture');
-            // 獲取目前最大的 ADV_comment_id，如果沒有資料，則設為 0
-            if(Adv_comment::count() == 0){
-                $max_id = 'AC0';
-            }else{
-                $max_id = Adv_comment::where('ADV_ID', $adv_id)->order('ADV_comment_id', 'desc')->find()->ADV_comment_id;
+
+            $ids = Adv_comment::column('ADV_comment_id');
+            $maxNumber = null;
+            foreach ($ids as $id) {
+                $number = preg_replace('/[^0-9]/', '', $id); // 提取数字部分
+                $number = intval($number);
+
+                // 比较并更新最大数字
+                if ($maxNumber === null || $number > $maxNumber) {
+                    $maxNumber = $number;
+                }
+
             }
-            $number = preg_replace('/[^0-9]/', '', $max_id); // 提取数字部分
-            $max_id = $number+1;
+            $maxNumber += 1;
+            $newId = 'AC' . $maxNumber;
+            // 獲取目前最大的 ADV_comment_id，如果沒有資料，則設為 0
+            //$max_id = Adv_comment::max('ADV_comment_id')+1 ?: 0;
+
+
+            //return $max_id;
             // 創建新的廣告評論
+
             $comment = new Adv_comment();
             $comment->ADV_ID = $adv_id;
-            $comment->ADV_comment_id = sprintf('AC%d', $max_id);  // 根據最大值設定新的 ID
-            $comment->usrname = $usrname;
+            $comment->ADV_comment_id = $newId;  // 根據最大值設定新的 ID
+            session_start();
+            $comment->usrname = $_SESSION['now_usrid'];
             $comment->comment_detail = $comment_detail;
             $comment->rate = $rate;
             $comment->picture = $picture;
@@ -118,45 +132,35 @@ class Ad extends BaseController
     }
     //廣告舉報功能 傳入廣告ID以及使用者ID
     public function reportAd(Request $request)
-{
-    try {
-        // 獲取傳入的廣告ID和使用者名稱
-        $adv_id = $request->param('ADV_ID');
-        $usrname = $request->param('usrname');
-        $report_reason = $request->param('report_reason'); // 新增的舉報原因
-
-        // 獲取目前最大的 report_id，如果沒有資料，則設為 0
-        if (Report::count() == 0) {
-            $max_id = 'R0';
-        } else {
-            $latest_report = Report::order('report_id', 'desc')->find();
-            $max_id = preg_replace('/[^0-9]/', '', $latest_report->report_id);
-            $max_id = $max_id + 1;
+    {
+        try {
+            // 獲取傳入的廣告ID和使用者名稱
+            $adv_id = $request->param('ADV_ID');
+            $usrname = $request->param('usrname');
+            
+            // 獲取目前最大的 report_id，如果沒有資料，則設為 0
+            $max_id = Report::order('report_id', 'desc')->find()->report_id?: 0;
+            $max_id=preg_replace('/[^0-9]/', '', $max_id)+1;
+            
+            // 創建新的舉報記錄
+            $report = new Report();
+            $report->report_id = sprintf('R%d', $max_id);  // 根據最大值設定新的 ID
+            $report->usrname = $usrname;
+            $report->report_detail = "$adv_id";  // 可以自訂舉報的具體內容
+            $report->report_response = '';  // 初始設定管理員處理進度為空
+            
+            // 儲存舉報記錄
+            $result = $report->save();
+            
+            if ($result) {
+                return json(['status' => 'success', 'message' => 'Advertisement reported successfully']);
+            } else {
+                return json(['status' => 'error', 'message' => 'Failed to report advertisement']);
+            }
+            
+        } catch (\Exception $e) {
+            return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
         }
-
-        // 創建新的舉報記錄
-        $report = new Report();
-        $report->report_id = sprintf('R%d', $max_id); // 根據最大值設定新的 ID
-        $report->adv_id = $adv_id; // 添加廣告 ID 到報告記錄中
-        $report->usrname = $usrname;
-        $report->report_reason = $report_reason; // 設置舉報原因
-        $report->report_detail = "$adv_id"; // 設置舉報詳情
-        $report->report_response = ''; // 初始設定管理員處理進度為空
-        $report->report_time = date('Y-m-d H:i:s'); // 設置舉報時間
-
-        // 儲存舉報記錄
-        $result = $report->save();
-
-        if ($result) {
-            return json(['status' => 'success', 'message' => 'Advertisement reported successfully']);
-        } else {
-            return json(['status' => 'error', 'message' => 'Failed to report advertisement']);
-        }
-
-    } catch (\Exception $e) {
-        return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
     }
-}
-
     
 }
