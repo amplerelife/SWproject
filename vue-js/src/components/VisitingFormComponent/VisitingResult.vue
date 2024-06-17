@@ -48,37 +48,19 @@ defineExpose({ getData, clearData })
   <div class="VisitResult">
     <h1 style="font-weight: bolder; padding-bottom: 5%; font-size: 5vw" id="444">訪視結果</h1>
     <p>
-      <input
-        type="radio"
-        id="NoProblem"
-        name="VisitResult"
-        value="NoProblem"
-        v-model="visitResult"
-      />
+      <input type="radio" id="NoProblem" name="VisitResult" value="0" v-model="visitResult" />
       <label for="NoProblem">整體賃居狀況良好</label>
     </p>
     <p>
-      <input
-        type="radio"
-        id="ContactToParent"
-        name="VisitResult"
-        value="ContactToParent"
-        v-model="visitResult"
-      />
+      <input type="radio" id="ContactToParent" name="VisitResult" value="1" v-model="visitResult" />
       <label for="ContactToParent">聯係家長關注</label>
     </p>
     <p>
-      <input
-        type="radio"
-        id="SafetyNeedAssist"
-        name="VisitResult"
-        value="SafetyNeedAssist"
-        v-model="visitResult"
-      />
+      <input type="radio" id="SafetyNeedAssist" name="VisitResult" value="2" v-model="visitResult" />
       <label for="SafetyNeedAssist">安全堪慮請協助</label>
     </p>
     <p>
-      <input type="radio" id="Others" name="VisitResult" value="Others" v-model="visitResult" />
+      <input type="radio" id="Others" name="VisitResult" value="3" v-model="visitResult" />
       <label for="Others">其他： </label>
       <input type="text" v-model="otherVisitResult" />
     </p>

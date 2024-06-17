@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import SearchList from '@/components/SearchList.vue'
+  import SearchListEx from "@/components/SearchListEx.vue"
 </script>
 
 <template>
   <div class="AccountList">
-    <SearchList
+    <SearchListEx
       request_url="api/account/usrname"
       edit_to="/PersonalInformation"
       new_to="/AccountCreate"
       delete_to=""
       button_new
       button_delete
-    ></SearchList>
+    ></SearchListEx>
   </div>
 </template>
 

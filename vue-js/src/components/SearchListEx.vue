@@ -100,7 +100,7 @@ onMounted(() => {
 
       <tr v-if="dataFetched" v-for="customer in filteredCustomers" :key="customer.value">
         <td style="width:10%;">
-          <RouterLink :to=props.edit_to>
+          <RouterLink :to="`${props.edit_to}/${customer[Object.keys(customer)[1]]}/${customer[Object.keys(customer)[0]]}`">
             <img src="https://www.freeiconspng.com/uploads/communication-community-connection-global-internet-network-icon--14.png" alt="icon not found" style="width:2vw;height:2vw;" />
           </RouterLink>
         </td>

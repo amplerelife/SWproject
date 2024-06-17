@@ -19,8 +19,21 @@ const router = createRouter({
     },
     {
       path: '/PersonalInformation',
-      name: 'PersonalInformation',
+      name: '/PersonalInformation',
       component: () => import('../views/PersonalInformationView.vue')
+      
+    },
+    {
+      path: '/PersonalInformation',
+      name: '/PersonalInformation',
+      component: () => import('../views/PersonalInformationView.vue')
+      
+    },
+    {
+      path: '/PersonalInformation/:type/:id',
+      name: 'PersonalInformationEdit',
+      component: () => import('../views/PersonalInformationView.vue')
+      
     },
     {
       path: '/maintainence',
@@ -37,6 +50,11 @@ const router = createRouter({
       name: 'AnnouncementDetailView',
       component: () => import('../views/Announcement/AnnouncementDetailView.vue')
     },
+    // {
+    //   path: '/AnnoucementEditDetail/:admin/:content',
+    //   name: 'AnnoucementEditDetail',
+    //   component: () => import('../views/Announcement/AnnoucementEditDetail.vue')
+    // },
     {
       path: '/AccountManage',
       name: 'AccountManage',
@@ -60,6 +78,7 @@ const router = createRouter({
     {
       path: '/ReportObject',
       name: 'ReportObject',
+      params: Object,
       component: () => import('../views/Report/ReportObjectView.vue')
     },
     {
@@ -77,8 +96,13 @@ const router = createRouter({
       name: 'CreatePost',
       component: () => import('../views/Rent/CreatePostPage.vue')
     },
+    // {
+    //   path: '/EditPost',
+    //   name: 'EditPost',
+    //   component: () => import('../views/Rent/EditPostPage.vue')
+    // },
     {
-      path: '/EditPost',
+      path: '/EditPost/:id',
       name: 'EditPost',
       component: () => import('../views/Rent/EditPostPage.vue')
     },

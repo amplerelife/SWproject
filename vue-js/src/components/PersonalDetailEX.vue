@@ -8,9 +8,7 @@
   const dataFetched = ref(false);
   const personal_info = ref();
   
-onMounted(() => {
-  fetch();
-});
+
 
 
 const student = ref({
@@ -55,7 +53,7 @@ const landlord = ref({
   address: ''
 })
 
-  const administrator = ref({
+const administrator = ref({
     accountName: '',
     password: '',
     email: '',
@@ -63,32 +61,8 @@ const landlord = ref({
     englishName: '',
     gender: '',
     phone: '',
-  });
-  async function fetch(){
-    try {
-      const data =  {
-        usrname: route.params.id.toString(),
-        usrtype: route.params.type.toString()
-      };    
-      const response = await axios.post('/api/account/user_get',data);
-      console.log('API Response:', response.data); // Log the API response
-      if (Array.isArray(response.data)) {
-        personal_info.value = response.data;
-        console.log(personal_info.value)
-        dataFetched.value = true; // Set flag to true after data is fetched
+});
 
-        if (data.usrtype === "student"){
-          student.value.accountName = personal_info.value[0].usrname;
-          console.log(student);
-          student.value.studentId = personal_info.value.teacher_id;
-        }
-      } else {
-        console.error('API response is not an array');
-      }
-    } catch (error) {
-      console.error('There was an error fetching the data!', error);
-    }
-};
 
 const submit = () => {
   const data = {
@@ -97,7 +71,8 @@ const submit = () => {
     landlord: landlord.value,
     administrator: administrator.value
   }
-
+  
+  alert('Submitted successfully!')
   fetch('/asss', {
     method: 'POST',
     headers: {
@@ -169,7 +144,7 @@ const clear = () => {
 
 <template>
   <div class="PersonalInformationContainer">
-    <div v-if="( $route.params.type && $route.params.type === 'student')" class="Student">
+    <div class="Student">
       <p>賬號名字：<input type="text" v-model="student.accountName"/></p>
       <p>密碼：<input type="text" v-model="student.password" /></p>
       <p>學號：<input type="text" v-model="student.studentId" /></p>
@@ -207,7 +182,7 @@ const clear = () => {
 
 
     
-    <div v-if="($route.params.type && $route.params.type === 'teacher')" class="Teacher">
+    <div  class="Teacher">
       <p>賬號名字：<input type="text" v-model="teacher.accountName" /></p>
       <p>密碼：<input type="text" v-model="teacher.password" /></p>
       <p>教師號：<input type="text" v-model="teacher.teacherId" /></p>
@@ -242,7 +217,7 @@ const clear = () => {
     </div>
 
 
-    <div v-if="$route.params.type && $route.params.type.toString() === 'landlord'" class="Landlord">
+    <div  class="Landlord">
       <p>賬號名字：<input type="text" v-model="landlord.accountName" /></p>
       <p>密碼：<input type="text" v-model="landlord.password" /></p>
       <p>電子郵件信箱：<input type="text" v-model="landlord.email" /></p>
@@ -275,7 +250,7 @@ const clear = () => {
     </div>
 
 
-    <div v-if="$route.params.type && $route.params.type.toString() === 'Admin'" class="Administrator">
+    <div  class="Administrator">
       <p>賬號名字：<input type="text" v-model="administrator.accountName" /></p>
       <p>密碼：<input type="text" v-model="administrator.password" /></p>
       <p>電子郵件信箱：<input type="text" v-model="administrator.email" /></p>
@@ -334,7 +309,7 @@ const clear = () => {
     text-align: right;
   }
 
-  /* .Student,
+  .Student,
   .Teacher,
   .Landlord,
   .Administrator {
@@ -343,7 +318,7 @@ const clear = () => {
 
   .Student{
     display:block;
-  } */
+  }
 
   .Student.active,
   .Teacher.active,

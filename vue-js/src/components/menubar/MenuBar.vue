@@ -39,7 +39,7 @@ const route = useRoute()
       <LoginPopoutDialog></LoginPopoutDialog>
     </div>
 
-    <RouterLink :to="'/login'" style="width: 10%">
+    <RouterLink :to="'/home'" style="width: 10%">
       <div class="logout">Logout</div>
     </RouterLink>
   </div>

@@ -1,41 +1,42 @@
 <script setup>
 import { ref } from 'vue'
 
+
 // Reactive state for each form input
-const deposit = ref('')
-const waterAndElectricityCharges = ref('')
-const environment = ref('')
-const environmentExplanation = ref('')
-const residentialFacilities = ref('')
-const residentialFacilitiesExplanation = ref('')
-const visitStatus = ref('')
-const visitStatusExplanation = ref('')
-const hostRelation = ref('')
+const deposit = ref('');
+const waterAndElectricityCharges = ref('');
+const environment = ref('');
+const enviroment_reason = ref('');
+const live_enviroment = ref('');
+const live_enviroment_reason = ref('');
+const now = ref('');
+const now_reason = ref('');
+const relationship = ref('');
 
 function getData() {
   return {
     deposit: deposit.value,
     waterAndElectricityCharges: waterAndElectricityCharges.value,
     environment: environment.value,
-    environmentExplanation: environmentExplanation.value,
-    residentialFacilities: residentialFacilities.value,
-    residentialFacilitiesExplanation: residentialFacilitiesExplanation.value,
-    visitStatus: visitStatus.value,
-    visitStatusExplanation: visitStatusExplanation.value,
-    hostRelation: hostRelation.value
-  }
+    enviroment_reason: enviroment_reason.value,
+    live_enviroment: live_enviroment.value,
+    live_enviroment_reason: live_enviroment_reason.value,
+    now: now.value,
+    now_reason: now_reason.value,
+    relationship: relationship.value,
+  };
 }
 
 function clearData() {
-  deposit.value = ''
-  waterAndElectricityCharges.value = ''
-  environment.value = ''
-  environmentExplanation.value = ''
-  residentialFacilities.value = ''
-  residentialFacilitiesExplanation.value = ''
-  visitStatus.value = ''
-  visitStatusExplanation.value = ''
-  hostRelation.value = ''
+  deposit.value = '';
+  waterAndElectricityCharges.value = '';
+  environment.value = '';
+  enviroment_reason.value = '';
+  live_enviroment.value = '';
+  live_enviroment_reason.value = '';
+  now.value = '';
+  now_reason.value = '';
+  relationship.value = '';
 }
 
 // Expose methods to parent component
@@ -76,23 +77,11 @@ defineExpose({ getData, clearData })
         <tr>
           <td>水電費要求</td>
           <td>
-            <input
-              type="radio"
-              id="WaterAndElectricityChargesMakeSense"
-              name="WaterAndElectricityCharges"
-              value="MakeSense"
-              v-model="waterAndElectricityCharges"
-            />
+            <input type="radio" id="WaterAndElectricityChargesMakeSense" name="WaterAndElectricityCharges" value="1" v-model="waterAndElectricityCharges" />
             <label for="WaterAndElectricityChargesMakeSense">合理</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="WaterAndElectricityChargesNotMakeSense"
-              name="WaterAndElectricityCharges"
-              value="NotMakeSense"
-              v-model="waterAndElectricityCharges"
-            />
+            <input type="radio" id="WaterAndElectricityChargesNotMakeSense" name="WaterAndElectricityCharges" value="0" v-model="waterAndElectricityCharges" />
             <label for="WaterAndElectricityChargesNotMakeSense">不合理</label>
           </td>
         </tr>
@@ -100,129 +89,63 @@ defineExpose({ getData, clearData })
         <tr>
           <td>居住環境</td>
           <td>
-            <input
-              type="radio"
-              id="EnvironmentBest"
-              name="Environment"
-              value="Best"
-              v-model="environment"
-            />
+            <input type="radio" id="EnvironmentBest" name="Environment" value="2" v-model="environment" />
             <label for="EnvironmentBest">佳</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="EnvironmentGood"
-              name="Environment"
-              value="Good"
-              v-model="environment"
-            />
+            <input type="radio" id="EnvironmentGood" name="Environment" value="1" v-model="environment" />
             <label for="EnvironmentGood">適中</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="EnvironmentBad"
-              name="Environment"
-              value="Bad"
-              v-model="environment"
-            />
+            <input type="radio" id="EnvironmentBad" name="Environment" value="0" v-model="environment" />
             <label for="EnvironmentBad">欠佳，説明：</label>
-            <input type="text" v-model="environmentExplanation" />
+            <input type="text" v-model="enviroment_reason" />
           </td>
         </tr>
 
         <tr>
           <td>生活設施</td>
           <td>
-            <input
-              type="radio"
-              id="ResidentialFacilitiesBest"
-              name="ResidentialFacilities"
-              value="Best"
-              v-model="residentialFacilities"
-            />
-            <label for="ResidentialFacilitiesBest">佳</label>
+            <input type="radio" id="live_enviromentBest" name="live_enviroment" value="2" v-model="live_enviroment" />
+            <label for="live_enviromentBest">佳</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="ResidentialFacilitiesGood"
-              name="ResidentialFacilities"
-              value="Good"
-              v-model="residentialFacilities"
-            />
-            <label for="ResidentialFacilitiesGood">適中</label>
+            <input type="radio" id="live_enviromentGood" name="live_enviroment" value="1" v-model="live_enviroment" />
+            <label for="live_enviromentGood">適中</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="ResidentialFacilitiesBad"
-              name="ResidentialFacilities"
-              value="Bad"
-              v-model="residentialFacilities"
-            />
-            <label for="ResidentialFacilitiesBad">欠佳，説明：</label>
-            <input type="text" v-model="residentialFacilitiesExplanation" />
+            <input type="radio" id="live_enviromentBad" name="live_enviroment" value="0" v-model="live_enviroment" />
+            <label for="live_enviromentBad">欠佳，説明：</label>
+            <input type="text" v-model="live_enviroment_reason" />
           </td>
         </tr>
 
         <tr>
           <td>訪視現況</td>
           <td>
-            <input
-              type="radio"
-              id="VisitStatusStable"
-              name="VisitStatus"
-              value="stable"
-              v-model="visitStatus"
-            />
-            <label for="VisitStatusStable">生活規律</label>
+            <input type="radio" id="nowStable" name="now" value="2" v-model="now" />
+            <label for="nowStable">生活規律</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="VisitStatusNormal"
-              name="VisitStatus"
-              value="normal"
-              v-model="visitStatus"
-            />
-            <label for="VisitStatusNormal">適中</label>
+            <input type="radio" id="nowNormal" name="now" value="1" v-model="now" />
+            <label for="nowNormal">適中</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="VisitStatusMustImprove"
-              name="VisitStatus"
-              value="MustImprove"
-              v-model="visitStatus"
-            />
-            <label for="VisitStatusMustImprove">待加强，説明：</label>
-            <input type="text" v-model="visitStatusExplanation" />
+            <input type="radio" id="nowMustImprove" name="now" value="0" v-model="now" />
+            <label for="nowMustImprove">待加强，説明：</label>
+            <input type="text" v-model="now_reason" />
           </td>
         </tr>
 
         <tr>
           <td>主客相處</td>
           <td>
-            <input
-              type="radio"
-              id="HostRelationHarmony"
-              name="hostRelation"
-              value="Harmony"
-              v-model="hostRelation"
-            />
-            <label for="HostRelationHarmony">和睦</label>
+            <input type="radio" id="relationshipHarmony" name="relationship" value="1" v-model="relationship" />
+            <label for="relationshipHarmony">和睦</label>
           </td>
           <td>
-            <input
-              type="radio"
-              id="HostRelationNoGood"
-              name="hostRelation"
-              value="NoGood"
-              v-model="hostRelation"
-            />
-            <label for="HostRelationNoGood">欠佳</label>
+            <input type="radio" id="relationshipNoGood" name="relationship" value="0" v-model="relationship" />
+            <label for="relationshipNoGood">欠佳</label>
           </td>
         </tr>
       </table>
