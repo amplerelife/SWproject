@@ -66,6 +66,7 @@ Route::rule('api/AD/change', 'HMS/ad_change', 'POST');
 Route::rule('api/AD/delete', 'HMS/ad_delete', 'POST');
 Route::rule('api/AD/show/user', 'HMS/ad_show_landlord');
 Route::rule('api/AD/show/admin', 'HMS/ad_show_admin');
+Route::rule('api/AD/show/unchek', 'HMS/ad_show_uncheck');
 
 
 Route::post('api/test', function (Request $request) {

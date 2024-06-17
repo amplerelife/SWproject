@@ -115,5 +115,20 @@ class HMS extends BaseController
         $report->save();
         return json(['message'=>'改變審核狀態']);
     }
+    public function ad_show_uncheck(Request $request){
+        $data = Advertisement::where('response', '未處理')->select();
+        $result = [];
+
+        foreach ($data as $ad) {
+            $result[] = [
+                'id' => $ad->ADV_ID,
+                'title' => $ad->ADV_title,
+                'content' => $ad->ADV_content,
+                'time' => $ad->ADV_postdate,
+                'name' => $ad->usrname
+            ];
+        }
+        return json($result);
+    }
 
 }
