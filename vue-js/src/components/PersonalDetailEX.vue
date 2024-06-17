@@ -2,15 +2,36 @@
   import { useRoute, RouterLink } from 'vue-router';
   import { ref, computed , onMounted } from 'vue';
   import axios from 'axios';
+import { getCurrUser } from '@/lib/utils';
 
   const route = useRoute();
 
   const dataFetched = ref(false);
   const personal_info = ref();
+
+  
   
 
 
 
+const userLogin = ref("");
+
+async function checkCurrentUser() {
+  const user = await getCurrUser();
+  console.log(user);
+  if (user) {
+    userLogin.value = user.usertype;
+    console.log(userLogin.value);
+  } else {
+    console.log('No user is logged in');
+  }
+}
+
+
+onMounted(() => {
+    checkCurrentUser();
+}
+)
 const student = ref({
   accountName: '',
   password: '',
@@ -71,7 +92,7 @@ const submit = () => {
     landlord: landlord.value,
     administrator: administrator.value
   }
-  
+
   alert('Submitted successfully!')
   fetch('/asss', {
     method: 'POST',
@@ -144,7 +165,7 @@ const clear = () => {
 
 <template>
   <div class="PersonalInformationContainer">
-    <div class="Student">
+    <div v-if="userLogin == 'student'" class="Student">
       <p>賬號名字：<input type="text" v-model="student.accountName"/></p>
       <p>密碼：<input type="text" v-model="student.password" /></p>
       <p>學號：<input type="text" v-model="student.studentId" /></p>
@@ -182,7 +203,7 @@ const clear = () => {
 
 
     
-    <div  class="Teacher">
+    <div v-if="userLogin == 'teacher'"  class="Teacher">
       <p>賬號名字：<input type="text" v-model="teacher.accountName" /></p>
       <p>密碼：<input type="text" v-model="teacher.password" /></p>
       <p>教師號：<input type="text" v-model="teacher.teacherId" /></p>
@@ -217,7 +238,7 @@ const clear = () => {
     </div>
 
 
-    <div  class="Landlord">
+    <div v-if="userLogin == 'landlord'" class="Landlord">
       <p>賬號名字：<input type="text" v-model="landlord.accountName" /></p>
       <p>密碼：<input type="text" v-model="landlord.password" /></p>
       <p>電子郵件信箱：<input type="text" v-model="landlord.email" /></p>
@@ -250,7 +271,7 @@ const clear = () => {
     </div>
 
 
-    <div  class="Administrator">
+    <div v-if="userLogin == 'Admin'" class="Administrator">
       <p>賬號名字：<input type="text" v-model="administrator.accountName" /></p>
       <p>密碼：<input type="text" v-model="administrator.password" /></p>
       <p>電子郵件信箱：<input type="text" v-model="administrator.email" /></p>
@@ -309,7 +330,7 @@ const clear = () => {
     text-align: right;
   }
 
-  .Student,
+  /* .Student,
   .Teacher,
   .Landlord,
   .Administrator {
@@ -318,7 +339,7 @@ const clear = () => {
 
   .Student{
     display:block;
-  }
+  } */
 
   .Student.active,
   .Teacher.active,

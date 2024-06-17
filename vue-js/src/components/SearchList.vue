@@ -128,7 +128,7 @@ onMounted(() => {
         </RouterLink>
       </div>
 
-      <div v-if="props.button_delete" class="button-container" id="delete">
+      <!-- <div v-if="props.button_delete" class="button-container" id="delete">
         <div class="wrapper" @click="deleter">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -142,8 +142,8 @@ onMounted(() => {
               d="M14.984375 2.4863281 A1.0001 1.0001 0 0 0 14 3.5 L14 4 L8.5 4 A1.0001 1.0001 0 0 0 7.4863281 5 L6 5 A1.0001 1.0001 0 1 0 6 7 L24 7 A1.0001 1.0001 0 1 0 24 5 L22.513672 5 A1.0001 1.0001 0 0 0 21.5 4 L16 4 L16 3.5 A1.0001 1.0001 0 0 0 14.984375 2.4863281 z M6 9 L7.7929688 24.234375 C7.9109687 25.241375 8.7633438 26 9.7773438 26 L20.222656 26 C21.236656 26 22.088031 25.241375 22.207031 24.234375 L24 9 L6 9 z"
             ></path>
           </svg>
-        </div>
-      </div>
+        </div> 
+      </div>-->
     </div>
   </div>
 </template>

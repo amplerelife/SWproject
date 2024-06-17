@@ -2,12 +2,33 @@
 import MenuBarCard from './MenuBarCard.vue'
 import { useRoute, RouterLink } from 'vue-router'
 import LoginPopoutDialog from '@/components/LoginPopoutDialog.vue'
+import { getCurrUser } from '@/lib/utils'
+import { ref,onMounted } from 'vue'
 
 const route = useRoute()
+
+const userLogin = ref("");
+
+async function checkCurrentUser() {
+  const user = await getCurrUser();
+  console.log(user);
+  if (user) {
+    userLogin.value = user.usertype;
+    console.log(userLogin.value);
+  } else {
+    console.log('No user is logged in');
+  }
+}
+
+onMounted(() => {
+    checkCurrentUser();
+}
+)
+
 </script>
 
 <template>
-  <div class="menu-bar">
+  <div class="menu-bar" >
     <RouterLink to="/home">
       <div class="home">Home</div>
     </RouterLink>
@@ -17,8 +38,8 @@ const route = useRoute()
       <MenuBarCard text="forum" to="/forum" routeName="forum"></MenuBarCard>
     </div>
 
-    <RouterLink :to="'/maintainence'">
-      <div class="maintainence">
+    <RouterLink :to="'/maintainence'" :key="userLogin" >
+      <div v-if="userLogin == 'Admin'" class="maintainence">
         <img
           src="https://www.freeiconspng.com/uploads/maintenance-icon-4.png"
           alt="Free High quality Person Icon"

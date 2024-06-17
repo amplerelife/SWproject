@@ -5,13 +5,27 @@ import { ref, computed , onMounted } from 'vue';
 import axios from 'axios';
 import { getCurrUser } from '@/lib/utils';
 
+const userLogin = ref("");
 
+async function checkCurrentUser() {
+  const user = await getCurrUser();
+  console.log(user);
+  if (user) {
+    userLogin.value = user.id;
+    console.log(userLogin.value);
+  } else {
+    console.log('No user is logged in');
+  }
+}
 
+onMounted(() => {
+    checkCurrentUser();
+})
 
 
 
 const teacherinfo = ref[{
-    // "teacher_id":"B1105501"
+    // "teacher_id":"B1
 
 }]
 </script>
@@ -20,7 +34,8 @@ const teacherinfo = ref[{
     <div class="VisitSearch">
         <SearchList
             request_url="/api/account/teacher/students"
-            request_object= "B1105501"
+            :request_object= "userLogin"
+            :key = "userLogin"
             edit_to="/VisitForm"
             new_to=""
             delete_to=""
