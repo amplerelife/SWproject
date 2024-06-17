@@ -61,12 +61,14 @@ Route::rule('api/report/review', 'SAS/review_report', 'POST');
 Route::rule('api/report/check', 'SAS/check_report', 'POST');
 Route::rule('api/report/delete', 'SAS/delete_report', 'POST');
 
+
 Route::rule('api/AD/add', 'HMS/ad_create', 'POST');
 Route::rule('api/AD/change', 'HMS/ad_change', 'POST');
 Route::rule('api/AD/delete', 'HMS/ad_delete', 'POST');
 Route::rule('api/AD/show/user', 'HMS/ad_show_landlord');
 Route::rule('api/AD/show/admin', 'HMS/ad_show_admin');
 Route::rule('api/AD/show/unchek', 'HMS/ad_show_uncheck');
+Route::rule('api/AD/review', 'HMS/ad_review');
 
 
 Route::post('api/test', function (Request $request) {
