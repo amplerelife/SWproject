@@ -78,18 +78,26 @@ class Posts extends BaseController
             $post_id = $request->param('post_id');
             $usrname = $request->param('usrname');
             $post_comment_detail = $request->param('post_comment_detail');
-            $max_id = Post_comment::where('post_id', $post_id)->order('post_comment_id', 'desc')->find()->post_comment_id?:0;
-            // 提取數字部分，並加一
-            $number = preg_replace('/[^0-9]/', '', $max_id) + 1;
+            $picture = $request->param('picture');
+            
+            // 獲取目前最大的 post_comment_id，如果沒有資料，則設為 0
+            if(Post_comment::count() == 0){
+                $max_id = 'PC0';
+            }else{
+                $max_id = Post_comment::order('post_comment_id', 'desc')->find()->post_comment_id;
+            }
+            
+            $number = preg_replace('/[^0-9]/', '', $max_id); // 提取数字部分
+            $max_id = $number + 1;
+            
             // 創建新的留言記錄
             $postComment = new Post_comment();
-            // 假設 post_comment_id 需要自動生成，可以參考下面的方法處理
-            $postComment->post_comment_id = sprintf('PC%d', $number);
-            $postComment->usrname = $usrname;
             $postComment->post_id = $post_id;
+            $postComment->post_comment_id = sprintf('PC%d', $max_id);  // 根據最大值設定新的 ID
+            $postComment->usrname = $usrname;
             $postComment->post_comment_detail = $post_comment_detail;
             $postComment->post_comment_time = date('Y-m-d H:i:s'); // 後端負責返回當下時間
-            $postComment->picture = ''; // 可以根據需求設定圖片
+            $postComment->picture = $picture; // 可以根據需求設定圖片
             
             // 儲存留言記錄
             $result = $postComment->save();
@@ -104,36 +112,48 @@ class Posts extends BaseController
             return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
         }
     }
+
     public function reportPost(Request $request)
     {
         try {
-            // 獲取傳入的廣告ID和使用者名稱
+            // 獲取傳入的參數
             $post_id = $request->param('post_id');
             $usrname = $request->param('usrname');
-            
+            $report_reason = $request->param('report_reason'); // 新增的舉報原因
+
             // 獲取目前最大的 report_id，如果沒有資料，則設為 0
-            $latest_report = Report::order('report_id', 'desc')->find();
-            $max_id = $latest_report ? preg_replace('/[^0-9]/', '', $latest_report->report_id) + 1 : 0;
+            if (Report::count() == 0) {
+                $max_id = 'R0';
+            } else {
+                $latest_report = Report::order('report_id', 'desc')->find();
+                $max_id = preg_replace('/[^0-9]/', '', $latest_report->report_id);
+                $max_id = $max_id + 1;
+            }
+
             // 創建新的舉報記錄
             $report = new Report();
-            $report->report_id = sprintf('R%d', $max_id);  // 根據最大值設定新的 ID
+            $report->report_id = sprintf('R%d', $max_id); // 根據最大值設定新的 ID
+            $report->post_id = $post_id; // 添加 post_id 到報告記錄中
             $report->usrname = $usrname;
-            $report->report_detail = " $post_id";  //舉報的帖子
-            $report->report_response = '';  // 初始設定管理員處理進度為空
-            
+            $report->report_reason = $report_reason; // 設置舉報原因
+            $report->report_detail = "$post_id"; // 設置舉報詳情
+            $report->report_response = ''; // 初始設定管理員處理進度為空
+            $report->report_time = date('Y-m-d H:i:s'); // 設置舉報時間
+
             // 儲存舉報記錄
             $result = $report->save();
-            
+
             if ($result) {
-                return json(['status' => 'success', 'message' => 'post reported successfully']);
+                return json(['status' => 'success', 'message' => 'Post reported successfully']);
             } else {
                 return json(['status' => 'error', 'message' => 'Failed to report post']);
             }
-            
+
         } catch (\Exception $e) {
             return json(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
         }
     }
+
     //貼文發文功能
     public function createPost(Request $request)
     {
