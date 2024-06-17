@@ -20,14 +20,14 @@ export function wrapIntoArray(_data) {
   return undefined
 }
 
-export function getCurrUser() {
-  axios
-    .post('/api/account/login_get')
-    .then((result) => {
-      if (!result.data.id) {
-        return undefined
-      }
-      return result.data
-    })
-    .catch(console.error)
+export async function getCurrUser() {
+  try {
+    const result = await axios.post('/api/account/login_get')
+    if (!result.data.id) {
+      return undefined
+    }
+    return result.data
+  } catch (err) {
+    console.error(err)
+  }
 }
