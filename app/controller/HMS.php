@@ -13,19 +13,30 @@ class HMS extends BaseController
 {
     public function ad_create(Request $request){
         session_start();
+        //return $_SESSION['now_usrid'];
         $data = request()->post();
-        $id = Advertisement::order('ADV_ID','desc')->value('ADV_ID');
-        $prefix = preg_replace('/[0-9]/', '', $id); // 提取字母部分
-        $number = preg_replace('/[^0-9]/', '', $id); // 提取数字部分
-        $newNumber = (int)$number + 1;
+        $ids = Advertisement::column('ADV_ID');
+        $maxNumber = null;
+        foreach ($ids as $id) {
+            $number = preg_replace('/[^0-9]/', '', $id); // 提取数字部分
+            $number = intval($number);
 
-        $newId = $prefix . $newNumber;
+            // 比较并更新最大数字
+            if ($maxNumber === null || $number > $maxNumber) {
+                $maxNumber = $number;
+            }
+
+        }
+
+        $maxNumber += 1;
+        $newId = 'A' . $maxNumber;
         $AD = new Advertisement();
 
         $AD->ADV_ID = $newId;
-        //$AD->rent_id = 'RE'.$newNumber;
+        $AD->rent_id = 'RE'.$maxNumber;
         $AD->ADV_title = $data['title'];
         $AD->usrname = $_SESSION['now_usrid'];
+        //$AD->usrname = $data['usrname'];
         $AD->ADV_postdate = date('Y-m-d H:i:s');
         $AD->ADV_content=$data['content'];
         $AD->save();
@@ -104,4 +115,5 @@ class HMS extends BaseController
         $report->save();
         return json(['message'=>'改變審核狀態']);
     }
+
 }
