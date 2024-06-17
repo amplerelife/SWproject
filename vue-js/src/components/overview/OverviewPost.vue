@@ -1,11 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
 import EditableText from '@/components/shared/EditableText.vue'
 import LikesAndComments from '@/components/LikesAndComments.vue'
 import PostHeader from '@/components/overview/PostHeader.vue'
+import { getCurrUser } from '@/lib/utils'
 
 const route = useRoute()
 const router = useRouter()
@@ -13,38 +14,64 @@ const props = defineProps({
   id: String,
   editing: Boolean
 })
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit', 'delete'])
 
 const editing = ref(props.editing)
 const author = ref('')
 const title = ref('')
 const context = ref('')
+const response = ref('')
 
 function gotoPost() {
-  if (route.params.id || props.editing) return
+  if (route.params.id || editing.value) return
   router.push(`/forum/${props.id}`)
 }
 
-function editTitleHandler(_title) {
-  title.value = _title
+async function editTitleHandler(_context) {
+  editing.value = true
+  title.value = _context
 }
 
-async function fetchArticle(id) {
+async function editedHandler() {
+  editing.value = false
+  emit('submit', props.id, title.value, context.value)
+  fetchArticle()
+}
+
+async function auditPassedHandler() {
+  try {
+    const result = await axios.post('/api/AD/review', {
+      id: props.id,
+      response: '已處理'
+    })
+    console.log(result);
+  } catch (err) {
+    console.error(err)
+  }
+  fetchArticle()
+}
+
+async function fetchArticle() {
   try {
     const result = await axios.post('/api/ad/adDetail', {
-      ADV_ID: id
+      ADV_ID: props.id
     })
     const _ = result.data
     title.value = _.ADV_title
     context.value = _.ADV_content
     author.value = _.usrname
+    response.value = _.response
   } catch (err) {
     console.error(err)
   }
 }
 
 onMounted(() => {
-  fetchArticle(props.id)
+  fetchArticle()
+})
+
+watchEffect(() => {
+  editing.value = props.editing
 })
 </script>
 
@@ -57,24 +84,23 @@ onMounted(() => {
       :title="title ? title : 'no title :('"
       :editing="editing"
       @editTitle="editTitleHandler"
+      @delete="$emit('delete', props.id)"
     ></PostHeader>
     <!-- <div v-if="!editing" class="card-context" :class="{ inpost: !$route.params.id }" @click="gotoPost"> {{ context }} </div> -->
     <textarea
       class="card-context"
       :class="{ 'card-context-input': editing }"
-      :style="!$route.params.id && !editing ? { cursor: 'pointer' } : {}"
+      :style="!editing && !$route.params.id ? { cursor: 'pointer' } : {}"
       @click="gotoPost"
       :readonly="!editing"
+      :key="editing"
       v-model="context"
       placeholder="context..."
     />
     <div class="card-footer" v-if="editing">
       <div
         class="submit-button"
-        @click="
-          editing = false;
-          $emit('submit', author, title, context)
-        "
+        @click="editedHandler"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <title>check</title>
@@ -83,7 +109,17 @@ onMounted(() => {
       </div>
     </div>
     <div class="card-footer" v-if="!editing">
-      <LikesAndComments></LikesAndComments>
+      <LikesAndComments v-if="$route.params.id || response != '未處理'"></LikesAndComments>
+      <div
+        v-else
+        class="submit-button"
+        @click="auditPassedHandler"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <title>check</title>
+          <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+        </svg>
+      </div>
     </div>
   </div>
 </template>

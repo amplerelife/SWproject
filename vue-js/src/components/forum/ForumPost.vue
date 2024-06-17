@@ -23,8 +23,8 @@ async function submitCommentHandler(context) {
   try {
     const result = await axios.post('/api/ad/addAdComment', {
       ADV_ID: id.value,
-      usrname: getCurrUser() || 'A1105501',
-      comment_detail: newComment.value,
+      usrname: await getCurrUser().id || 'A1105501',
+      comment_detail: context,
       rate: 5,
       picture: 'example.jpg'
     })
@@ -32,7 +32,7 @@ async function submitCommentHandler(context) {
   } catch (err) {
     console.error(err)
   }
-
+  
   fetchComments()
 }
 

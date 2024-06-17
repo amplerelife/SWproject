@@ -12,35 +12,41 @@ include 'SAS.php';
 class HMS extends BaseController
 {
     public function ad_create(Request $request){
-        session_start();
-        //return $_SESSION['now_usrid'];
-        $data = request()->post();
-        $ids = Advertisement::column('ADV_ID');
-        $maxNumber = null;
-        foreach ($ids as $id) {
-            $number = preg_replace('/[^0-9]/', '', $id); // 提取数字部分
-            $number = intval($number);
-
-            // 比较并更新最大数字
-            if ($maxNumber === null || $number > $maxNumber) {
-                $maxNumber = $number;
+        try {
+            session_start();
+            //return $_SESSION['now_usrid'];
+            $data = request()->post();
+            $ids = Advertisement::column('ADV_ID');
+            $maxNumber = null;
+            foreach ($ids as $id) {
+                $number = preg_replace('/[^0-9]/', '', $id); // 提取数字部分
+                $number = intval($number);
+    
+                // 比较并更新最大数字
+                if ($maxNumber === null || $number > $maxNumber) {
+                    $maxNumber = $number;
+                }
+    
             }
-
+    
+            $maxNumber += 1;
+            $newId = 'A' . $maxNumber;
+            $AD = new Advertisement();
+    
+            $AD->ADV_ID = $newId;
+            $AD->rent_id = 'RE'.$maxNumber;
+            $AD->ADV_title = $data['title'];
+            $AD->usrname = $_SESSION['now_usrid'];
+            //$AD->usrname = $data['usrname'];
+            $AD->ADV_postdate = date('Y-m-d H:i:s');
+            $AD->ADV_content=$data['content'];
+            $AD->picture = '';
+            $AD->ADV_likeNum = 0;
+            $AD->save();
+            return json(['id'=>$newId]);
+        } catch (\Throwable $th) {
+            return $th;
         }
-
-        $maxNumber += 1;
-        $newId = 'A' . $maxNumber;
-        $AD = new Advertisement();
-
-        $AD->ADV_ID = $newId;
-        $AD->rent_id = 'RE'.$maxNumber;
-        $AD->ADV_title = $data['title'];
-        $AD->usrname = $_SESSION['now_usrid'];
-        //$AD->usrname = $data['usrname'];
-        $AD->ADV_postdate = date('Y-m-d H:i:s');
-        $AD->ADV_content=$data['content'];
-        $AD->save();
-        return json(['id'=>$newId]);
     }
     public function ad_change(Request $request){
         $data = request()->post();

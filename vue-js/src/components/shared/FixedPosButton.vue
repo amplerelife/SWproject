@@ -1,4 +1,5 @@
 <script setup>
+import { getCurrUser } from '@/lib/utils';
 import { computed, ref } from 'vue'
 
 const props = defineProps({
@@ -25,7 +26,8 @@ const filter = computed(() => {
   }
 })
 
-function auditEmit() {
+async function auditEmit() {
+  if ((await getCurrUser()).usertype != 'Admin') return
   filterAudit.value = !filterAudit.value
   emit('audit', filterAudit.value)
 }

@@ -10,7 +10,7 @@ const props = defineProps({
   title: String,
   editing: Boolean
 })
-const emit = defineEmits(['editTitle'])
+const emit = defineEmits(['editTitle', 'delete'])
 const editingTitle = ref(props.editing)
 
 watchEffect(() => {
@@ -33,7 +33,7 @@ watchEffect(() => {
       ></EditableText>
       <AuthorAndTimestamp :author="props.author" :ts="now"></AuthorAndTimestamp>
     </div>
-    <div class="icon" id="more">
+    <div class="icon" id="more" @click="$emit('editTitle')">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <title>dots-horizontal</title>
         <path
@@ -41,7 +41,7 @@ watchEffect(() => {
         />
       </svg>
     </div>
-    <div class="icon" id="delete">
+    <div class="icon" id="delete" @click="$emit('delete')">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <title>close-circle-outline</title>
         <path
@@ -98,6 +98,10 @@ watchEffect(() => {
     svg:hover {
       fill: var(--color-border-hover);
     }
+  }
+
+  & .icon:hover {
+    cursor: pointer;
   }
 }
 </style>

@@ -84,7 +84,7 @@ class Posts extends BaseController
             if(Post_comment::count() == 0){
                 $max_id = 'PC0';
             }else{
-                $max_id = Post_comment::where('post_id', $post_id)->order('post_comment_id', 'desc')->find()->post_comment_id;
+                $max_id = Post_comment::order('post_comment_id', 'desc')->find()->post_comment_id;
             }
             
             $number = preg_replace('/[^0-9]/', '', $max_id); // 提取数字部分
